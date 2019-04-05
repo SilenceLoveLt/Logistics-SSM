@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyk.dao.SysVehicleMapper" >
+  <resultMap id="BaseResultMap" type="com.yyk.entity.SysVehicle" >
+    <id column="VEHICLE_ID" property="vehicleId" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="VEHICLE_CODE" property="vehicleCode" jdbcType="VARCHAR" />
+    <result column="VEHICLE_TYPE" property="vehicleType" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NAME" property="vehicleName" jdbcType="VARCHAR" />
+    <result column="WEIGHT" property="weight" jdbcType="INTEGER" />
+    <result column="VOLUME" property="volume" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VEHICLE_ID, ID, VEHICLE_CODE, VEHICLE_TYPE, VEHICLE_NAME, WEIGHT, VOLUME, STATUS, 
+    CREATE_TIME, UPDATE_TIME, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yyk.entity.SysVehicleCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from vehicle_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle_table
+    where VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vehicle_table
+    where VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yyk.entity.SysVehicleCriteria" >
+    delete from vehicle_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yyk.entity.SysVehicle" >
+    insert into vehicle_table (VEHICLE_ID, ID, VEHICLE_CODE, 
+      VEHICLE_TYPE, VEHICLE_NAME, WEIGHT, 
+      VOLUME, STATUS, CREATE_TIME, 
+      UPDATE_TIME, REMARK)
+    values (#{vehicleId,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{vehicleCode,jdbcType=VARCHAR}, 
+      #{vehicleType,jdbcType=VARCHAR}, #{vehicleName,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, 
+      #{volume,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyk.entity.SysVehicle" >
+    insert into vehicle_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vehicleId != null" >
+        VEHICLE_ID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="vehicleCode != null" >
+        VEHICLE_CODE,
+      </if>
+      <if test="vehicleType != null" >
+        VEHICLE_TYPE,
+      </if>
+      <if test="vehicleName != null" >
+        VEHICLE_NAME,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="volume != null" >
+        VOLUME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vehicleId != null" >
+        #{vehicleId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleCode != null" >
+        #{vehicleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleName != null" >
+        #{vehicleName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yyk.entity.SysVehicleCriteria" resultType="java.lang.Integer" >
+    select count(*) from vehicle_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vehicle_table
+    <set >
+      <if test="record.vehicleId != null" >
+        VEHICLE_ID = #{record.vehicleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleCode != null" >
+        VEHICLE_CODE = #{record.vehicleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleType != null" >
+        VEHICLE_TYPE = #{record.vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleName != null" >
+        VEHICLE_NAME = #{record.vehicleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null" >
+        WEIGHT = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.volume != null" >
+        VOLUME = #{record.volume,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vehicle_table
+    set VEHICLE_ID = #{record.vehicleId,jdbcType=VARCHAR},
+      ID = #{record.id,jdbcType=INTEGER},
+      VEHICLE_CODE = #{record.vehicleCode,jdbcType=VARCHAR},
+      VEHICLE_TYPE = #{record.vehicleType,jdbcType=VARCHAR},
+      VEHICLE_NAME = #{record.vehicleName,jdbcType=VARCHAR},
+      WEIGHT = #{record.weight,jdbcType=INTEGER},
+      VOLUME = #{record.volume,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyk.entity.SysVehicle" >
+    update vehicle_table
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleCode != null" >
+        VEHICLE_CODE = #{vehicleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleName != null" >
+        VEHICLE_NAME = #{vehicleName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        VOLUME = #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyk.entity.SysVehicle" >
+    update vehicle_table
+    set ID = #{id,jdbcType=INTEGER},
+      VEHICLE_CODE = #{vehicleCode,jdbcType=VARCHAR},
+      VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      VEHICLE_NAME = #{vehicleName,jdbcType=VARCHAR},
+      WEIGHT = #{weight,jdbcType=INTEGER},
+      VOLUME = #{volume,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+  </update>
+</mapper>
