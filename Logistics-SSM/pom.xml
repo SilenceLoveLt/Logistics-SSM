@@ -61,11 +61,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-        <!-- Thymeleaf组件 -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 		<!--servlet依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -130,7 +125,11 @@
             <version>2.1.4</version>
         </dependency>
     </dependencies>
-
+     <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+     </dependency>
   
 	<build>
 	   <plugins>
@@ -153,6 +152,22 @@
               </plugin>  
 		</plugins>
 	
+	 <resources>
+            <resource>
+                <directory>src/main/java</directory><!--java文件的路径-->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+               <!-- <filtering>false</filtering>-->
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory><!--资源文件的路径-->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+               <!-- <filtering>false</filtering>-->
+            </resource>
+        </resources>
 
 	</build>
 
