@@ -20,7 +20,7 @@ public class TitlesConfig {
     @Bean
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
-        configurer.setDefinitions(new String[] { "WEB-INF/layout/tiles.xml" });
+        configurer.setDefinitions(new String[] { "WEB-INF/layout/tiles-*.xml" });
         configurer.setCheckRefresh(true);
         return configurer;
     }

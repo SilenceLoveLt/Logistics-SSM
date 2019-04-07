@@ -1,5 +1,6 @@
 package com.yyk.constant;
 
 public interface Url {
-	String INDEX_MANAGE="/indexManage";
+	//登录请求地址
+	String BACK_LOGIN_URL = "/login/user";
 }

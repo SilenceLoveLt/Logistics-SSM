@@ -1,5 +1,9 @@
 package com.yyk.constant;
 
 public interface Views {
-	String INDEX_VIEW="index.view";
+	/**
+	 * 后台用户登录页面
+	 */
+
+	public static final String USER_LOGIN_VIEW = "user.LoginView";
 }
