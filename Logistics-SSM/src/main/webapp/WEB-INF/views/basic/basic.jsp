@@ -15,7 +15,7 @@
            <meta name="viewport" content="width=device-width, initial-scale=1">
            <style>
             .lee-ba{
-	            background: rgba(53, 53, 53, 0.98);
+	            background: grey;
 	            margin-left: 0px;
 	            margin-bottom: 0px;
 	            height:667px;
@@ -26,10 +26,10 @@
 			    margin-bottom: 0px;
 			    margin-top:-19px;
 			    border: 0px solid transparent; 
-			    background-color:grey
+			    background-color:rgba(53, 53, 53, 0.98);
 			}
 			.navbar2 {
-			    background-color:grey;
+			    background-color:rgba(53, 53, 53, 0.98);;
 			    position: relative; 
 			    height: 50px; 
 			    margin-top:-10px;
