@@ -28,7 +28,7 @@ public class MyInterceptor implements HandlerInterceptor{
 	      return false;
 */
         // 获得请求的资源
-        String uri = httpServletRequest.getRequestURI();
+       /* String uri = httpServletRequest.getRequestURI();
         System.out.println(httpServletRequest.getRequestURI());
         if (uri.equals("/login/user")) {
             return true;
@@ -40,7 +40,8 @@ public class MyInterceptor implements HandlerInterceptor{
         }else if(httpServletResponse.getStatus() == 500){
             return true;
         }
-        return false;
+        return false;*/
+        return true;
     }
 
     @Override

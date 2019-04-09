@@ -13,8 +13,16 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>footer</title>
+    <style>
+
+    p{
+    text-align: center;
+    color: white;
+   line-height: 50px
+    }
+    </style>
 </head>
 <body>
-<p style="text-align: center ;color: rgba(241,241,241,0.69)">如有任何问题请联系管理员！</p>
+<p>如有任何问题请联系管理员！</p>
 </body>
 </html>

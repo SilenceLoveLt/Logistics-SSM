@@ -8,23 +8,31 @@
 		<base href="<%=basePath%>">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="<%=basePath%>/static/js/jquery-3.2.1.min.js"></script>
-        <script src="<%=basePath%>/static/bootstrap/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="<%=basePath%>/static/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<%=basePath%>/static/css/menu.css">
-
+        <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
+        <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=basePath%>static/css/menu.css">
+        <style>
+        li>span{
+        padding-top: 30px;
+        }
+        .nav{
+        }
+        </style>
  </head>
     <body>
 	<input type="hidden" id="userList" value="/userManageList" />
-    <div class="circle">
-    		<div class="picture">
-    			<h2><i class="shop glyphicon glyphicon-shopping-cart "></i><p>shop</p> </h2>
-    		</div>
-    </div>
-    	<ul class="nav">
+	<input type="hidden" id="empList" value="/empManageList" />
+	<input type="hidden" id="pdtList" value="/pdtManageList" />
+	<input type="hidden" id="orderList" value="/orderManageList" />
+	<input type="hidden" id="stockList" value="/stockManageList" />
+	<input type="hidden" id="storeOutList" value="/storeOutList" />
+	<input type="hidden" id="storeInList" value="/storeInList" />
+
+    	<ul class="nav" >
     		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;员工管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li id="empList">员工列表</li>
+    				<li class="empList">员工列表</li>
     			</ul>
     		</li>
     		<li><span class="img glyphicon glyphicon-globe"></span>&nbsp; &nbsp; &nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
@@ -33,21 +41,32 @@
     				<li>客户级别</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-cutlery"></span>&nbsp; &nbsp; &nbsp;商品管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    			<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>商品列表</li>
+    				<li class="orderList">订单列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-queen"></span>&nbsp; &nbsp; &nbsp;库存管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-cutlery"></span>&nbsp; &nbsp; &nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>库存列表</li>
-    				<li>入库记录</li>
-    				<li>出库记录</li>
+    				<li class="pdtList">货物列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-queen"></span>&nbsp; &nbsp; &nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>订单列表</li>
+    				<li class="stockList">货架列表</li>
+    				<li class="storeInList">入库记录</li>
+    				<li class="storeOutList">出库记录</li>
+    			</ul>
+    		</li>
+    	
+    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    			<ul class="sub">
+    				<li>车辆列表</li>
+    			</ul>
+    		</li>
+    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    			<ul class="sub">
+    				<li>线路列表</li>
     			</ul>
     		</li>
     		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
@@ -55,6 +74,7 @@
     				<li>数据字典</li>
     			</ul>
     		</li>
+    		
     	</ul>
 	<%--用于提交数据的表单--%>
 	<form id="menuForm" method="post" action="">

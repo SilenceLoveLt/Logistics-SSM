@@ -19,8 +19,8 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter{
     	 //过滤所有请求
     	 //registration.addPathPatterns("/**");
     	 //过滤除了登录页面请求
-    	 registration.excludePathPatterns("/error");
-    	 registration.excludePathPatterns("/login/user","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+    	 // registration.excludePathPatterns("/error");
+    	 //registration.excludePathPatterns("/login/user","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
          super.addInterceptors(registry);
     }
 }

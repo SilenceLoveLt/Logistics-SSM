@@ -13,40 +13,47 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>header</title>
-    <script src="<%=basePath%>/static/js/jquery-3.2.1.min.js"></script>
-    <script src="<%=basePath%>/static/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<%=basePath%>/static/bootstrap/css/bootstrap.min.css">
+    <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
+    <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
+    <%-- <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css"> --%>
     <style>
-        .ha:hover{
+        .lee-h2{
+           padding: 0;
+           margin-top: 0px;
+        }
+        .lee-h1:hover{
             text-decoration: none;
             color: darkgrey;
         }
-        .ha:visited{
+        .lee-h1:visited{
             text-decoration: none;
             color: white;
         }
-        .ha{
+        .lee-h3{
             color: white;
+            font-size: 18px;
+            padding-left: 30px;
+            line-height: 50px;
+            font-weight:30px;
         }
-        .hna{
-            color: white;
+        .lee-h1{
+        color: white;
+        line-height: 50px;
         }
-        .hd1{
-            font-size: 24px;
-        }
-        .hd2{
-            text-align: right;
+        .lee-h4{
+        color: white;
+        line-height: 50px;
         }
     </style>
 </head>
 <body>
-<div class="container-fluid hna">
+<div class="lee-h2">
     <div class="row">
-        <div class="col-md-8 glyphicon glyphicon-bell hd1">&nbsp;UNIQUE&烘焙店后台管理系统</div>
-        <div class="col-md-2 glyphicon glyphicon-earphone hd2">&nbsp;13467856890</div>
+        <div class="col-md-8 "><span class="lee-h3">物 流 管 理 平 台</span></div>
+        <div class="col-md-2 glyphicon glyphicon-earphone lee-h4">&nbsp;<span class="lee-h4" >13467856890</span></div>
         <div class="col-md-2">
             <span class="dropdown ">
-                <a  role="button" class="dropdown-toggle ha" data-toggle="dropdown">
+                <a  role="button" class="dropdown-toggle lee-h1" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-user"></i> &nbsp;Jack Smith
                     <i class="caret"></i>
                 </a>
