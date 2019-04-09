@@ -15,4 +15,14 @@ public interface Views {
 	 * 员工页面
 	 */
 	public static final String EMP_VIEW = "emp.view";
+	
+	/**
+	 * 职位页面
+	 */
+	public static final String JOB_VIEW = "job.view";
+	
+	/**
+	 * 客户页面
+	 */
+	public static final String USER_VIEW = "user.view";
 }

@@ -54,7 +54,7 @@
 <ol class="breadcrumb">
     <li><a>Home</a></li>
     <li><a>系统管理</a></li>
-    <li class="active">员工列表</li>
+    <li class="active">职位列表</li>
 </ol>
 <!-- 查询框 start -->
 <div class="panel-body" style="padding-bottom:0px;">
@@ -65,30 +65,16 @@
             <form id="searchEmpForm" name="searchEmpForm" class="form-horizontal">
                 <div class="form-group">
                         <div class="row">
-                            <label class="control-label col-md-1 ">员工名称:</label>
+                            <label class="control-label col-md-1 ">职位编码:</label>
                             <div class="col-md-2 ">
                                 <input type="text" class="form-control  input-sm " name="search_empId" id="search_empId"
                                        placeholder="请输入客户名称">
                             </div>
 
-                            <label class="control-label col-md-1 ">员工类型:</label>
+                            <label class="control-label col-md-1 ">职位名称:</label>
                              <div class="col-md-2 ">
-                                <select type="text" class="form-control  input-sm " id="search_roleId"
-                                        name="search_roleId">
-                                    <option value="">请选择用户级别</option>
-                                    <option value="">普通管理员</option>
-                                    <option value="">超级管理员</option>
-                                </select>
-                            </div>
-                          
-                            <label class="control-label col-md-1 ">所属职位:</label>
-                            <div class="col-md-2 ">
-                                <select type="text" class="form-control  input-sm " id="search_dptId"
-                                        name="search_dptId">
-                                    <option value="">请选择归属部门</option>
-                                    <option value="">普通管理员</option>
-                                    <option value="">超级管理员</option>
-                                </select>
+                                <input type="text" class="form-control  input-sm " name="search_empId" id="search_empId"
+                                       placeholder="请输入客户名称">
                             </div>
                             
 		                   <span class="input-group-btn ">
@@ -124,60 +110,28 @@
                 </div>
                 <div class="modal-body" style="margin-right: 30px">
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">员工姓名:</label>
+                        <label class="control-label col-sm-2 ">职位编码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="empName" id="empName" placeholder="请输入..."/>
                         </div>
                         
-                        <label class="control-label col-sm-2">电话号码:</label>
+                        <label class="control-label col-sm-2">职位名称:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="empPhone" id="empPhone" placeholder="请输入..."/>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 "><span>*</span>员工标识:</label>
+                        <label class="control-label col-sm-2 "><span>*</span>所属职位:</label>
                         <div class="col-sm-4">
                             <select class="form-control" name="roleId" id="roleId"
                                     onkeyup="this.value=this.value.replace(/\s+/g,'')">
                                 <option value="">请选择</option>
                             </select>
                         </div>
-                        
-                        <label class="control-label col-sm-2">员工性别:</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="emoJob" id="emoJob"
-                                    onkeyup="this.value=this.value.replace(/\s+/g,'')">
-                                <option value="">请选择</option>
-                            </select>
-                        </div>
                     </div>
-                    <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">员工职位:</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="emoJob" id="emoJob"
-                                    onkeyup="this.value=this.value.replace(/\s+/g,'')">
-                                <option value="">请选择</option>
-                            </select>
-                        </div>
-                        <label class="control-label col-sm-2">员工薪资:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="empsal" id="empsal" placeholder="请输入..."/>
-                        </div>
-                    </div>
-                   
-                    <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2">居住地址:</label>
-                    </div>
-                    <div class="form-group form-group-sm" style="padding-left: 10px">
-                        <div class="col-sm-12">
-                            <textarea class="form-control" name="address" id="address"
-                                      style="resize:none; height: 50px;" rows="3"
-                                      placeholder="请输入..."
-                                      onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
-                        </div>
-                    </div>
-                   
+           
+               
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">存档时间:</label>
                        <div class="col-md-4  has-feedback"  >
@@ -205,7 +159,7 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
-                    <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   " style="width: 80px">保存</button>
+                    <button id="ok" class="btn btn-success col-sm-1 col-sm-offset-4   " style="width: 80px">保存</button>
                     <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置
                     </button>
                 </div>

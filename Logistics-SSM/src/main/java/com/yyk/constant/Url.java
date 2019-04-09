@@ -19,7 +19,13 @@ public interface Url {
 	String BACK_LOGIN_URL = "/login/user";
 	
 	//员工管理
-	String EMP_MANAGE = "/empManage";
+	String EMP_MANAGE = "/empManageList";
+	
+	//职位管理
+    String JOB_MANAGE = "/jobManageList";
+    
+    //客户管理
+    String USER_MANAGE = "/userManageList";
 	
 	
 }

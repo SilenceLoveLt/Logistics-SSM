@@ -16,13 +16,17 @@
         li>span{
         padding-top: 30px;
         }
+        .sub>li{
+        padding-top: 6px;
+        }
         .nav{
         }
         </style>
  </head>
     <body>
-	<input type="hidden" id="userList" value="/userManageList" />
-	<input type="hidden" id="empList" value="/empManageList" />
+	<input type="hidden" id="userList" value="<%=basePath%>userManageList/" />
+	<input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
+	<input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
 	<input type="hidden" id="pdtList" value="/pdtManageList" />
 	<input type="hidden" id="orderList" value="/orderManageList" />
 	<input type="hidden" id="stockList" value="/stockManageList" />
@@ -30,15 +34,15 @@
 	<input type="hidden" id="storeInList" value="/storeInList" />
 
     	<ul class="nav" >
-    		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;员工管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="empList">员工列表</li>
+    				<li class="jobList">职位列表</li>
     			</ul>
     		</li>
     		<li><span class="img glyphicon glyphicon-globe"></span>&nbsp; &nbsp; &nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
-    				<li>客户级别</li>
     			</ul>
     		</li>
     			<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>

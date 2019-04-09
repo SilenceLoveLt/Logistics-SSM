@@ -53,8 +53,8 @@
 <body style=" margin-bottom: 0px;">
 <ol class="breadcrumb">
     <li><a>Home</a></li>
-    <li><a>系统管理</a></li>
-    <li class="active">员工列表</li>
+    <li><a>客户管理</a></li>
+    <li class="active">客户列表</li>
 </ol>
 <!-- 查询框 start -->
 <div class="panel-body" style="padding-bottom:0px;">

@@ -63,7 +63,7 @@
 			      <tiles:insertAttribute name='menu' />
 			    </div>
 			    
-			    <div class="col-sm-9 col-xs-offset-0.5">
+			    <div class="col-sm-10 col-xs-offset-0.5">
 			       <tiles:insertAttribute name='body' />
 			  </div>
 			 </div>
