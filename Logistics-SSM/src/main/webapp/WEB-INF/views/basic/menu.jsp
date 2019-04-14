@@ -13,14 +13,18 @@
 		<link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<%=basePath%>static/css/menu.css?ver=1">
         <style>
-        li>span{
-        padding-top: 30px;
+        .nav{
+         margin-top: 20px; 
         }
         .sub>li{
-        padding-top: 6px;
+        padding-top: 4px;
         }
         .nav>li{
         border-bottom: 1px solid #414040;
+        padding-top: 13px;
+        }
+        .nav>li>span{
+        padding-top: 13px;
         }
         </style>
  </head>
@@ -35,28 +39,28 @@
 	<input type="hidden" id="storeInList" value="/storeInList" />
 
     	<ul class="nav" >
-    		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="empList">员工列表</li>
     				<li class="jobList">职位列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-globe"></span>&nbsp; &nbsp; &nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-globe"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
     			</ul>
     		</li>
-    			<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
+    			<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="orderList">订单列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-cutlery"></span>&nbsp; &nbsp; &nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-cutlery"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="pdtList">货物列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-queen"></span>&nbsp; &nbsp; &nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-queen"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="stockList">货架列表</li>
     				<li class="storeInList">入库记录</li>
@@ -64,17 +68,17 @@
     			</ul>
     		</li>
     	
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>车辆列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>线路列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>数据字典</li>
     			</ul>

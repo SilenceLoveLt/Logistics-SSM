@@ -79,25 +79,26 @@ public class SysUserController {
 		 PageInfo pageInfo=new PageInfo();
 		 for (int i = 0; i < jsonarray.size(); i++) {
 	            JSONObject obj = (JSONObject) jsonarray.get(i);
-	            if (obj.get("name").equals("sEcho"))
-	                sEcho = obj.get("value").toString();
+	            if (obj.get("name").equals("sEcho")){
+	            	sEcho = obj.get("value").toString();
+	            }
 	 
-	            if (obj.get("name").equals("iDisplayStart"))
-	            	if("0".equals(obj.get("value").toString())){
-	            		pageInfo.setPageNum(1);
-	            	}
-	            	else{
-	            		pageInfo.setPageNum(Integer.parseInt(obj.get("value").toString()));
-	            	}
+	            if (obj.get("name").equals("iDisplayStart")){
+	            	pageInfo.setPageNum(Integer.parseInt(obj.get("value").toString()));
+	            }
 	            	
-	            if (obj.get("name").equals("iDisplayLength"))
+	            if (obj.get("name").equals("iDisplayLength")){
 	            	pageInfo.setPageSize(Integer.parseInt(obj.get("value").toString()));
+	            }
 	            
-	            if (obj.get("name").equals("userNameSearch"))
+	            if (obj.get("name").equals("userNameSearch")){
 	            	sysUserListReqDTO.setUserName( obj.get("value").toString());
+	            }
 	            
-	            if (obj.get("name").equals("userCodeSearch"))
+	            if (obj.get("name").equals("userCodeSearch")){
 	            	sysUserListReqDTO.setUserCode(obj.get("value").toString());
+	            }
+	            	
 	            
 	        }
 		    SysUserCriteria criteria = new SysUserCriteria();
@@ -120,8 +121,8 @@ public class SysUserController {
 			PageInfo page=list.getPageInfo();
 			JSONObject getObj = new JSONObject();
 		    getObj.put("sEcho", sEcho);// DataTable前台必须要的
-		    getObj.put("iTotalRecords",page.getTotal()); //返回总记录数
-		    getObj.put("iTotalDisplayRecords",page.getPageTotal()); //过滤后的记录数
+		    getObj.put("iTotalRecords",list.getData().size()); //返回总记录数
+		    getObj.put("iTotalDisplayRecords",page.getTotal()); //过滤后的记录数
 		    getObj.put("aaData", list.getData());//把查到数据装入aaData,要以JSON格式返回
 		    return getObj.toString();
 		}

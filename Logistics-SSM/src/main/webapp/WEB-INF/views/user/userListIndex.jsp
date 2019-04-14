@@ -15,8 +15,9 @@
     <title>Title</title>
     <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<%=basePath%>static/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
+   <%--  <link rel="stylesheet" href="<%=basePath%>static/css/jquery.dataTables.min.css"> --%>
+    <link rel="stylesheet" href=" http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
+    <%-- <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css"> --%>
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrapValidator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/jquery-confirm/css/jquery-confirm.css">
@@ -25,8 +26,9 @@
     <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
     <script src="<%=basePath%>static/js/jquery.js"></script>
-    <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script>
-     <script src="<%=basePath%>static/js/jquery.dataTables.js"></script>
+   <%--  <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script> --%>
+    <script src="<%=basePath%>static/js/jquery.dataTables.js"></script> 
+    <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <style>
         * {
             margin: 0;
@@ -49,6 +51,9 @@
         }
         .btnfun{
         	
+        }
+        .text-c>th{
+        text-align: center;
         }
     </style>
 </head>
@@ -193,9 +198,9 @@
 <button type="button" class="btn btn-success" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;增</button>
 <button type="button" class="btn btn-success" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
 <button class="btn btn-success" onclick="addFun()" style="margin-left:40px">删&nbsp;&nbsp;&nbsp;除</button>
-<table class="table table-hover text-center" id="dutyListTable" style="white-space:nowrap">
+<table class="table table-border table-bordered table-hover text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
-		<tr>
+		<tr class="text-c">
 			<th>客户编号</th>
 			<th>客户姓名</th>
 			<th>客户编码</th>
@@ -220,6 +225,7 @@
    function dataTableDraw(){
     $("#dutyListTable").dataTable({
 	 pagingType: 'full_numbers',
+	 scrollY:true,
      bServerSide:true, //开启后端分页
      bDestroy: true,         //下边两个属性应该是重载数据相关的 不加在加载数据会弹窗报错 点击确定后显示数据
      bRetrieve: true,
@@ -230,6 +236,8 @@
      bLengthChange:false, //支持变更页面显示数据行数
      sPaginationType: "bootstrap", //翻页风格
      bPaginate:true,  //显示翻页按钮
+     iDisplayLength : 5,
+     iDisplayStart :1,
      fnServerData: retrieveData, //执行函数
      aoColumns:[//列表元素  支持多种属性 
                       { "mData": "userId"},
