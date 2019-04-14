@@ -5,10 +5,8 @@
 
 .nav>li {
     line-height: 32px;
-    border: 1px solid #414040;
     border-left: none;
     border-right: none;
-    border-bottom: none;
     text-indent: 1em;
     /*两个字的间隙*/
     position: relative;

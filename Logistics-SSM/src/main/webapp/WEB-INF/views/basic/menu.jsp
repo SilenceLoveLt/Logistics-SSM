@@ -11,7 +11,7 @@
         <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
         <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<%=basePath%>static/css/menu.css">
+        <link rel="stylesheet" href="<%=basePath%>static/css/menu.css?ver=1">
         <style>
         li>span{
         padding-top: 30px;
@@ -19,7 +19,8 @@
         .sub>li{
         padding-top: 6px;
         }
-        .nav{
+        .nav>li{
+        border-bottom: 1px solid #414040;
         }
         </style>
  </head>

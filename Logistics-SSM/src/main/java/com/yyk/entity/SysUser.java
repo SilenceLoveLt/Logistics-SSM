@@ -1,8 +1,9 @@
 package com.yyk.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysUser {
+public class SysUser implements Serializable{
     private String userId;
 
     private Integer id;
@@ -10,6 +11,8 @@ public class SysUser {
     private String userName;
 
     private String userPwd;
+
+    private String userCode;
 
     private String userPhone;
 
@@ -53,6 +56,14 @@ public class SysUser {
 
     public void setUserPwd(String userPwd) {
         this.userPwd = userPwd == null ? null : userPwd.trim();
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode == null ? null : userCode.trim();
     }
 
     public String getUserPhone() {

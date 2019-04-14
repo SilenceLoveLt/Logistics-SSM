@@ -32,7 +32,7 @@
           }
 
         .breadcrumb {
-            width: 1360px;
+            /* width: 1360px; */
             height: 40px;
             margin-left: 18px;
         }
@@ -51,11 +51,13 @@
     </style>
 </head>
 <body style=" margin-bottom: 0px;">
-<ol class="breadcrumb">
-    <li><a>Home</a></li>
-    <li><a>系统管理</a></li>
-    <li class="active">职位列表</li>
-</ol>
+<div class="container-fluid">
+	<ol class="breadcrumb">
+	    <li><a>Home</a></li>
+	    <li><a>系统管理</a></li>
+	    <li class="active">职位列表</li>
+	</ol>
+</div>
 <!-- 查询框 start -->
 <div class="panel-body" style="padding-bottom:0px;">
     <div class="panel panel-default">

@@ -6,6 +6,7 @@
     <result column="ID" jdbcType="INTEGER" property="id" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
     <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />
     <result column="ADDR" jdbcType="VARCHAR" property="addr" />
     <result column="STATUS" jdbcType="INTEGER" property="status" />
@@ -72,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, ID, USER_NAME, USER_PWD, USER_PHONE, ADDR, STATUS, CREATE_TIME, UPDATE_TIME, 
-    REMARK
+    USER_ID, ID, USER_NAME, USER_PWD, USER_CODE, USER_PHONE, ADDR, STATUS, CREATE_TIME, 
+    UPDATE_TIME, REMARK
   </sql>
   <select id="selectByExample" parameterType="com.yyk.entity.SysUserCriteria" resultMap="BaseResultMap">
     select
@@ -108,13 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.yyk.entity.SysUser">
     insert into user_table (USER_ID, ID, USER_NAME, 
-      USER_PWD, USER_PHONE, ADDR, 
-      STATUS, CREATE_TIME, UPDATE_TIME, 
-      REMARK)
+      USER_PWD, USER_CODE, USER_PHONE, 
+      ADDR, STATUS, CREATE_TIME, 
+      UPDATE_TIME, REMARK)
     values (#{userId,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
-      #{userPwd,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, 
-      #{remark,jdbcType=VARCHAR})
+      #{userPwd,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yyk.entity.SysUser">
     insert into user_table
@@ -130,6 +131,9 @@
       </if>
       <if test="userPwd != null">
         USER_PWD,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
       </if>
       <if test="userPhone != null">
         USER_PHONE,
@@ -162,6 +166,9 @@
       </if>
       <if test="userPwd != null">
         #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null">
         #{userPhone,jdbcType=VARCHAR},
@@ -204,6 +211,9 @@
       <if test="record.userPwd != null">
         USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
       </if>
+      <if test="record.userCode != null">
+        USER_CODE = #{record.userCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.userPhone != null">
         USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
       </if>
@@ -233,6 +243,7 @@
       ID = #{record.id,jdbcType=INTEGER},
       USER_NAME = #{record.userName,jdbcType=VARCHAR},
       USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
+      USER_CODE = #{record.userCode,jdbcType=VARCHAR},
       USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
       ADDR = #{record.addr,jdbcType=VARCHAR},
       STATUS = #{record.status,jdbcType=INTEGER},
@@ -254,6 +265,9 @@
       </if>
       <if test="userPwd != null">
         USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null">
         USER_PHONE = #{userPhone,jdbcType=VARCHAR},
@@ -281,6 +295,7 @@
     set ID = #{id,jdbcType=INTEGER},
       USER_NAME = #{userName,jdbcType=VARCHAR},
       USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
       USER_PHONE = #{userPhone,jdbcType=VARCHAR},
       ADDR = #{addr,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=INTEGER},
@@ -289,4 +304,5 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+ 
   </mapper>
