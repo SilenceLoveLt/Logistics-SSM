@@ -17,7 +17,7 @@
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
    <%--  <link rel="stylesheet" href="<%=basePath%>static/css/jquery.dataTables.min.css"> --%>
     <link rel="stylesheet" href=" http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
-    <%-- <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css"> --%>
+    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrapValidator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/jquery-confirm/css/jquery-confirm.css">
@@ -25,7 +25,7 @@
     <script src="<%=basePath%>static/bootstrap/js/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath%>static/js/jquery.js"></script>
+    <%-- <script src="<%=basePath%>static/js/jquery.js"></script> --%>
    <%--  <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script> --%>
     <script src="<%=basePath%>static/js/jquery.dataTables.js"></script> 
     <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
@@ -186,34 +186,37 @@
                 </div>
                 <div class="form-group form-group-sm">
                     <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   " style="width: 80px">保存</button>
-                    <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置
-                    </button>
+                    <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
     <!--模态框 end-->
- <div class="btnfun"> 
-<button type="button" class="btn btn-success" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;增</button>
-<button type="button" class="btn btn-success" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
-<button class="btn btn-success" onclick="addFun()" style="margin-left:40px">删&nbsp;&nbsp;&nbsp;除</button>
-<table class="table table-border table-bordered table-hover text-center" id="dutyListTable" style="white-space:nowrap">
+<div class="btnfun"> 
+	<button type="button" class="btn btn-primary" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+	<!-- <button type="button" class="btn btn-primary" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button> -->
+	<button class="btn btn-primary" onclick="deleteFun()" style="margin-left:40px">批量删除</button>
+</div>
+<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
 		<tr class="text-c">
-			<th>客户编号</th>
+		    <th>
+                <input type="checkbox" id="checkall" class="checkall" name="checkBoxs" />
+            </th>
+			<!-- <th>客户编号</th> -->
 			<th>客户姓名</th>
 			<th>客户编码</th>
 			<th>客户电话</th>
 			<th>客户地址</th>
 			<th>存档时间</th>
 			<th>修改时间</th>
+			<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
 	</tbody>
 </table>
-</div>
 </body>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -225,7 +228,12 @@
    function dataTableDraw(){
     $("#dutyListTable").dataTable({
 	 pagingType: 'full_numbers',
-	 scrollY:true,
+	 scrollY:false,
+	 scrollX:false,
+	 processing : true, //加载转态
+	 ordering:false,       //禁用排序去掉图标
+	 bProcessing : true, //DataTables载入数据时，是否显示‘进度’提示 
+	 bAutoWidth: false,
      bServerSide:true, //开启后端分页
      bDestroy: true,         //下边两个属性应该是重载数据相关的 不加在加载数据会弹窗报错 点击确定后显示数据
      bRetrieve: true,
@@ -237,10 +245,18 @@
      sPaginationType: "bootstrap", //翻页风格
      bPaginate:true,  //显示翻页按钮
      iDisplayLength : 5,
-     iDisplayStart :1,
+     iDisplayStart :0,
      fnServerData: retrieveData, //执行函数
      aoColumns:[//列表元素  支持多种属性 
-                      { "mData": "userId"},
+                     {
+	                    "sClass": "text-center",
+	                    "mData": "userId",
+	                    "render": function (data, type, full, meta) {
+	                        return '<input type="checkbox"  class="checkchild"  value="' + data + '" />';
+	                    },
+	                    "bSortable": false
+                      },
+                    /*   { "mData": "userId"}, */
                       { "mData": "userName"},
                       { "mData": "userCode"},
                       { "mData": "userPhone"},
@@ -250,7 +266,16 @@
 					  }  },
 					  { "mData" : "updateTime",render : function(obj) {  
 					       return (getMyDate(obj));
-					  }  }
+					  }  } ,
+					  {"mData":null,
+				            render: function (data, type, row, meta){
+				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.userId+"')\">查看</button>"+
+				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+row.userId+"')\">修改</button>"+
+				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.userId+"')\">删除</button>"
+				               return html;  
+				            }
+				        } 
+
                   ],
      oLanguage: {  
           "sProcessing" : "正在加载中......",  
@@ -270,7 +295,10 @@
     }  
     });
    // $(".dataTables_wrapper .dataTables_filter input").attr("placeholder","检索内容");
-   }
+  
+}  
+ 
+
    
    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
@@ -295,11 +323,15 @@
 	     success : function(result) {
 	         fnCallback(result);//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的
 	     },
-	     error : function(msg) {
-	     }
+	    error : function(XMLHttpRequest, textStatus, errorThrown) {
+			bootboxAlert({
+				message : '获取列表失败：' + getAjaxErrorResponseContent(XMLHttpRequest, textStatus, errorThrown)
+	         });
+	   }
 	 });
 	}
    
+  
    /* 日期格式化代码 */
 	function getMyDate(time){  
 	    if(typeof(time)=="undefined"){
@@ -315,7 +347,7 @@
 	     oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay);//最后拼接时间  
 	     // +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen)
 	     return oTime;  
-	    };
+	    }
 	    
 	     //补0操作,当时间数据小于10的时候，给该数据前面加一个0  
 	    function getzf(num){  
@@ -325,23 +357,51 @@
 	        return num;  
 	    }
 
+	  /* 实现复选框多选 */
+	  $(".checkall").click(function () {
+	        var check = $(this).prop("checked");
+	        $(".checkchild").prop("checked", check);
+	  }); 
+	
+	 function childclick(){
+	        if ($(this).is(":checked") == false) {
+	            $("#checkAll").prop("checked", false);
+	        }
+	    }
+
    
+	    
    /* 查询条件 */
    function searchDatas(){
-	   dataTableDraw.fnDraw();
-    };
-
+	   table.draw();
+    }
+  
 
 	/* 新增  */
    function addFun(){
 	   $('#myModal').modal('show');
-	   
    }
 	/* 修改 */
-	 function updateFun(){
+	 function oemp_editmn(){
 	   $('#myModal').modal('show');
-	   
    }
 	/* 删除  */
+	 function oemp_editzt(id){
+	   console.info("id:"+id);
+   }
+	
+   /* 批量删除 */
+    function deleteFun(){
+    	 var checkVal = [];//获取选中的id
+    	 $("input.checkboxes[name='checkBoxs']:checkbox").each(function() {
+    		    if ($(this).is(":checked")) {
+    		        var s= $(this).val();
+    		        checkVal.push(s);
+    		        ableMany=true;
+    		    }
+    		});
+    	console.log("checkVal+++======");
+    	
+   }
 </script>
 </html>

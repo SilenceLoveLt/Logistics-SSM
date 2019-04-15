@@ -1,8 +1,6 @@
 package com.yyk.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,8 +96,6 @@ public class SysUserController {
 	            if (obj.get("name").equals("userCodeSearch")){
 	            	sysUserListReqDTO.setUserCode(obj.get("value").toString());
 	            }
-	            	
-	            
 	        }
 		    SysUserCriteria criteria = new SysUserCriteria();
 			SysUserCriteria.Criteria cri = criteria.createCriteria();

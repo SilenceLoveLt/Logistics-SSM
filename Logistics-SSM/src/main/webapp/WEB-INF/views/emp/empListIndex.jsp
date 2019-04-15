@@ -208,8 +208,7 @@
                 </div>
                 <div class="form-group form-group-sm">
                     <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   " style="width: 80px">保存</button>
-                    <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置
-                    </button>
+                    <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置 </button>
                 </div>
             </div>
         </form>
@@ -219,7 +218,7 @@
  <div class="btnfun"> 
 <button type="button" class="btn btn-success" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;增</button>
 <button type="button" class="btn btn-success" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
-<button class="btn btn-success" onclick="addFun()" style="margin-left:40px">删&nbsp;&nbsp;&nbsp;除</button>
+<button class="btn btn-success" onclick="deleteFun()" style="margin-left:40px">删&nbsp;&nbsp;&nbsp;除</button>
 </div>
 </body>
 <script>

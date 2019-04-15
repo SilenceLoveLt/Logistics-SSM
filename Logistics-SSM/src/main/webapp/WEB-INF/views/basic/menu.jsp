@@ -23,7 +23,10 @@
         border-bottom: 1px solid #414040;
         padding-top: 13px;
         }
-        .nav>li>span{
+       /*  .nav>li>span>{
+        padding-top: 13px;
+        } */
+        li>span>{
         padding-top: 13px;
         }
         </style>
@@ -95,7 +98,7 @@
             //监听一级菜单点击事件
             $(".nav>li").click(function() {
                 //找到二级菜单，让二级菜单展开
-                $(this).children(".sub").slideToggle(1000);
+                $(this).children(".sub").slideToggle(500);
                 //控制下拉箭头
                 $(this).children(".right").toggleClass("glyphicon glyphicon-chevron-right").toggleClass("glyphicon glyphicon-chevron-down");
             });
