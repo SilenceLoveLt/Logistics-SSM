@@ -3,12 +3,13 @@ package com.yyk.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author YYK
  * @date 2019/04/06  22:09
  */
-@Controller
+@RestController
 public class ErrorController {
     @RequestMapping(value = "/error400Page")
     public String error400Page() {

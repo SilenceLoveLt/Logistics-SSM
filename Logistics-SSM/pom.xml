@@ -164,6 +164,7 @@
                 <configuration>
                 	<!-- fork 不配置这个devtool 不会起作用，不会自启动 -->
                 	<fork>true</fork>
+                	<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                 </configuration>
             </plugin>  
              <plugin>  

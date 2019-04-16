@@ -12,6 +12,7 @@ import com.yyk.dao.SysUserMapper;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.SysUserService;
+import com.yyk.util.UUIDGenerator;
 
 /**
 * @author 作者 E-mail:
@@ -41,6 +42,13 @@ public class SysUserServiceImpl implements SysUserService{
 		listRes.setData(sysUserList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
+	}
+
+	@Override
+	public int insertUser(SysUser sysUser) {
+		sysUser.setStatus(1);
+    	sysUser.setUserId(UUIDGenerator.create32Key());
+		return SysUserDao.insert(sysUser);
 	}
 
 	

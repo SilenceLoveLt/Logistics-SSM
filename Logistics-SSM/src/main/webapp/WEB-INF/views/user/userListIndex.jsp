@@ -1,5 +1,5 @@
 <%--
-  User: liting
+  User: YYK
   Date: 2019/3/26
   Time: 9:48 PM
 --%>
@@ -13,7 +13,8 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-    <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
+     <script src="<%=basePath%>static/js/jquery.js"></script> 
+   <%--  <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script> --%>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
    <%--  <link rel="stylesheet" href="<%=basePath%>static/css/jquery.dataTables.min.css"> --%>
     <link rel="stylesheet" href=" http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
@@ -25,7 +26,7 @@
     <script src="<%=basePath%>static/bootstrap/js/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-    <%-- <script src="<%=basePath%>static/js/jquery.js"></script> --%>
+    
    <%--  <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script> --%>
     <script src="<%=basePath%>static/js/jquery.dataTables.js"></script> 
     <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
@@ -57,8 +58,9 @@
         }
     </style>
 </head>
-<body">
+<body>
 <input type="hidden" id="userPageList" value="<%=basePath%>userManageList/selectListByPage" />
+<input type="hidden" id="insertUser" value="<%=basePath%>userManageList/insertInfo" />
 <input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
 <input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
 <input type="hidden" id="pdtList" value="/pdtManageList" />
@@ -111,9 +113,9 @@
 	</div>
     </div>
 	</div>
-<div>
-	<table id="pageDataGrid"></table>
-</div>
+	<div>
+		<table id="pageDataGrid"></table>
+	</div>
 </div>
 <!--查询框 end-->
 <!--模态框 start-->
@@ -127,6 +129,7 @@
                     <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body" style="margin-right: 30px">
+                <input type="hidden" name="userId" id="userId" />
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">客户姓名:</label>
                         <div class="col-sm-4">
@@ -145,13 +148,18 @@
                             <input type="text" class="form-control" name="userCode" id="userCode" placeholder="请输入..."/>
                         </div>
                     </div>
-                    
+                    <div class="form-group" id="pwd">
+							<label for="name" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>密码：</label>
+							<div class="col-sm-10">
+								<input name="userPwd" id="userPwd" type="password" class="form-control"  />
+							</div>
+				    </div>
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2">居住地址:</label>
                     </div>
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12">
-                            <textarea class="form-control" name="address" id="address"
+                            <textarea class="form-control" name="addr" id="addr"
                                       style="resize:none; height: 50px;" rows="3"
                                       placeholder="请输入..."
                                       onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
@@ -161,15 +169,15 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">存档时间:</label>
                        <div class="col-md-4  has-feedback"  >
-							<input  name="creatTime" id="search_creatTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"  onblur="checkInput()" /> 
+							<input  name="createTime" id="search_creatTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
 
                         <label class="control-label col-sm-2 ">修改时间:</label>
                         <div class="col-md-4  has-feedback"  >
 							<input  name="updateTime" id="search_updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"  onblur="checkInput()" /> 
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
                     </div>
@@ -185,7 +193,7 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
-                    <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   " style="width: 80px">保存</button>
+                    <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   "  onclick="submitHandler()" style="width: 80px">保存</button>
                     <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置</button>
                 </div>
             </div>
@@ -221,6 +229,57 @@
 <script type="text/javascript">
    $(document).ready(function() {
 	   dataTableDraw();
+	   
+	    //表单验证配置
+		 $('#userForm').bootstrapValidator({
+		   message: '不可用的值',
+	        feedbackIcons: {
+		   valid: 'glyphicon glyphicon-ok',
+		   invalid: 'glyphicon glyphicon-remove',
+		   validating: 'glyphicon glyphicon-refresh'
+	            }, 
+          fields: {
+        	  userName: {
+                  validators: {
+                      notEmpty: {
+                          message: '客户姓名不能为空'
+                      }
+                  }
+              },
+              userCode: {
+                  validators: {
+                      notEmpty: {
+                          message: '客户编码不能为空'
+                      }
+                  }
+              },
+              userPhone: {
+                  validators: {
+                      notEmpty: {
+                          message: '客户电话不能为空'
+                      },
+                      regexp: {
+                          regexp: "^\\d+$",
+                          message: '只能录入正整数'
+                      }
+                  }
+              },
+              userPwd: {
+                  validators: {
+                      notEmpty: {
+                          message: '客户密码不能为空'
+                      }
+                  }
+              },
+              addr: {
+                  validators: {
+                	  notEmpty: {
+                          message: '客户地址不能为空'
+                      }
+                  }
+              },
+          }
+	    }); 
    });
    
    
@@ -312,6 +371,8 @@
 	 }
 	 //我这里按照请求数据的格式增加了自己的查询条件 请求数据格式固定为 name-value的格式 可以使用
 	 //alert打印查看 包含了基本的页码、页面数据元素、等信息以及新增的查询条件
+	console.info("userNameSearch:"+userNameSearch);
+	console.info("userCodeSearch:"+userCodeSearch);
 	 aoData.push(userNameSearch);
 	 aoData.push(userCodeSearch);
 	 $.ajax({
@@ -324,9 +385,9 @@
 	         fnCallback(result);//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的
 	     },
 	    error : function(XMLHttpRequest, textStatus, errorThrown) {
-			bootboxAlert({
+			/* bootboxAlert({
 				message : '获取列表失败：' + getAjaxErrorResponseContent(XMLHttpRequest, textStatus, errorThrown)
-	         });
+	         }); */
 	   }
 	 });
 	}
@@ -371,16 +432,72 @@
 
    
 	    
-   /* 查询条件 */
+   /* 查询查询条件 */
    function searchDatas(){
-	   table.draw();
+	   var table = $('#dutyListTable').DataTable();
+	   table.draw(true);
     }
-  
+   
+   /**重置查询条件*/
+	function resetSearchConditions() {
+		$("#searchEmpForm")[0].reset();
+	}
 
-	/* 新增  */
-   function addFun(){
-	   $('#myModal').modal('show');
-   }
+   /**新增信息*/
+	function addFun() {
+		$("#userForm")[0].reset();//使用dom的reset
+		$("#userId").val("");	//避免hidden出现不能reset的情况
+		$("#pwd").attr("style","display:block;");
+		$('#myModal').modal('show');
+	}
+   
+	/**表单提交事件*/
+	function submitHandler() {
+		$('#ok').attr("disabled",true);
+		var bootstrapValidator = $("#userForm").data('bootstrapValidator');
+		//获取表单验证结果
+		var validateResult = bootstrapValidator.validate().isValid();
+		if(validateResult){
+			var createUrl = $("#insertUser").val();
+			$.post(createUrl, $("#userForm").serialize(), function(data) {
+				if (data.result==true) {
+					$.alert({
+		                title: '提示',
+		                content: '客户保存成功！',
+		                type:'green',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary',
+		                        action: function(){ 
+		                        	//这里写点击按钮回调函数
+		                        	
+		                        }
+		                    }
+		                }
+		            });
+				}
+				else {
+					$.alert({
+		                title: '提示',
+		                content: '客户保存失败！',
+		                type:'red',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary',
+		                        action: function(){ //这里写点击按钮回调函数 
+		                        }
+		                    }
+		                }
+		            });
+				}
+				
+				}, 'json' );
+		}else{
+			$('#ok').removeAttr("disabled"); 
+		}
+	}
 	/* 修改 */
 	 function oemp_editmn(){
 	   $('#myModal').modal('show');

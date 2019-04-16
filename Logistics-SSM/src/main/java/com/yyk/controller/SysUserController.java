@@ -1,6 +1,8 @@
 package com.yyk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.yyk.dto.UserDTO.SysUserListReqDTO;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.SysUserService;
+import com.yyk.util.UUIDGenerator;
 
 
 /**
@@ -106,7 +109,6 @@ public class SysUserController {
 			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserCode())) { // 客户代码查询
 				cri.andUserCodeLike("%" + sysUserListReqDTO.getUserCode() + "%");
 			}
-			
 			if(pageInfo!=null)
 			{
 				if(pageInfo.getPageNum()==null || pageInfo.getPageSize()==null || pageInfo.getPageNum()<1 ||pageInfo.getPageSize()<1){
@@ -123,8 +125,20 @@ public class SysUserController {
 		    return getObj.toString();
 		}
 	 
-
+		 
 	 
+	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> insertUser(SysUser sysUser) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	int i=sysUserService.insertUser(sysUser);
+	    	if(i==1){
+	    			map.put("result", true);
+	    	}
+	    	else{
+	    			map.put("result", false);
+	    	}
+	    	return map;
+		}
 	 
 	 
 	 
