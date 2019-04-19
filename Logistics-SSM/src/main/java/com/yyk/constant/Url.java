@@ -8,13 +8,16 @@ public interface Url {
     String SELECT_LIST_BY_PAGE = "/selectListByPage";
     /*信息查询*/
     String SELECT_INFO = "/selectInfo";
+    /*插入数据或修改数据*/
+    String INSERT_OR_UPDATE_INFO = "/insertOrUpdateInfo";
     /*插入数据*/
     String INSERT_INFO = "/insertInfo";
     /*更新数据*/
     String UPDATE_INFO = "/updateInfo";
     /*删除信息*/
     String DELETE_INFO = "/deleteInfo";
-	
+    /*批量删除*/
+    String DELETE_LIST = "/deleteList";
 	//登录请求地址
 	String BACK_LOGIN_URL = "/login/user";
 	

@@ -51,6 +51,16 @@ public class SysUserServiceImpl implements SysUserService{
 		return SysUserDao.insert(sysUser);
 	}
 
+	@Override
+	public int updateUser(SysUserCriteria criteria,SysUser sysUser) {
+		return SysUserDao.updateByExampleSelective(sysUser,criteria);
+	}
+
+	@Override
+	public List<SysUser> selectInfoUser(SysUserCriteria criteria) {
+		return SysUserDao.selectByExample(criteria);
+	}
+
 	
 	
 	

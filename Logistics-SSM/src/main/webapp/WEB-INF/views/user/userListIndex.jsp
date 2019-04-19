@@ -13,10 +13,12 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-     <script src="<%=basePath%>static/js/jquery.js"></script> 
+    <script src="<%=basePath%>static/js/jquery.js"></script> 
+    <script src="<%=basePath%>static/js/jquery.min.js"></script> 
    <%--  <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script> --%>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
    <%--  <link rel="stylesheet" href="<%=basePath%>static/css/jquery.dataTables.min.css"> --%>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href=" http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.css">
@@ -26,7 +28,7 @@
     <script src="<%=basePath%>static/bootstrap/js/bootstrap-treeview.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-    
+    <script src="<%=basePath%>static/bootstrap/jquery-confirm/js/jquery-confirm.js"></script>
    <%--  <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script> --%>
     <script src="<%=basePath%>static/js/jquery.dataTables.js"></script> 
     <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
@@ -60,8 +62,9 @@
 </head>
 <body>
 <input type="hidden" id="userPageList" value="<%=basePath%>userManageList/selectListByPage" />
-<input type="hidden" id="insertUser" value="<%=basePath%>userManageList/insertInfo" />
-<input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
+<input type="hidden" id="insertOrUpdateUser" value="<%=basePath%>userManageList/insertOrUpdateInfo" />
+<input type="hidden" id="deleteInfoUser" value="<%=basePath%>userManageList/deleteInfo" />
+<input type="hidden" id="deleteListUser" value="<%=basePath%>userManageList/deleteList" />
 <input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
 <input type="hidden" id="pdtList" value="/pdtManageList" />
 <input type="hidden" id="orderList" value="/orderManageList" />
@@ -151,7 +154,7 @@
                     <div class="form-group" id="pwd">
 							<label for="name" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>密码：</label>
 							<div class="col-sm-10">
-								<input name="userPwd" id="userPwd" type="password" class="form-control"  />
+								<input name="userPwd" id="userPwd" type="password"  class="form-control"  />
 							</div>
 				    </div>
                     <div class="form-group form-group-sm">
@@ -169,14 +172,14 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">存档时间:</label>
                        <div class="col-md-4  has-feedback"  >
-							<input  name="createTime" id="search_creatTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
+							<input  name="createTime" id="createTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
 
                         <label class="control-label col-sm-2 ">修改时间:</label>
                         <div class="col-md-4  has-feedback"  >
-							<input  name="updateTime" id="search_updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
+							<input  name="updateTime" id="updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
@@ -193,18 +196,23 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
-                    <button id="ok" class="btn btn-success  col-sm-1 col-sm-offset-4   "  onclick="submitHandler()" style="width: 80px">保存</button>
-                    <button id="reseted" class="btn btn-warning  col-sm-1  col-sm-offset-2 " style="width: 80px">重置</button>
+                    <button id="ok" class="btn btn-primary  col-sm-1 col-sm-offset-4   "  onclick="submitHandler()" style="width: 80px">保存</button>
+                    <button id="reseted" class="btn btn-primary  col-sm-1  col-sm-offset-2 " style="width: 80px">重置</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
     <!--模态框 end-->
-<div class="btnfun"> 
+<!-- <div class="btnfun"> 
 	<button type="button" class="btn btn-primary" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	<!-- <button type="button" class="btn btn-primary" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button> -->
+	<button type="button" class="btn btn-primary" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
 	<button class="btn btn-primary" onclick="deleteFun()" style="margin-left:40px">批量删除</button>
+</div> -->
+
+<div class="btn-group">
+   <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+	<button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
@@ -212,7 +220,7 @@
 		    <th>
                 <input type="checkbox" id="checkall" class="checkall" name="checkBoxs" />
             </th>
-			<!-- <th>客户编号</th> -->
+			<th></th> 
 			<th>客户姓名</th>
 			<th>客户编码</th>
 			<th>客户电话</th>
@@ -220,6 +228,7 @@
 			<th>存档时间</th>
 			<th>修改时间</th>
 			<th>操作</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -306,16 +315,26 @@
      iDisplayLength : 5,
      iDisplayStart :0,
      fnServerData: retrieveData, //执行函数
+     //动态生成复选框
+     fnDrawCallback: function() {  
+           $(this).find('thead input[type=checkbox]').removeAttr('checked');                        
+       },  
+     aoColumnDefs: [{
+                       'targets': 0,
+                       'searchable':false,
+                       'orderable':false,
+                       'className': 'dt-body-center',
+                       'render': function (data, type, row){
+                        return '<input class="checkbox_select" type="checkbox" data-status="'+ row.status + '"name="id[]" value="' + $('<div/>').text(row.userId).html() + '">';
+                  
+                       }
+                  }],  
      aoColumns:[//列表元素  支持多种属性 
-                     {
-	                    "sClass": "text-center",
-	                    "mData": "userId",
-	                    "render": function (data, type, full, meta) {
-	                        return '<input type="checkbox"  class="checkchild"  value="' + data + '" />';
-	                    },
-	                    "bSortable": false
-                      },
-                    /*   { "mData": "userId"}, */
+                      { "mData": ""}, 
+					  {
+					     "mData": "userId",
+					     "visible": false
+					  },
                       { "mData": "userName"},
                       { "mData": "userCode"},
                       { "mData": "userPhone"},
@@ -328,12 +347,15 @@
 					  }  } ,
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.userId+"')\">查看</button>"+
-				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+row.userId+"')\">修改</button>"+
+				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
+				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+meta.row+"')\">修改</button>"+
 				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.userId+"')\">删除</button>"
 				               return html;  
 				            }
-				        } 
+				      },
+				      { "mData": "remark",
+				    	  "visible": false
+				      }
 
                   ],
      oLanguage: {  
@@ -357,7 +379,7 @@
   
 }  
  
-
+	
    
    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
@@ -371,8 +393,8 @@
 	 }
 	 //我这里按照请求数据的格式增加了自己的查询条件 请求数据格式固定为 name-value的格式 可以使用
 	 //alert打印查看 包含了基本的页码、页面数据元素、等信息以及新增的查询条件
-	console.info("userNameSearch:"+userNameSearch);
-	console.info("userCodeSearch:"+userCodeSearch);
+	 console.info("userNameSearch:"+userNameSearch);
+	 console.info("userCodeSearch:"+userCodeSearch);
 	 aoData.push(userNameSearch);
 	 aoData.push(userCodeSearch);
 	 $.ajax({
@@ -418,19 +440,24 @@
 	        return num;  
 	    }
 
-	  /* 实现复选框多选 */
-	  $(".checkall").click(function () {
-	        var check = $(this).prop("checked");
-	        $(".checkchild").prop("checked", check);
-	  }); 
-	
-	 function childclick(){
-	        if ($(this).is(":checked") == false) {
-	            $("#checkAll").prop("checked", false);
-	        }
-	    }
+	     
+	     
+	  //datatable全选
+        $('.checkall').on('click', function () {
+              if (this.checked) {
+                   $(this).attr('checked','checked')
+                   $('.checkbox_select').each(function () {
+                       this.checked = true;                        
+                   });
+               } else {
+                   $(this).removeAttr('checked')
+                   $('.checkbox_select').each(function () {
+                       this.checked = false;
+                   });
+               }                 
+       });     
 
-   
+
 	    
    /* 查询查询条件 */
    function searchDatas(){
@@ -448,17 +475,206 @@
 		$("#userForm")[0].reset();//使用dom的reset
 		$("#userId").val("");	//避免hidden出现不能reset的情况
 		$("#pwd").attr("style","display:block;");
+		$('#userCode').attr("disabled",false);
+		$('#userPhone').attr("disabled",false);
+		$('#userName').attr("disabled",false);
+	    $('#addr').attr("disabled",false);
+	    $('#createTime').attr("disabled",false);
+	    $('#updateTime').attr("disabled",false);
+	    $('#remark').attr("disabled",false);
 		$('#myModal').modal('show');
 	}
    
+   /* 查看信息*/
+   function oemp_editsr(Row){
+	   $("#pwd").attr("style","display:none;");
+	   $('#myModal').modal('show');
+	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
+	   $("#userId").val(data.userId);	//主键
+	   $("#userCode").val(data.userCode);
+	   $('#userCode').attr("disabled",true);
+	   $("#userPhone").val(data.userPhone);
+	   $('#userPhone').attr("disabled",true);
+	   $("#userName").val(data.userName);
+	   $('#userName').attr("disabled",true);
+	   $("#password").val(data.password);
+	   $('#password').attr("disabled",true);
+	   $("#addr").val(data.addr);
+	   $('#addr').attr("disabled",true);
+	   $("#createTime").val(getMyDate(data.createTime));
+	   $('#createTime').attr("disabled",true);
+	   $("#updateTime").val(getMyDate(data.updateTime));
+	   $('#updateTime').attr("disabled",true);
+	   $("#remark").val(data.remark);
+	   $('#remark').attr("disabled",true);
+   }
+   /* 修改 */
+	 function oemp_editmn(Row){
+	   $('#userCode').attr("disabled",true);
+	   $("#pwd").attr("style","display:none;");
+		$('#userPhone').attr("disabled",false);
+		$('#userName').attr("disabled",false);
+	    $('#addr').attr("disabled",false);
+	    $('#createTime').attr("disabled",false);
+	    $('#updateTime').attr("disabled",false);
+	    $('#remark').attr("disabled",false);
+		$('#myModal').modal('show');
+	   $('#myModal').modal('show');
+	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
+	   $("#userId").val(data.userId);	//主键
+	   $("#userCode").val(data.userCode);
+	   $("#userPhone").val(data.userPhone);
+	   $("#userName").val(data.userName);
+	   $("#password").val(data.password);
+	   $("#addr").val(data.addr);
+	   $("#createTime").val(getMyDate(data.createTime));
+	   $("#updateTime").val(getMyDate(data.updateTime));
+	   $("#remark").val(data.remark);
+	  
+	 }
+		/* 删除  */
+	 function oemp_editzt(id){
+		 $.confirm({
+	            title: '提示',
+	            content: '您确认需要删除选中的数据吗？',
+	            type:'red',
+	            icon:'glyphicon glyphicon-question-sign',
+	            buttons: {
+	                ok: {
+	                    text: '确认',
+	                    btnClass: 'btn-primary',
+	                    action: function(){ //确认按钮回调
+	                        deleteUser(id);
+	                    }
+	                },
+	                cancel: {
+	                    text: '取消',
+	                    btnClass: 'btn-primary',
+	                    action: function(){ //取消按钮回调
+	                    }
+	                }
+	            },
+	        });
+	 }
+	
+	 /* 删除数据 */
+	 function deleteUser(userId){
+	 var delUrl = $("#deleteInfoUser").val();
+	 $.post(delUrl,  {"userId": userId},function(data) {
+	 			if (data || data=='true') {
+	 				$.alert({
+	 	                title: '提示',
+	 	                content: '删除成功！',
+	 	                type:'green',             //一般危险操作用red,保存成功操作green
+	 	                buttons: {              //定义按钮
+	 	                    confirm: {
+	 	                        text: '确认',
+	 	                        btnClass: 'btn-primary',
+	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        }
+	 	                    }
+	 	                }
+	 	            });
+	 				searchDatas(); //刷新列表
+	 			} else {
+	 				$.alert({
+	 	                title: '提示',
+	 	                content: '删除失败,如有问题请联系管理员！',
+	 	                type:'red',             //一般危险操作用red,保存成功操作green
+	 	                buttons: {              //定义按钮
+	 	                    confirm: {
+	 	                        text: '确认',
+	 	                        btnClass: 'btn-primary',
+	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        }
+	 	                    }
+	 	                }
+	 	            });
+	 			}
+	 		}, 'json');
+	 }
+	 
+	 
+		
+	 /* 批量删除 */
+	  function deleteFun(){
+		  var selectLoans = [];
+          $('.checkbox_select').each(function () {
+              if($(this).is(':checked')){
+            	   selectLoans.push($(this).val());                  
+              }
+          });
+         if(selectLoans.length == 0){ 
+        	 $.alert({
+ 			    title: '提示',
+ 			    content: '请选择一行数据进行停用！',
+ 			    type:'red',				//一般危险操作用red,保存成功操作green
+ 			    buttons: {				//定义按钮
+ 			        confirm: {
+ 			        	text: '确认',
+ 			        	btnClass: 'btn-primary',
+ 			        	action: function(){	//这里写点击按钮回调函数
+ 			        		
+ 			        	}
+ 			        }
+ 			    }
+ 			});           
+         }else{
+             var idListStr ='';
+             for (var i = 0; i < selectLoans.length; i++) { 
+                 if(i!=selectLoans.length-1){
+                     idListStr = idListStr + selectLoans[i] +",";
+                 }else{
+                     idListStr = idListStr + selectLoans[i];
+                 } 
+             }  
+             console.info("id:"+idListStr);
+             var deleteInfoUrl = $("#deleteListUser").val();
+        	 $.post(deleteInfoUrl,  {"idListStr": idListStr},function(data) {
+        	 			if (data || data=='true') {
+        	 				$.alert({
+        	 	                title: '提示',
+        	 	                content: '删除成功！',
+        	 	                type:'green',             //一般危险操作用red,保存成功操作green
+        	 	                buttons: {              //定义按钮
+        	 	                    confirm: {
+        	 	                        text: '确认',
+        	 	                        btnClass: 'btn-primary',
+        	 	                        action: function(){ //这里写点击按钮回调函数
+        	 	                        }
+        	 	                    }
+        	 	                }
+        	 	            });
+        	 				searchDatas(); //刷新列表
+        	 			} else {
+        	 				$.alert({
+        	 	                title: '提示',
+        	 	                content: '删除失败,如有问题请联系管理员！',
+        	 	                type:'red',             //一般危险操作用red,保存成功操作green
+        	 	                buttons: {              //定义按钮
+        	 	                    confirm: {
+        	 	                        text: '确认',
+        	 	                        btnClass: 'btn-primary',
+        	 	                        action: function(){ //这里写点击按钮回调函数
+        	 	                        }
+        	 	                    }
+        	 	                }
+        	 	            });
+        	 			}
+        	 		}, 'json');
+         }
+	  	
+	 }
+	 
+	 
+	 
 	/**表单提交事件*/
 	function submitHandler() {
-		$('#ok').attr("disabled",true);
 		var bootstrapValidator = $("#userForm").data('bootstrapValidator');
 		//获取表单验证结果
 		var validateResult = bootstrapValidator.validate().isValid();
 		if(validateResult){
-			var createUrl = $("#insertUser").val();
+			var createUrl = $("#insertOrUpdateUser").val();
 			$.post(createUrl, $("#userForm").serialize(), function(data) {
 				if (data.result==true) {
 					$.alert({
@@ -469,9 +685,12 @@
 		                    confirm: {
 		                        text: '确认',
 		                        btnClass: 'btn-primary',
-		                        action: function(){ 
-		                        	//这里写点击按钮回调函数
-		                        	
+		                        action: function(){ //这里写点击按钮回调函数
+		                        	 $("#userForm").data('bootstrapValidator').resetForm();
+							         $('#userForm')[0].reset();
+							         searchDatas(); //刷新列表
+		                      	     $('#myModal').modal('hide');
+					        		 $('#ok').removeAttr("disabled");
 		                        }
 		                    }
 		                }
@@ -494,31 +713,22 @@
 				}
 				
 				}, 'json' );
-		}else{
-			$('#ok').removeAttr("disabled"); 
-		}
+		}else {
+            $.alert({
+                title: '提示',
+                content: '请按照相关提示修改！',
+                type:'red',             //一般危险操作用red,保存成功操作green
+                buttons: {              //定义按钮
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'btn-primary',
+                        action: function(){ //这里写点击按钮回调函数
+                        }
+                    }
+                }
+            });
+        }
 	}
-	/* 修改 */
-	 function oemp_editmn(){
-	   $('#myModal').modal('show');
-   }
-	/* 删除  */
-	 function oemp_editzt(id){
-	   console.info("id:"+id);
-   }
 	
-   /* 批量删除 */
-    function deleteFun(){
-    	 var checkVal = [];//获取选中的id
-    	 $("input.checkboxes[name='checkBoxs']:checkbox").each(function() {
-    		    if ($(this).is(":checked")) {
-    		        var s= $(this).val();
-    		        checkVal.push(s);
-    		        ableMany=true;
-    		    }
-    		});
-    	console.log("checkVal+++======");
-    	
-   }
 </script>
 </html>

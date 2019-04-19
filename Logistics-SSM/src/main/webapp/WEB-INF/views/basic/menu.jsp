@@ -10,6 +10,7 @@
         <title>JSP Page</title>
         <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
         <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
+         <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<%=basePath%>static/css/menu.css?ver=1">
         <style>
@@ -42,28 +43,28 @@
 	<input type="hidden" id="storeInList" value="/storeInList" />
 
     	<ul class="nav" >
-    		<li><span class="img  glyphicon glyphicon-user"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-gear fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="empList">员工列表</li>
     				<li class="jobList">职位列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-globe"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-users fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
     			</ul>
     		</li>
-    			<li><span class="img glyphicon glyphicon-shopping-cart"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
+    			<li><i class="fa fa-reorder fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="orderList">订单列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-cutlery"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-envelope-open fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="pdtList">货物列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-queen"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-server fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="stockList">货架列表</li>
     				<li class="storeInList">入库记录</li>
@@ -71,17 +72,17 @@
     			</ul>
     		</li>
     	
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-truck fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>车辆列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>线路列表</li>
     			</ul>
     		</li>
-    		<li><span class="img glyphicon glyphicon-book"></span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-file-text-o fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>数据字典</li>
     			</ul>

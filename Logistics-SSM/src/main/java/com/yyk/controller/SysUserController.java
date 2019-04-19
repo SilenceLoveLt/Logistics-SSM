@@ -1,5 +1,6 @@
 package com.yyk.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,23 +128,77 @@ public class SysUserController {
 	 
 		 
 	 
-	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> insertUser(SysUser sysUser) {
+	    @RequestMapping(value = Url.INSERT_OR_UPDATE_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> insertOrUpdateUser(SysUser sysUser) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	int i=sysUserService.insertUser(sysUser);
-	    	if(i==1){
-	    			map.put("result", true);
+	    	//修改
+	    	if(StringUtils.isNotBlank(sysUser.getUserId())){
+	    		SysUserCriteria criteria = new SysUserCriteria();
+	 			SysUserCriteria.Criteria cri = criteria.createCriteria();
+	 			cri.andStatusEqualTo(1);// 只查询状态为1的
+	 			cri.andUserIdEqualTo(sysUser.getUserId());	    		
+	 			int i=sysUserService.updateUser(criteria, sysUser);
+		    	if(i==1){
+		    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+	    	}
+	    	else //新增
+	    	{
+	    		int i=sysUserService.insertUser(sysUser);
+		    	if(i==1){
+		    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+	    	}
+	    	return map;
+		}
+	 
+	 
+	    @RequestMapping(value = Url.DELETE_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> deleteInfoUser(@RequestParam(required=false,value = "userId") String userId) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	SysUserCriteria criteria = new SysUserCriteria();
+ 			SysUserCriteria.Criteria cri = criteria.createCriteria();
+ 			cri.andStatusEqualTo(1);// 只查询状态为1的
+ 			cri.andUserIdEqualTo(userId);	
+ 			SysUser sysUser=new SysUser();
+ 			sysUser.setStatus(0);
+ 			int i=sysUserService.updateUser(criteria, sysUser);
+ 			if(i==1){
+    			map.put("result", true);
 	    	}
 	    	else{
 	    			map.put("result", false);
 	    	}
 	    	return map;
 		}
+	    
+	    
 	 
-	 
-	 
-	 
-	 
+	    @RequestMapping(value = Url.DELETE_LIST, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> deleteListUser(@RequestParam(required=false,value = "idListStr") String userId) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	SysUserCriteria criteria = new SysUserCriteria();
+ 			SysUserCriteria.Criteria cri = criteria.createCriteria();
+ 			List<String> userIds=Arrays.asList(userId.split(","));
+ 			cri.andStatusEqualTo(1);// 只查询状态为1的
+ 			cri.andUserIdIn(userIds);
+ 			SysUser sysUser=new SysUser();
+ 			sysUser.setStatus(0);
+ 			int i=sysUserService.updateUser(criteria, sysUser);
+ 			if(i==1){
+    			map.put("result", true);
+	    	}
+	    	else{
+	    			map.put("result", false);
+	    	}
+	    	return map;
+		}
 	 
 	 
 	 

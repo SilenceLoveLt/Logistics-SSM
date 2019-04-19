@@ -16,5 +16,8 @@ public interface SysUserService {
 	ResDataDTO<List<SysUser>> selectSysUserByPage(SysUserCriteria criteria,PageInfo pageInfo);
 	
 	int insertUser (SysUser sysUser);
-
+	
+	int updateUser (SysUserCriteria criteria,SysUser sysUser);
+	
+	List<SysUser> selectInfoUser(SysUserCriteria criteria);
 }
