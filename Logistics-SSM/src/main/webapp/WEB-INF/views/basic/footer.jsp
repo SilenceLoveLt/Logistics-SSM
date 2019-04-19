@@ -23,6 +23,6 @@
     </style>
 </head>
 <body>
-<p>如有任何问题请联系管理员！</p>
+<p style="margin:0">如有任何问题请联系管理员！</p>
 </body>
 </html>

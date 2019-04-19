@@ -48,7 +48,7 @@
            </style>
     </head>
     </center>
-    <body >
+    <body style="overflow-y: hidden;">
 	    
 		 <nav class="navbar1" >
 		  <div class="container-fluid">
@@ -71,7 +71,7 @@
 		</div>
 		
 		
-		<div class="navbar2 text-center" >
+		<div class="navbar2 text-center" style="position: absolute; width: 100%; bottom: 0px;">
 		 <div class="container-fluid">
 		  <tiles:insertAttribute name="footer" />
 		 </div>
