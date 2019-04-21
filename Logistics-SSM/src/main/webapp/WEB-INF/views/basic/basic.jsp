@@ -18,7 +18,7 @@
 	            background: grey;
 	            margin-left: 0px;
 	            margin-bottom: 0px;
-	            height:667px;
+	            height:726px;
             }
             .navbar1 {
 			    position: relative; 

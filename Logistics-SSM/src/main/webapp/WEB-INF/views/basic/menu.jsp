@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -34,9 +35,10 @@
  </head>
     <body>
 	<input type="hidden" id="userList" value="<%=basePath%>userManageList/" />
+	<input type="hidden" id="updatePassword" value="<%=basePath%>updateUserPsw/" />
 	<input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
 	<input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
-	<input type="hidden" id="pdtList" value="/pdtManageList" />
+	<input type="hidden" id="basecodeList" value="<%=basePath%>basecodeManageList/" />
 	<input type="hidden" id="orderList" value="/orderManageList" />
 	<input type="hidden" id="stockList" value="/stockManageList" />
 	<input type="hidden" id="storeOutList" value="/storeOutList" />
@@ -52,6 +54,7 @@
     		<li><i class="fa fa-users fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
+    				<li class="updatePassword">修改密码</li>
     			</ul>
     		</li>
     			<li><i class="fa fa-reorder fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
@@ -82,9 +85,16 @@
     				<li>线路列表</li>
     			</ul>
     		</li>
+    		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    			<ul class="sub">
+    				<li>配送单管理</li>
+    				<li>货物跟踪</li>
+    				<li>确认签收</li>
+    			</ul>
+    		</li>
     		<li><i class="fa fa-file-text-o fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>数据字典</li>
+    				<li class="basecodeList">数据字典</li>
     			</ul>
     		</li>
     		

@@ -63,7 +63,7 @@
                     <li><a tabindex="-1"  href="#">修改密码</a></li>
                     <li class="divider "></li>
                     <li><a tabindex="-1" href="sign-in.html">登陆</a></li>
-                     <li class="divider "></li>
+                    <li class="divider "></li>
                     <li><a tabindex="-1" href="sign-in.html">登出</a></li>
                 </ul>
           </span>

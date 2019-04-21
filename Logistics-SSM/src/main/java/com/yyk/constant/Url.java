@@ -29,6 +29,24 @@ public interface Url {
     
     //客户管理
     String USER_MANAGE = "/userManageList";
-	
-	
+    String UPDATE_USER_PSW="/updateUserPsw";
+    
+    //数据字典管理
+    String BASECODE_MANAGE = "/basecodeManageList";
+    String BASECODETYPE_LIST_BY_PAGE = "/selectCodeTypeListByPage";
+    String BASECODE_LIST_BY_PAGE = "/selectCodeListByPage";
+    String INSERT_OR_UPDATE_INFO_CODETYPE = "/insertOrUpdateInfoCodeType";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

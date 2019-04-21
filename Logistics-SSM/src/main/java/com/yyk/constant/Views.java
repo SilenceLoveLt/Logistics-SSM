@@ -25,4 +25,14 @@ public interface Views {
 	 * 客户页面
 	 */
 	public static final String USER_VIEW = "user.view";
+	
+	/**
+	 * 修改密码
+	 */
+	public static final String UPDATE_USER_VIEW = "update.user.view";
+	
+	/**
+	 * 数据字典
+	 */
+	public static final String BASECODE_VIEW = "basecode.view";
 }

@@ -36,44 +36,21 @@ import com.yyk.util.UUIDGenerator;
  * 功能描述：
  */
 @Controller
-@RequestMapping(Url.USER_MANAGE)
-public class SysUserController {
+@RequestMapping(Url.UPDATE_USER_PSW)
+public class UpdateUserController {
 	
 	@Autowired
 	@Qualifier("sysUserService")
 	private SysUserService sysUserService;
-	
-	/**
-	 * 
-	* @author yyk  
-	* @Title: get 
-	* @Package com.yyk.controller  
-	* @Description: TODO
-	* @return
-	* @return String   
-	* @date 2019年4月13日 下午4:41:50     
-	* @throws 
-	 */
+
 	 @RequestMapping("/")
 	 public String get(){
-	   return Views.USER_VIEW;
+	   return Views.UPDATE_USER_VIEW;
 	 }
-	
-	 /**
-	  * 
-	 * @author yyk  
-	 * @Title: queryPages 
-	 * @Package com.yyk.controller  
-	 * @Description: TODO
-	 * @param page
-	 * @param su
-	 * @return
-	 * @return BootstrapTablePageDTO   
-	 * @date 2019年4月13日 下午4:42:19     
-	 * @throws 
-	  */
+
+	 
 	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
-		public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
+	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysUserListReqDTO sysUserListReqDTO=new SysUserListReqDTO();
 		 String sEcho = null;
@@ -91,24 +68,10 @@ public class SysUserController {
 	            if (obj.get("name").equals("iDisplayLength")){
 	            	pageInfo.setPageSize(Integer.parseInt(obj.get("value").toString()));
 	            }
-	            
-	            if (obj.get("name").equals("userNameSearch")){
-	            	sysUserListReqDTO.setUserName( obj.get("value").toString());
-	            }
-	            
-	            if (obj.get("name").equals("userCodeSearch")){
-	            	sysUserListReqDTO.setUserCode(obj.get("value").toString());
-	            }
 	        }
 		    SysUserCriteria criteria = new SysUserCriteria();
 			SysUserCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);// 只查询状态为1的
-			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserName())) { // 客户姓名查询
-				cri.andUserNameLike("%" + sysUserListReqDTO.getUserName() + "%");
-			}
-			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserCode())) { // 客户代码查询
-				cri.andUserCodeLike("%" + sysUserListReqDTO.getUserCode() + "%");
-			}
 			if(pageInfo!=null)
 			{
 				if(pageInfo.getPageNum()==null || pageInfo.getPageSize()==null || pageInfo.getPageNum()<1 ||pageInfo.getPageSize()<1){
@@ -125,10 +88,8 @@ public class SysUserController {
 		    return getObj.toString();
 		}
 	 
-		 
-	 
-	    @RequestMapping(value = Url.INSERT_OR_UPDATE_INFO, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> insertOrUpdateUser(SysUser sysUser) {
+	 @RequestMapping(value = Url.UPDATE_INFO, method = RequestMethod.POST)
+     public @ResponseBody Map<String, Object> insertOrUpdateUser(SysUser sysUser) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
 	    	//修改
 	    	if(StringUtils.isNotBlank(sysUser.getUserId())){
@@ -158,53 +119,7 @@ public class SysUserController {
 		}
 	 
 	 
-	    @RequestMapping(value = Url.DELETE_INFO, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> deleteInfoUser(@RequestParam(required=false,value = "userId") String userId) {
-	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	SysUserCriteria criteria = new SysUserCriteria();
- 			SysUserCriteria.Criteria cri = criteria.createCriteria();
- 			cri.andStatusEqualTo(1);// 只查询状态为1的
- 			cri.andUserIdEqualTo(userId);	
- 			SysUser sysUser=new SysUser();
- 			sysUser.setStatus(0);
- 			int i=sysUserService.updateUser(criteria, sysUser);
- 			if(i==1){
-    			map.put("result", true);
-	    	}
-	    	else{
-	    			map.put("result", false);
-	    	}
-	    	return map;
-		}
 	    
-	    
-	 
-	    @RequestMapping(value = Url.DELETE_LIST, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> deleteListUser(@RequestParam(required=false,value = "idListStr") String userId) {
-	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	SysUserCriteria criteria = new SysUserCriteria();
- 			SysUserCriteria.Criteria cri = criteria.createCriteria();
- 			List<String> userIds=Arrays.asList(userId.split(","));
- 			cri.andStatusEqualTo(1);// 只查询状态为1的
- 			cri.andUserIdIn(userIds);
- 			SysUser sysUser=new SysUser();
- 			sysUser.setStatus(0);
- 			int i=sysUserService.updateUser(criteria, sysUser);
- 			if(i==1){
-    			map.put("result", true);
-	    	}
-	    	else{
-	    			map.put("result", false);
-	    	}
-	    	return map;
-		}
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 
 	 
 	 

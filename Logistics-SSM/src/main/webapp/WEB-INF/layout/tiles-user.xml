@@ -5,11 +5,15 @@
 <tiles-definitions>
 
     <!-- Templates -->
-    
     <definition name="user.view"  extends="layout.basic">
         <put-attribute name="title" value="客户列表" />
         <put-attribute name="body" value="/WEB-INF/views/user/userListIndex.jsp" />
     </definition>
     
+    
+    <definition name="update.user.view"  extends="layout.basic">
+        <put-attribute name="title" value="修改密码" />
+        <put-attribute name="body" value="/WEB-INF/views/user/updateUserIndex.jsp" />
+    </definition>
     
 </tiles-definitions>

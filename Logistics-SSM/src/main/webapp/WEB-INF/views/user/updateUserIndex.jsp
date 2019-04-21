@@ -72,50 +72,11 @@
 	<ol class="breadcrumb">
 	    <li><a>Home</a></li>
 	    <li><a>客户管理</a></li>
-	    <li class="active">客户列表</li>
+	    <li class="active">修改密码</li>
 	</ol>
 </div>
-<!-- 查询框 start -->
-<div class="panel-body" style="padding-bottom:0px;">
-    <div class="panel panel-default">
-    <div class="panel-heading">查询条件</div>
-    <div class="panel-body">
-       <div class="container-fluid">
-            <form id="searchUserForm" name="searchUserForm" class="form-horizontal">
-                <div class="form-group">
-                        <div class="row">
-                            <label class="control-label col-md-1 ">客户姓名:</label>
-                            <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_userName" id="search_userName"
-                                       placeholder="请输入客户名称">
-                            </div>
 
-                            <label class="control-label col-md-1 ">客户编码:</label>
-                             <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_userCode" id="search_userCode"
-                                       placeholder="请输入客户编码">
-                            </div>
-                          
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
-				          
-			           </div>
-                    </div>
-                   
-                  
-		  </form>
-	</div>
-    </div>
-	</div>
-	<div>
-		<table id="pageDataGrid"></table>
-	</div>
-</div>
-<!--查询框 end-->
+
 <!--模态框 start-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -219,10 +180,7 @@
 			<th></th> 
 			<th>客户姓名</th>
 			<th>客户编码</th>
-			<th>客户电话</th>
-			<th>客户地址</th>
-			<th>存档时间</th>
-			<th>修改时间</th>
+			<th>客户密码</th>
 			<th>操作</th>
 			<th></th>
 		</tr>
@@ -342,7 +300,7 @@ var remark=null;
    function dataTableDraw(){
     $("#dutyListTable").dataTable({
 	 pagingType: 'full_numbers',
-	 scrollY:"275px",
+	 scrollY:false,
 	 scrollX:false,
 	 processing : true, //加载转态
 	 ordering:false,       //禁用排序去掉图标
@@ -383,14 +341,8 @@ var remark=null;
 					  },
                       { "mData": "userName"},
                       { "mData": "userCode"},
-                      { "mData": "userPhone"},
-                      { "mData": "addr"},
-					  { "mData" : "createTime",render : function(obj) {  
-					       return (getMyDate(obj));
-					  }  },
-					  { "mData" : "updateTime",render : function(obj) {  
-					       return (getMyDate(obj));
-					  }  } ,
+                      { "mData": "userPwd"},
+                      
 					  {"mData":null,
 				            render: function (data, type, row, meta){
 				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
@@ -429,20 +381,6 @@ var remark=null;
    
    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
-	 var userNameSearch = {
-	   "name":"userNameSearch",
-	   "value":$("#search_userName").val()
-	 }
-	 var userCodeSearch = {
-	   "name":"userCodeSearch",
-	   "value":$("#search_userCode").val()
-	 }
-	 //我这里按照请求数据的格式增加了自己的查询条件 请求数据格式固定为 name-value的格式 可以使用
-	 //alert打印查看 包含了基本的页码、页面数据元素、等信息以及新增的查询条件
-	 console.info("userNameSearch:"+userNameSearch);
-	 console.info("userCodeSearch:"+userCodeSearch);
-	 aoData.push(userNameSearch);
-	 aoData.push(userCodeSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
 	     data : {"aoData":JSON.stringify(aoData)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
