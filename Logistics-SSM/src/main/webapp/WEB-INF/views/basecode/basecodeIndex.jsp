@@ -76,12 +76,14 @@
 <body>
 <input type="hidden" id="baseCodeTypePageList" value="<%=basePath%>basecodeManageList/selectCodeTypeListByPage" />
 <input type="hidden" id="baseCodePageList" value="<%=basePath%>basecodeManageList/selectCodeListByPage" />
-<input type="hidden" id="insertOrUpdateCodeType" value="<%=basePath%>basecodeManageList/insertOrUpdateInfoCodeType" />
+<input type="hidden" id="insertCodeType" value="<%=basePath%>basecodeManageList/insertCodeType" />
+<input type="hidden" id="updateCodeType" value="<%=basePath%>basecodeManageList/updateCodeType" />
 <input type="hidden" id="deleteInfoCodeType" value="<%=basePath%>basecodeManageList/deleteInfoCodeType" />
-<input type="hidden" id="deleteListCodeType" value="<%=basePath%>basecodeManageList/deleteListCodeType" />
-<input type="hidden" id="insertOrUpdateCode" value="<%=basePath%>basecodeManageList/insertOrUpdateInfoCode" />
+<input type="hidden" id="deleteCodeTypeList" value="<%=basePath%>basecodeManageList/deleteListCodeType" />
+<input type="hidden" id="insertCode" value="<%=basePath%>basecodeManageList/insertCode" />
+<input type="hidden" id="updateCode" value="<%=basePath%>basecodeManageList/updateCode" />
 <input type="hidden" id="deleteInfoCode" value="<%=basePath%>basecodeManageList/deleteInfoCode" />
-<input type="hidden" id="deleteListCode" value="<%=basePath%>basecodeManageList/deleteListCode" />
+<input type="hidden" id="deleteCodeList" value="<%=basePath%>basecodeManageList/deleteListCode" />
 
 <div class="container-fluid">
 	<ol class="breadcrumb">
@@ -164,9 +166,9 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
-                    <button id="ok" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitHandler()" style="width: 80px">保存</button>
-                    <button id="reseted" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetHandler()" style="width: 80px">重置</button>
-                    <button id="closeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
+                    <button id="okCodeType" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitCodeType()" style="width: 80px">保存</button>
+                    <button id="resetedCodeType" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetCodeType()" style="width: 80px">重置</button>
+                    <button id="closeCodeTypeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </form>
@@ -184,7 +186,7 @@
                     <h4 class="modal-title" id="gridSystemModalLabelTwo">Modal title</h4>
                 </div>
                 <div class="modal-body" style="margin-right: 30px">
-                <input type="hidden" name="id" id="id" />
+                <input type="hidden" name="codes" id="id" />
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">代码:</label>
                         <div class="col-sm-4">
@@ -214,7 +216,7 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">类别代码:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="codeType" id="codeType" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            <input type="text" class="form-control" name="codeType" id="codeTypeTwo" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -222,38 +224,33 @@
                     </div>
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12 ">
-                            <textarea class="form-control" name="remark" id="remark" style="resize:none; height: 70px"
+                            <textarea class="form-control" name="remark" id="remarkTwo" style="resize:none; height: 70px"
                                       rows="3" placeholder="请输入..."
                                       onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="form-group form-group-sm">
-                    <button id="ok" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitHandler()" style="width: 80px">保存</button>
-                    <button id="reseted" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetHandler()" style="width: 80px">重置</button>
-                    <button id="closeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
+                    <button id="okCode" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitCode()" style="width: 80px">保存</button>
+                    <button id="resetedCode" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetCode()" style="width: 80px">重置</button>
+                    <button id="closeCodeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<!-- <div class="btnfun"> 
-	<button type="button" class="btn btn-primary" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	<button type="button" class="btn btn-primary" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
-	<button class="btn btn-primary" onclick="deleteFun()" style="margin-left:40px">批量删除</button>
-</div> -->
 
 
 <div id='table-div1' style="width:45%;float:left;">
 	<div class="btn-group" style="margin-top:10px; " >
-	   <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-		<button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+	   <button type="button" class="btn btn-default" onclick="addCodeTypeFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+		<button class="btn btn-default" onclick="deleteCodeTypeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeTypeListTable" style="white-space:nowrap">
 		<thead>
 			<tr class="text-c">
 			    <th>
-	                <input type="checkbox" id="checkall" class="checkall" name="checkBoxs" />
+	                <input type="checkbox" id="checkCodeTypeall" class="checkCodeTypeall" name="checkBoxs" />
 	            </th>
 				<th></th> 
 				<th>类别代码</th>
@@ -268,14 +265,14 @@
 </div>
 <div id='table-div2'  style="width:54%;float: right;visibility: hidden">
 	<div class="btn-group" style="margin-top:10px; " >
-	   <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	   <button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+	   <button type="button" class="btn btn-default" onclick="addCodeFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+	   <button class="btn btn-default" onclick="deleteCodeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeListTable" style="white-space:nowrap">
 		<thead>
 			<tr class="text-c">
 			    <th>
-	                <input type="checkbox" id="checkallTwo" class="checkall" name="checkBoxsTwo" />
+	                <input type="checkbox" id="checkCodeall" class="checkCodeall" name="checkBoxsTwo" />
 	            </th>
 	            <th></th>
 				<th>代码</th>
@@ -293,16 +290,14 @@
 </div>
 </body>
 <script type="text/javascript">
-var userId=null;
-var userId=null;
-var userCode=null;
-var userPhone=null;
-var userName=null;
-var password=null;
-var addr=null;
-var createTime=null;
-var updateTime=null;
-var remark=null;
+var codeType=null;
+var codeName=null;
+var code=null;
+var dataName=null;
+var sort=null;
+var enable=null;
+var codeTypeRemark=null;
+var codeRemark=null;
 
 
    $(document).ready(function() {
@@ -430,6 +425,8 @@ var remark=null;
       }
     });
    }  
+ 	
+   /* 初始化类别 */
    var codeTypeUrlStr = $("#baseCodeTypePageList").val();
    function codeTypeDataTableDraw(){
     $("#codeTypeListTable").dataTable({
@@ -477,9 +474,9 @@ var remark=null;
                       { "mData": "codeName"},
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
-				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+meta.row+"')\">修改</button>"+
-				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.codeType+"')\">删除</button>"
+				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"selectCodeTypeFun('"+meta.row+"')\">查看</button>"+
+				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"updateCodeTypeFun('"+meta.row+"')\">修改</button>"+
+				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"deleteCodeTypeFun('"+row.codeType+"')\">删除</button>"
 				               return html;  
 				            }
 				      },
@@ -542,7 +539,7 @@ var remark=null;
 	}
  
    
-   
+	 /* 初始化明细 */
    var codeUrlStr = $("#baseCodePageList").val();
    function codeDataTableDraw(){
     $("#codeListTable").dataTable({
@@ -577,7 +574,7 @@ var remark=null;
                        'orderable':false,
                        'className': 'dt-body-center',
                        'render': function (data, type, row){
-                        return '<input class="checkbox_select" type="checkbox" data-status="'+ row.status + '"name="id[]" value="' + $('<div/>').text(row.code).html() + '">';
+                        return '<input class="checkbox_selectTwo" type="checkbox" data-status="'+ row.status + '"name="id[]" value="' + $('<div/>').text(row.code).html() + '">';
                   
                        }
                   }],  
@@ -588,7 +585,7 @@ var remark=null;
 					     "visible": false
 					  },
 					  {
-						"mData": "code",
+						"mData": "code"
 					  },
                       { "mData": "dataName"},
                       { "mData": "enable"},
@@ -600,9 +597,9 @@ var remark=null;
 				      },
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
-				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+meta.row+"')\">修改</button>"+
-				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+meta.row+"')\">删除</button>"
+				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"selectCodeFun('"+meta.row+"')\">查看</button>"+
+				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"updateCodeFun('"+meta.row+"')\">修改</button>"+
+				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"deleteCodeFun('"+meta.row+"')\">删除</button>"
 				               return html;  
 				            }
 				      },
@@ -687,8 +684,8 @@ var remark=null;
 
 	     
 	     
-	  //datatable全选
-        $('.checkall').on('click', function () {
+	  //类别 datatable全选
+        $('.checkCodeTypeall').on('click', function () {
               if (this.checked) {
                    $(this).attr('checked','checked')
                    $('.checkbox_select').each(function () {
@@ -700,14 +697,42 @@ var remark=null;
                        this.checked = false;
                    });
                }                 
-       });     
+       });   
+	  
+      //明细 datatable全选
+        $('.checkCodeall').on('click', function () {
+              if (this.checked) {
+                   $(this).attr('checked','checked')
+                   $('.checkbox_selectTwo').each(function () {
+                       this.checked = true;                        
+                   });
+               } else {
+                   $(this).removeAttr('checked')
+                   $('.checkbox_selectTwo').each(function () {
+                       this.checked = false;
+                   });
+               }                 
+       });
 
 
 	    
    /* 查询查询条件 */
    function searchDatas(){
+	   $("#rowid").val("");
 	   var table = $('#codeTypeListTable').DataTable();
 	   table.draw(true);
+	   var tableTwo = $('#codeListTable').DataTable();
+	   tableTwo.draw(true);
+    }
+   
+   /* 刷新类别列表 */
+   function codeTypeRefresh(){
+	   var table = $('#codeTypeListTable').DataTable();
+	   table.draw(true);
+    }
+   
+   /* 刷新明细列表 */
+   function codeRefresh(){
 	   var tableTwo = $('#codeListTable').DataTable();
 	   tableTwo.draw(true);
     }
@@ -717,152 +742,236 @@ var remark=null;
 		$("#searchBasecodeForm")[0].reset();
 		var table = $('#codeTypeListTable').DataTable();
 		table.draw(true);
+		var tableTwo = $('#codeListTable').DataTable();
+		tableTwo.draw(true);
 	}
    
-	/* 关闭模态框*/
+	/* 类别关闭模态框*/
 	$('#myModal').on('hidden.bs.modal', function() {
-		$("#userForm")[0].reset();//使用dom的reset
-		$("#userId").val("");
-        $("#userForm").data('bootstrapValidator').destroy();
-        $('#userForm').data('bootstrapValidator', null);
-        formValidator();
+		$("#baseCodeTypeForm")[0].reset();//使用dom的reset
+        $("#baseCodeTypeForm").data('bootstrapValidator').destroy();
+        $('#baseCodeTypeForm').data('bootstrapValidator', null);
+        codeTypeValidator();
     });
 	
-   /* 按钮关闭模态框*/
-   function closeModel(){
-	   $("#reseted").attr("disabled","true");	
-	   $("#ok").attr("disabled","true");
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
-	   $("#userId").val("");
-	   $("#userForm")[0].reset();//使用dom的reset
+	/* 明细关闭模态框*/
+	$('#myModalTwo').on('hidden.bs.modal', function() {
+		$("#baseCodeForm")[0].reset();//使用dom的reset
+        $("#baseCodeForm").data('bootstrapValidator').destroy();
+        $('#baseCodeForm').data('bootstrapValidator', null);
+        codeValidator();
+    });
+	
+	
+   /* 按钮关闭类别模态框*/
+   function closeCodeTypeModel(){
+	   $("#resetedCodeType").attr("disabled","true");	
+	   $("#okCodeType").attr("disabled","true");
+	   $("#resetedCodeType").attr("style","background-color:grey;border-color:grey");
+	   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
+	   $("#codeType").val("");
+	   $("#baseCodeTypeForm")[0].reset();//使用dom的reset
    }
    
+   /* 按钮关闭明细模态框*/
+   function  closeCodeModel(){
+	   $("#resetedCode").attr("disabled","true");	
+	   $("#okCode").attr("disabled","true");
+	   $("#resetedCode").attr("style","background-color:grey;border-color:grey");
+	   $("#okCode").attr("style","background-color:grey;border-color:grey");
+	   $("#code").val("");
+	   $("#baseCodeForm")[0].reset();//使用dom的reset
+   }
    
-   /* 按钮重置模态框 */
-   function resetHandler(){
-	   //$("#userForm")[0].reset();//使用dom的reset
-	   if($("#userId").val()==null || $("#userId").val()==""){
-		   $("#userForm").data('bootstrapValidator').resetForm();
-		   $("#reseted").attr("disabled","true");	
-		   $("#ok").attr("disabled","true");
-		   $("#reseted").attr("style","background-color:grey;border-color:grey");
-		   $("#ok").attr("style","background-color:grey;border-color:grey");
-		   userForm.reset();
+   /* 按钮重置类别模态框 */
+   function resetCodeType(){
+	   console.info("类别："+$("#codeType").val());
+	   if($("#codeType").val()==null || $("#codeType").val()==""){  //新增
+		   $("#baseCodeTypeForm").data('bootstrapValidator').resetForm();
+		   $("#resetedCodeType").attr("disabled","true");	
+		   $("#okCodeType").attr("disabled","true");
+		   $("#resetedCodeType").attr("style","background-color:grey;border-color:grey");
+		   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
+		   baseCodeTypeForm.reset();
 	   }
-	   if($("#userId").val()!=null && $("#userId").val()!=""){
-		   $("#userId").val(userId);
-		   $("#pwd").val(password); 
-		   $("#userCode").val(userCode);
-		   $("#userPhone").val(userPhone);
-		   $("#userName").val(userName);
-		   $("#addr").val(addr);
-		   $("#createTime").val(createTime);
-		   $("#updateTime").val(updateTime);
-		   $("#remark").val(remark);
-		   $("#userForm").data('bootstrapValidator').destroy();
-	       $('#userForm').data('bootstrapValidator', null);
-	       formValidator(); 
+	   if($("#codeType").val()!=null && $("#codeType").val()!=""){  //修改
+		   $("#codeType").val(codeType);
+		   $("#codeName").val(codeName);
+		   $("#remark").val(codeTypeRemark);
+		   $("#baseCodeTypeForm").data('bootstrapValidator').destroy();
+	       $('#baseCodeTypeForm').data('bootstrapValidator', null);
+	       codeTypeValidator(); 
 	   }
+   }
+	   
+	   /* 按钮重置明细模态框 */
+	   function resetCode(){
+		   if($("#code").val()==null || $("#code").val()==""){  //新增
+			   $("#baseCodeForm").data('bootstrapValidator').resetForm();
+			   $("#resetedCode").attr("disabled","true");	
+			   $("#okCode").attr("disabled","true");
+			   $("#resetedCode").attr("style","background-color:grey;border-color:grey");
+			   $("#okCode").attr("style","background-color:grey;border-color:grey");
+			   baseCodeForm.reset();
+		   }
+		   if($("#code").val()!=null && $("#code").val()!=""){  //修改
+			   $("#code").val(code);
+			   $("#codeTypeTwo").val(codeType); 
+			   $("#dataName").val(dataName);
+			   $("#sort").val(sort);
+			   $("#enable").val(enable);
+			   $("#remarkTwo").val(codeRemark);
+			   $("#baseCodeForm").data('bootstrapValidator').destroy();
+		       $('#baseCodeForm').data('bootstrapValidator', null);
+		       codeValidator(); 
+		   }
 	   
    }
    
    
-   /**新增信息*/
-	function addFun() {
-		$('#ok').removeAttr("disabled");
-		$("#ok").removeAttr("style");
-		$('#reseted').removeAttr("disabled");
-		$("#reseted").removeAttr("style");
-		$("#ok").attr("style","display: block;");
-		$("#reseted").attr("style","display: block;");
-		$('#closeModel').removeAttr("disabled");
-		$("#userForm")[0].reset();//使用dom的reset
-		$("#userId").val("");	//避免hidden出现不能reset的情况
-		$("#pwd").attr("style","display:block;");
-		$('#userCode').attr("disabled",false);
-		$('#userPhone').attr("disabled",false);
-		$('#userName').attr("disabled",false);
-	    $('#addr').attr("disabled",false);
-	    $('#createTime').attr("disabled",false);
-	    $('#updateTime').attr("disabled",false);
+   /**新增类别信息*/
+	function addCodeTypeFun() {
+		$('#okCodeType').removeAttr("disabled");
+		$("#okCodeType").removeAttr("style");
+		$('#resetedCodeType').removeAttr("disabled");
+		$("#resetedCodeType").removeAttr("style");
+		$("#okCodeType").attr("style","display: block;");
+		$("#resetedCodeType").attr("style","display: block;");
+		$('#closeCodeTypeModel').removeAttr("disabled");
+		$("#baseCodeTypeForm")[0].reset();//使用dom的reset
+		$("#id").val("");	//避免hidden出现不能reset的情况
+		$('#codeType').attr("disabled",false);
+		$('#codeName').attr("disabled",false);
 	    $('#remark').attr("disabled",false);
 		$('#myModal').modal('show');
-		console.info("111111111"+$("#userId").val());
+	}
+	 /**新增明细信息*/
+	function addCodeFun() {
+		$('#okCode').removeAttr("disabled");
+		$("#okCode").removeAttr("style");
+		$('#resetedCode').removeAttr("disabled");
+		$("#resetedCode").removeAttr("style");
+		$("#okCode").attr("style","display: block;");
+		$("#resetedCode").attr("style","display: block;");
+		$('#closeCodeModel').removeAttr("disabled");
+		$("#baseCodeForm")[0].reset();//使用dom的reset
+		$("#codes").val("");	//避免hidden出现不能reset的情况
+		$('#code').attr("disabled",false);
+		$('#codeTypeTwo').val($('#rowid').val());
+		$('#codeTypeTwo').attr("disabled",true);
+		$('#dataName').attr("disabled",false);
+		$('#dataName').attr("disabled",false);
+	    $('#sort').attr("disabled",false);
+	    $('#enable').attr("disabled",false);
+	    $('#remarkTwo').attr("disabled",false);
+		$('#myModalTwo').modal('show');
 	}
    
-   /* 查看信息*/
-   function oemp_editsr(Row){
-	   $("#pwd").attr("style","display:none;");
+	 
+   /* 查看类别信息*/
+   function selectCodeTypeFun(Row){
 	   $('#myModal').modal('show');
-	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
+	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
 	   $("#userId").val(data.userId);	//主键
-	   $("#userCode").val(data.userCode);
-	   $('#userCode').attr("disabled",true);
-	   $("#userPhone").val(data.userPhone);
-	   $('#userPhone').attr("disabled",true);
-	   $("#userName").val(data.userName);
-	   $('#userName').attr("disabled",true);
-	   $("#password").val(data.password);
-	   $('#password').attr("disabled",true);
-	   $("#addr").val(data.addr);
-	   $('#addr').attr("disabled",true);
-	   $("#createTime").val(getMyDate(data.createTime));
-	   $('#createTime').attr("disabled",true);
-	   $("#updateTime").val(getMyDate(data.updateTime));
-	   $('#updateTime').attr("disabled",true);
+	   $("#codeType").val(data.codeType);
+	   $('#codeType').attr("disabled",true);
+	   $("#codeName").val(data.codeName);
+	   $('#codeName').attr("disabled",true);
 	   $("#remark").val(data.remark);
 	   $('#remark').attr("disabled",true);
-	   $('#ok').attr("disabled",true);
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
-	   $('#reseted').attr("disabled",true);
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
-	   $('#closeModel').removeAttr("disabled");
+	   $('#okCodeType').attr("disabled",true);
+	   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
+	   $('#resetedCodeType').attr("disabled",true);
+	   $("#resetedCodeType").attr("style","background-color:grey;border-color:grey");
+	   $('#closeCodeTypeModel').removeAttr("disabled");
+   }
+   
+   
+   /* 查看明细信息*/
+   function selectCodeFun(Row){
+	   $('#myModalTwo').modal('show');
+	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
+	   $("#code").val(data.code);
+	   $('#code').attr("disabled",true);
+	   $("#dataName").val(data.dataName);
+	   $('#dataName').attr("disabled",true);
+	   $("#codeTypeTwo").val(data.codeType);
+	   $('#codeTypeTwo').attr("disabled",true);
+	   $("#sort").val(data.sort);
+	   $('#sort').attr("disabled",true);
+	   $("#enable").val(data.enable);
+	   $('#enable').attr("disabled",true);
+	   $("#remarkTwo").val(data.remark);
+	   $('#remarkTwo').attr("disabled",true);
+	   $('#okCode').attr("disabled",true);
+	   $("#okCode").attr("style","background-color:grey;border-color:grey");
+	   $('#resetedCode').attr("disabled",true);
+	   $("#resetedCode").attr("style","background-color:grey;border-color:grey");
+	   $('#closeCodeModel').removeAttr("disabled");
 	   
    }
-   /* 修改 */
-	 function oemp_editmn(Row){
-	   
-	   $('#ok').removeAttr("disabled");
-	   $("#ok").removeAttr("style");
-	   $('#reseted').removeAttr("disabled");
-	   $("#reseted").removeAttr("style");
-	   $("#ok").attr("style","display: block;");
-	   $("#reseted").attr("style","display: block;");
-	   $('#closeModel').removeAttr("disabled");
-	   $('#userCode').attr("disabled",true);
-	   $("#pwd").attr("style","display:none;");
-	   $('#userPhone').attr("disabled",false);
-	   $('#userName').attr("disabled",false);
-	   $('#addr').attr("disabled",false);
-	   $('#createTime').attr("disabled",false);
-	   $('#updateTime').attr("disabled",false);
+   
+   
+   /* 修改类别 */
+	 function updateCodeTypeFun(Row){
+	   $('#okCodeType').removeAttr("disabled");
+	   $("#okCodeType").removeAttr("style");
+	   $('#resetedCodeType').removeAttr("disabled");
+	   $("#resetedCodeType").removeAttr("style");
+	   $("#okCodeType").attr("style","display: block;");
+	   $("#resetedCodeType").attr("style","display: block;");
+	   $('#closeCodeTypeModel').removeAttr("disabled");
+	   $('#codeType').attr("disabled",true);
+	   $('#codeName').attr("disabled",false);
 	   $('#remark').attr("disabled",false);
 	   $('#myModal').modal('show');
-	   $('#myModal').modal('show');
-	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
-	   $("#userId").val(data.userId);
-	   $("#userCode").val(data.userCode);
-	   $("#userPhone").val(data.userPhone);
-	   $("#userName").val(data.userName);
-	   $("#password").val(data.password);
-	   $("#addr").val(data.addr);
-	   $("#createTime").val(getMyDate(data.createTime));
-	   $("#updateTime").val(getMyDate(data.updateTime));
+	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
+	   $("#codeType").val(data.codeType);
+	   $("#codeName").val(data.codeName);
 	   $("#remark").val(data.remark);
-	   userId=$("#userId").val();
-	   userCode=data.userCode;
-	   userPhone=data.userPhone;
-	   userName=data.userName;
-	   password=data.password;
-	   addr=data.addr;
-	   createTime=getMyDate(data.createTime);
-	   updateTime=getMyDate(data.updateTime);
-	   remark=data.remark;
-	   console.info("222222222222"+userId);
+	   $("#id").val(data.codeType);
+	   codeType=data.codeType;
+	   codeName=data.codeName;
+	   codeTypeRemark=data.remark;
 	 }
-		/* 删除  */
-	 function oemp_editzt(id){
+   
+   
+	 /* 修改明细 */
+	 function updateCodeFun(Row){
+	   $('#okCode').removeAttr("disabled");
+	   $("#okCode").removeAttr("style");
+	   $('#resetedCode').removeAttr("disabled");
+	   $("#resetedCode").removeAttr("style");
+	   $("#okCode").attr("style","display: block;");
+	   $("#resetedCode").attr("style","display: block;");
+	   $('#closeCodeModel').removeAttr("disabled");
+	   $('#code').attr("disabled",true);
+	   $('#codeTypeTwo').attr("disabled",true);
+	   $('#dataName').attr("disabled",true);
+	   $('#sort').attr("disabled",false);
+	   $('#enable').attr("disabled",false);
+	   $('#remarkTwo').attr("disabled",false);
+	   $('#myModalTwo').modal('show');
+	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
+	   console.info("data"+data);
+	   $("#codes").val(data.code);
+	   $("#code").val(data.code);
+	   $("#codeTypeTwo").val(data.codeType);
+	   $("#dataName").val(data.dataName);
+	   $("#sort").val(data.sort);
+	   $("#enable").val(data.enable);
+	   $("#remarkTwo").val(data.remark);
+	   code=data.code;
+	   codeType=data.codeType;
+	   dataName=data.dataName;
+	   sort=data.sort;
+	   enable=data.enable;
+	   codeRemark=data.remark;
+	 }
+	 
+	 
+	 /* 删除类别函数  */
+	 function deleteCodeTypeFun(codeType){
 		 $.confirm({
 	            title: '提示',
 	            content: '您确认需要删除选中的数据吗？',
@@ -873,7 +982,7 @@ var remark=null;
 	                    text: '确认',
 	                    btnClass: 'btn-primary',
 	                    action: function(){ //确认按钮回调
-	                        deleteUser(id);
+	                    	deleteCodeType(codeType);
 	                    }
 	                },
 	                cancel: {
@@ -886,10 +995,11 @@ var remark=null;
 	        });
 	 }
 	
-	 /* 删除数据 */
-	 function deleteUser(userId){
-	 var delUrl = $("#deleteInfoUser").val();
-	 $.post(delUrl,  {"userId": userId},function(data) {
+	 
+	 /* 删除类别数据 */
+	 function deleteCodeType(codeType){
+	 var delCodeTypeUrl = $("#deleteInfoCodeType").val();
+	 $.post(delCodeTypeUrl,  {"codeType": codeType},function(data) {
 	 			if (data || data=='true') {
 	 				$.alert({
 	 	                title: '提示',
@@ -900,11 +1010,11 @@ var remark=null;
 	 	                        text: '确认',
 	 	                        btnClass: 'btn-primary',
 	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        	codeTypeRefresh(); //刷新列表
 	 	                        }
 	 	                    }
 	 	                }
 	 	            });
-	 				searchDatas(); //刷新列表
 	 			} else {
 	 				$.alert({
 	 	                title: '提示',
@@ -924,9 +1034,74 @@ var remark=null;
 	 }
 	 
 	 
+	 /* 删除明细函数  */
+	 function deleteCodeFun(Row){
+		 var data= $('#codeListTable').DataTable().rows(Row).data()[0];
+		 $.confirm({
+	            title: '提示',
+	            content: '您确认需要删除选中的数据吗？',
+	            type:'red',
+	            icon:'glyphicon glyphicon-question-sign',
+	            buttons: {
+	                ok: {
+	                    text: '确认',
+	                    btnClass: 'btn-primary',
+	                    action: function(){ //确认按钮回调
+	                    	deleteCode(data.codeType,data.code);
+	                    }
+	                },
+	                cancel: {
+	                    text: '取消',
+	                    btnClass: 'btn-primary',
+	                    action: function(){ //取消按钮回调
+	                    }
+	                }
+	            },
+	        });
+	 }
+	 
+	 
+	 /* 删除明细数据 */
+	 function deleteCode(codeType,code){
+	 var delCodeUrl = $("#deleteInfoCode").val();
+	 $.post(delCodeUrl,  {"codeType": codeType,"code":code},function(data) {
+	 			if (data || data=='true') {
+	 				$.alert({
+	 	                title: '提示',
+	 	                content: '删除成功！',
+	 	                type:'green',             //一般危险操作用red,保存成功操作green
+	 	                buttons: {              //定义按钮
+	 	                    confirm: {
+	 	                        text: '确认',
+	 	                        btnClass: 'btn-primary',
+	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        	codeRefresh(); //刷新列表
+	 	                        }
+	 	                    }
+	 	                }
+	 	            });
+	 			} else {
+	 				$.alert({
+	 	                title: '提示',
+	 	                content: '删除失败,如有问题请联系管理员！',
+	 	                type:'red',             //一般危险操作用red,保存成功操作green
+	 	                buttons: {              //定义按钮
+	 	                    confirm: {
+	 	                        text: '确认',
+	 	                        btnClass: 'btn-primary',
+	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        }
+	 	                    }
+	 	                }
+	 	            });
+	 			}
+	 		}, 'json');
+	 }
 		
-	 /* 批量删除 */
-	  function deleteFun(){
+	 
+	 
+	 /* 批量删除类别 */
+	  function deleteCodeTypeListFun(){
 		  var selectLoans = [];
           $('.checkbox_select').each(function () {
               if($(this).is(':checked')){
@@ -936,7 +1111,7 @@ var remark=null;
          if(selectLoans.length == 0){ 
         	 $.alert({
  			    title: '提示',
- 			    content: '请选择一行数据进行停用！',
+ 			    content: '请选择一行数据进行删除！',
  			    type:'red',				//一般危险操作用red,保存成功操作green
  			    buttons: {				//定义按钮
  			        confirm: {
@@ -958,7 +1133,7 @@ var remark=null;
                  } 
              }  
              console.info("id:"+idListStr);
-             var deleteInfoUrl = $("#deleteListUser").val();
+             var deleteInfoUrl = $("#deleteCodeTypeList").val();
         	 $.post(deleteInfoUrl,  {"idListStr": idListStr},function(data) {
         	 			if (data || data=='true') {
         	 				$.alert({
@@ -974,7 +1149,7 @@ var remark=null;
         	 	                    }
         	 	                }
         	 	            });
-        	 				searchDatas(); //刷新列表
+        	 				codeTypeRefresh(); //刷新列表
         	 			} else {
         	 				$.alert({
         	 	                title: '提示',
@@ -996,30 +1171,202 @@ var remark=null;
 	 }
 	 
 	 
+	  /* 批量删除明细 */
+	  function deleteCodeListFun(){
+		  var selectLoans = [];
+          $('.checkbox_selectTwo').each(function () {
+              if($(this).is(':checked')){
+            	   selectLoans.push($(this).val());                  
+              }
+          });
+         if(selectLoans.length == 0){ 
+        	 $.alert({
+ 			    title: '提示',
+ 			    content: '请选择一行数据进行删除！',
+ 			    type:'red',				//一般危险操作用red,保存成功操作green
+ 			    buttons: {				//定义按钮
+ 			        confirm: {
+ 			        	text: '确认',
+ 			        	btnClass: 'btn-primary',
+ 			        	action: function(){	//这里写点击按钮回调函数
+ 			        		
+ 			        	}
+ 			        }
+ 			    }
+ 			});           
+         }else{
+             var idListStr ='';
+             for (var i = 0; i < selectLoans.length; i++) { 
+                 if(i!=selectLoans.length-1){
+                     idListStr = idListStr + selectLoans[i] +",";
+                 }else{
+                     idListStr = idListStr + selectLoans[i];
+                 } 
+             }  
+             console.info("id:"+idListStr);
+             var deleteInfoCodeUrl = $("#deleteCodeList").val();
+             codeType=$('#rowid').val();
+        	 $.post(deleteInfoCodeUrl,  {"idListStr": idListStr,"codeType":codeType},function(data) {
+        	 			if (data || data=='true') {
+        	 				$.alert({
+        	 	                title: '提示',
+        	 	                content: '删除成功！',
+        	 	                type:'green',             //一般危险操作用red,保存成功操作green
+        	 	                buttons: {              //定义按钮
+        	 	                    confirm: {
+        	 	                        text: '确认',
+        	 	                        btnClass: 'btn-primary',
+        	 	                        action: function(){ //这里写点击按钮回调函数
+        	 	                        }
+        	 	                    }
+        	 	                }
+        	 	            });
+        	 				codeRefresh(); //刷新列表
+        	 			} else {
+        	 				$.alert({
+        	 	                title: '提示',
+        	 	                content: '删除失败,如有问题请联系管理员！',
+        	 	                type:'red',             //一般危险操作用red,保存成功操作green
+        	 	                buttons: {              //定义按钮
+        	 	                    confirm: {
+        	 	                        text: '确认',
+        	 	                        btnClass: 'btn-primary',
+        	 	                        action: function(){ //这里写点击按钮回调函数
+        	 	                        }
+        	 	                    }
+        	 	                }
+        	 	            });
+        	 			}
+        	 		}, 'json');
+         }
+	  	
+	 }
 	 
-	/**表单提交事件*/
-	function submitHandler() {
-		var bootstrapValidator = $("#userForm").data('bootstrapValidator');
+	  
+	  
+	/**类别表单提交事件*/
+	function submitCodeType() {
+		var bootstrapValidator = $("#baseCodeTypeForm").data('bootstrapValidator');
 		//获取表单验证结果
 		var validateResult = bootstrapValidator.validate().isValid();
 		if(validateResult){
-			var createUrl = $("#insertOrUpdateUser").val();
-			$.post(createUrl, $("#userForm").serialize(), function(data) {
-				if (data.result==true) {
+			var createCodeTypeUrl =null;
+			console.info("#id"+$("#id").val());
+			//修改
+			if($("#id").val()!="" && $("#id").val()!=null)
+			{
+				createCodeTypeUrl = $("#updateCodeType").val();
+			}
+			//新增
+			else
+			{
+				createCodeTypeUrl = $("#insertCodeType").val();
+			}
+			$.post(createCodeTypeUrl, $("#baseCodeTypeForm").serialize(), function(data) {
+				console.info("data.result"+data.result);
+				if (data.result=='true') {
+					
 					$.alert({
 		                title: '提示',
-		                content: '客户保存成功！',
+		                content: '数据类别保存成功！',
 		                type:'green',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {
 		                        text: '确认',
 		                        btnClass: 'btn-primary',
 		                        action: function(){ //这里写点击按钮回调函数
-		                        	 $("#userForm").data('bootstrapValidator').resetForm();
-							         $('#userForm')[0].reset();
-							         searchDatas(); //刷新列表
+		                        	 $("#baseCodeTypeForm").data('bootstrapValidator').resetForm();
+							         $('#baseCodeTypeForm')[0].reset();
+							         codeTypeRefresh(); //刷新列表
 		                      	     $('#myModal').modal('hide');
-					        		 $('#ok').removeAttr("disabled");
+					        		 $('#okCodeType').removeAttr("disabled");
+		                        }
+		                    }
+		                }
+		            });
+				}
+				if (data.result=='repeat') {
+					$.alert({
+		                title: '提示',
+		                content: '类别代码不能重复！',
+		                type:'green',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary'
+		                    }
+		                }
+		            });
+				}
+				if (data.result=='false') {
+					$.alert({
+		                title: '提示',
+		                content:'类别代码保存失败！',
+		                type:'red',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary',
+		                        action: function(){ //这里写点击按钮回调函数 
+		                        }
+		                    }
+		                }
+		            });
+				}
+				
+				}, 'json' );
+		}else {
+            $.alert({
+                title: '提示',
+                content: '请按照相关提示修改！',
+                type:'red',             //一般危险操作用red,保存成功操作green
+                buttons: {              //定义按钮
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'btn-primary',
+                        action: function(){ //这里写点击按钮回调函数
+                        }
+                    }
+                }
+            });
+        }
+	}
+	
+	
+	/**明细表单提交事件*/
+	function submitCode() {
+		var bootstrapValidator = $("#baseCodeForm").data('bootstrapValidator');
+		//获取表单验证结果
+		var validateResult = bootstrapValidator.validate().isValid();
+		if(validateResult){
+			var createCodeUrl =null;
+			//修改
+			if($("#codes").val()!="" && $("#codes").val()!=null)
+			{
+				createCodeUrl = $("#updateCode").val();
+			}
+			//新增
+			else
+			{
+				createCodeUrl = $("#insertCode").val();
+			}
+			console.info("明细daima"+$("#code").val());
+			$.post(createCodeUrl, $("#baseCodeForm").serialize(), function(data) {
+				if (data.result==true) {
+					$.alert({
+		                title: '提示',
+		                content: '数据明细保存成功！',
+		                type:'green',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary',
+		                        action: function(){ //这里写点击按钮回调函数
+		                        	 $("#baseCodeForm").data('bootstrapValidator').resetForm();
+							         $('#baseCodeForm')[0].reset();
+							         codeRefresh(); //刷新列表
+		                      	     $('#myModalTwo').modal('hide');
+					        		 $('#okCode').removeAttr("disabled");
 		                        }
 		                    }
 		                }
@@ -1028,7 +1375,7 @@ var remark=null;
 				else {
 					$.alert({
 		                title: '提示',
-		                content: '客户保存失败！',
+		                content: '数据明细保存失败！',
 		                type:'red',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {

@@ -177,7 +177,11 @@ public class SysUserController {
 	    	return map;
 		}
 	    
-	    
+	    /**
+	     * 批量删除
+	     * @param userId
+	     * @return
+	     */
 	 
 	    @RequestMapping(value = Url.DELETE_LIST, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> deleteListUser(@RequestParam(required=false,value = "idListStr") String userId) {
@@ -190,7 +194,7 @@ public class SysUserController {
  			SysUser sysUser=new SysUser();
  			sysUser.setStatus(0);
  			int i=sysUserService.updateUser(criteria, sysUser);
- 			if(i==1){
+ 			if(i>=1){
     			map.put("result", true);
 	    	}
 	    	else{

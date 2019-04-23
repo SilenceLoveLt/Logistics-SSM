@@ -56,7 +56,7 @@ public class BaseCodeServiceImpl implements BaseCodeService{
 	@Override
 	public int updateBaseCode(BaseCodeCriteria criteria, BaseCode baseCode) {
 		baseCode.setUpdateTime(new Date());
-		return baseCodeDao.insert(baseCode);
+		return baseCodeDao.updateByExampleSelective(baseCode, criteria);
 	}
 
 	@Override

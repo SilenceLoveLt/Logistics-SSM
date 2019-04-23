@@ -59,7 +59,11 @@ public class BaseCodeController {
 	   return Views.BASECODE_VIEW;
 	 }
 
-	 
+	 /**
+	  * 类别分页查询
+	  * @param aoData
+	  * @return
+	  */
 	@RequestMapping(value = Url.BASECODETYPE_LIST_BY_PAGE, method = RequestMethod.POST)
 	 public @ResponseBody String codeTypePages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
@@ -109,6 +113,12 @@ public class BaseCodeController {
 		    return getObj.toString();
 		}
 	
+	
+	/**
+	 * 明细分页查询
+	 * @param aoData
+	 * @return
+	 */
 	@RequestMapping(value = Url.BASECODE_LIST_BY_PAGE, method = RequestMethod.POST)
 	 public @ResponseBody String codePages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
@@ -152,40 +162,223 @@ public class BaseCodeController {
 		    return getObj.toString();
 		}
 	 
-	 @RequestMapping(value = Url.INSERT_OR_UPDATE_INFO_CODETYPE, method = RequestMethod.POST)
-     public @ResponseBody Map<String, Object> insertOrUpdateCodeType(BaseCodeType baseCodeType) {
+	
+	/**
+	 * 类别修改
+	 * @param baseCodeType
+	 * @return
+	 */
+	 @RequestMapping(value = Url.UPDATE_CODETYPE, method = RequestMethod.POST)
+     public @ResponseBody Map<String, Object> insertCodeType(BaseCodeType baseCodeType) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	//修改
-	    	if(StringUtils.isNotBlank(baseCodeType.getCodeType())){
-	    		BaseCodeTypeCriteria criteria = new BaseCodeTypeCriteria();
-			    BaseCodeTypeCriteria.Criteria cri = criteria.createCriteria();
-				cri.andStatusEqualTo(1);// 只查询状态为1的
-	 			cri.andCodeTypeEqualTo(baseCodeType.getCodeType());	    		
-	 			int i=baseCodeTypeService.updateBaseCodeType(criteria, baseCodeType);
-		    	if(i==1){
-		    			map.put("result", true);
-		    	}
-		    	else{
-		    			map.put("result", false);
-		    	}
-	    	}
-	    	else //新增
-	    	{
-	    		int i=baseCodeTypeService.insertBaseCodeType(baseCodeType);
-		    	if(i==1){
-		    			map.put("result", true);
-		    	}
-		    	else{
-		    			map.put("result", false);
-		    	}
-	    	}
+	    	String flag=null;
+	    	BaseCodeTypeCriteria criteria = new BaseCodeTypeCriteria();
+		    BaseCodeTypeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1);// 只查询状态为1的
+ 			cri.andCodeTypeEqualTo(baseCodeType.getCodeType());	 
+	 		int i=baseCodeTypeService.updateBaseCodeType(criteria, baseCodeType);
+		    if(i==1){
+		    		flag="true";
+		    		map.put("result", flag);
+		    }
+		    else{
+		    		flag="false";
+		    		map.put("result", flag);
+		    }
 	    	return map;
 		}
 	 
 	 
-	    
+	 /**
+		 * 类别增加
+		 * @param baseCodeType
+		 * @return
+		 */
+		 @RequestMapping(value = Url.INSERT_CODETYPE, method = RequestMethod.POST)
+	     public @ResponseBody Map<String, Object> UpdateCodeType(BaseCodeType baseCodeType) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	String flag=null;
+		    	//修改
+		    	BaseCodeTypeCriteria criteria = new BaseCodeTypeCriteria();
+			    BaseCodeTypeCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+	 			cri.andCodeTypeEqualTo(baseCodeType.getCodeType());	 
+		    	//codetype不能重复
+		 		List<BaseCodeType> list=baseCodeTypeService.selectInfoCodeType(criteria);
+		 		if(list.isEmpty() && list.size()==0)
+		 		{
+		 			int i=baseCodeTypeService.insertBaseCodeType(baseCodeType);
+		 			if(i==1){
+		 					flag="true";
+			    			map.put("result", flag);
+		    	    }
+		 			else{
+		 					flag="false";
+			    			map.put("result", flag);
+			    	}
+		 		}
+		 		else{
+		 				flag="repeat";
+		    			map.put("result", flag);
+		    	}	
+		    	return map;
+			}
 	 
 	 
+	 	/**
+	 	 * 明细修改
+	 	 * @param baseCode
+	 	 * @return
+	 	 */
+		 @RequestMapping(value = Url.UPDATE_CODE, method = RequestMethod.POST)
+	     public @ResponseBody Map<String, Object> insertCode(BaseCode baseCode) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	//修改
+	    	BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+		    cri.andStatusEqualTo(1);// 只查询状态为1的
+	 		cri.andCodeTypeEqualTo(baseCode.getCodeType());	  
+	 		cri.andCodeEqualTo(baseCode.getCode());
+	 		int i=baseCodeService.updateBaseCode(criteria, baseCode);
+		    if(i==1){
+		    		map.put("result", true);
+		    }
+		    else{
+		    		map.put("result", false);
+		    }
+	    	return map;
+		}
+		 
+		 
+
+		 	/**
+		 	 * 明细增加
+		 	 * @param baseCode
+		 	 * @return
+		 	 */
+			 @RequestMapping(value = Url.INSERT_CODE, method = RequestMethod.POST)
+		     public @ResponseBody Map<String, Object> updateCode(BaseCode baseCode) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	int i=baseCodeService.insertBaseCode(baseCode);
+			    if(i==1){
+			    			map.put("result", true);
+			    }
+			    else{
+			    			map.put("result", false);
+			    }
+		    	return map;
+			}
 	 
+		 
+		 /**
+		  * 删除类别
+		  * @param userId
+		  * @return
+		  */
+		 @RequestMapping(value = Url.DELETE_INFO_CODETYPE, method = RequestMethod.POST)
+		 public @ResponseBody Map<String, Object> deleteInfoCodeType(@RequestParam(required=false,value = "codeType") String codeType) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	BaseCodeTypeCriteria criteria = new BaseCodeTypeCriteria();
+			    BaseCodeTypeCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+	 			cri.andCodeTypeEqualTo(codeType);	 
+	 			BaseCodeType baseCodeType=new BaseCodeType();
+	 			baseCodeType.setStatus(0);
+	 			int i=baseCodeTypeService.updateBaseCodeType(criteria, baseCodeType);
+	 			if(i==1){
+	 				//删除对应的明细
+	 				BaseCodeCriteria criteria2 = new BaseCodeCriteria();
+				    BaseCodeCriteria.Criteria cri2 = criteria2.createCriteria();
+				    cri2.andStatusEqualTo(1);// 只查询状态为1的
+				    cri2.andCodeTypeEqualTo(codeType);
+				    BaseCode baseCode=new BaseCode();
+		 			baseCode.setStatus(0);
+		 			baseCodeService.updateBaseCode(criteria2, baseCode);
+	    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+		    	return map;
+			}
+		 
+		 /**
+		  * 删除明细
+		  * @param userId
+		  * @return
+		  */
+		 @RequestMapping(value = Url.DELETE_INFO_CODE, method = RequestMethod.POST)
+		 public @ResponseBody Map<String, Object> deleteInfoCode(@RequestParam(required=false,value = "codeType") String codeType,
+				 @RequestParam(required=false,value = "code") String code) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	BaseCodeCriteria criteria = new BaseCodeCriteria();
+			    BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+	 			cri.andCodeTypeEqualTo(codeType);
+	 			cri.andCodeEqualTo(code);
+	 			BaseCode baseCode=new BaseCode();
+	 			baseCode.setStatus(0);
+	 			int i=baseCodeService.updateBaseCode(criteria, baseCode);
+	 			if(i==1){
+	    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+		    	return map;
+			}
 	 
+		 
+		 /**
+		  * 批量删除类别
+		  * @param userId
+		  * @return
+		  */
+		 @RequestMapping(value = Url.DELETE_LIST_CODETYPE, method = RequestMethod.POST)
+	     public @ResponseBody Map<String, Object> deleteListCodeType(@RequestParam(required=false,value = "idListStr") String codeType) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	BaseCodeTypeCriteria criteria = new BaseCodeTypeCriteria();
+			    BaseCodeTypeCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+				List<String> codeTypes=Arrays.asList(codeType.split(","));
+	 			cri.andCodeTypeIn(codeTypes);
+	 			BaseCodeType baseCodeType=new BaseCodeType();
+	 			baseCodeType.setStatus(0);
+	 			int i=baseCodeTypeService.updateBaseCodeType(criteria, baseCodeType);
+	 			if(i>=1){
+	    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+		    	return map;
+			}
+	 
+		 
+		 /**
+		  * 批量删除明细
+		  * @param userId
+		  * @return
+		  */
+		 @RequestMapping(value = Url.DELETE_LIST_CODE, method = RequestMethod.POST)
+	     public @ResponseBody Map<String, Object> deleteListCode(@RequestParam(required=false,value = "idListStr") String code,
+	    		 @RequestParam(required=false,value = "codeType") String codeType) {
+		    	Map<String, Object> map = new HashMap<String, Object>();
+		    	BaseCodeCriteria criteria = new BaseCodeCriteria();
+			    BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+				List<String> codes=Arrays.asList(code.split(","));
+	 			cri.andCodeIn(codes);
+	 			cri.andCodeTypeEqualTo(codeType);
+	 			BaseCode baseCode=new BaseCode();
+	 			baseCode.setStatus(0);
+	 			int i=baseCodeService.updateBaseCode(criteria, baseCode);
+	 			if(i>=1){
+	    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+		    	return map;
+			}
 }

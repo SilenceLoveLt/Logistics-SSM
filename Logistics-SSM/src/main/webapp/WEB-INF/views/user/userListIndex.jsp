@@ -233,7 +233,6 @@
 </body>
 <script type="text/javascript">
 var userId=null;
-var userId=null;
 var userCode=null;
 var userPhone=null;
 var userName=null;
@@ -638,7 +637,6 @@ var remark=null;
 	   $('#updateTime').attr("disabled",false);
 	   $('#remark').attr("disabled",false);
 	   $('#myModal').modal('show');
-	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
 	   $("#userId").val(data.userId);
 	   $("#userCode").val(data.userCode);
@@ -735,7 +733,7 @@ var remark=null;
          if(selectLoans.length == 0){ 
         	 $.alert({
  			    title: '提示',
- 			    content: '请选择一行数据进行停用！',
+ 			    content: '请选择一行数据进行删除！',
  			    type:'red',				//一般危险操作用red,保存成功操作green
  			    buttons: {				//定义按钮
  			        confirm: {

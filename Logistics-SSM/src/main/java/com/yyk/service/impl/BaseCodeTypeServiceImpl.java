@@ -58,7 +58,7 @@ public class BaseCodeTypeServiceImpl implements BaseCodeTypeService{
 	@Override
 	public int updateBaseCodeType(BaseCodeTypeCriteria criteria, BaseCodeType baseCodeType) {
 		baseCodeType.setUpdateTime(new Date());
-		return baseCodeTypeDao.updateByExample(baseCodeType, criteria);
+		return baseCodeTypeDao.updateByExampleSelective(baseCodeType, criteria);
 	}
 
 	@Override

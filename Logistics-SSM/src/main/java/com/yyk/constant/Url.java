@@ -35,9 +35,14 @@ public interface Url {
     String BASECODE_MANAGE = "/basecodeManageList";
     String BASECODETYPE_LIST_BY_PAGE = "/selectCodeTypeListByPage";
     String BASECODE_LIST_BY_PAGE = "/selectCodeListByPage";
-    String INSERT_OR_UPDATE_INFO_CODETYPE = "/insertOrUpdateInfoCodeType";
-    
-    
+    String INSERT_CODETYPE = "/insertCodeType";
+    String UPDATE_CODETYPE = "/updateCodeType";
+    String INSERT_CODE = "/insertCode";
+    String UPDATE_CODE = "/updateCode";
+    String DELETE_INFO_CODE = "/deleteInfoCode";
+    String DELETE_INFO_CODETYPE = "/deleteInfoCodeType";
+    String DELETE_LIST_CODETYPE = "/deleteListCodeType";
+    String DELETE_LIST_CODE = "/deleteListCode";
     
     
     
