@@ -346,6 +346,14 @@ public class BaseCodeController {
 	 			baseCodeType.setStatus(0);
 	 			int i=baseCodeTypeService.updateBaseCodeType(criteria, baseCodeType);
 	 			if(i>=1){
+		 			//删除对应的明细
+		 			BaseCodeCriteria criteria2 = new BaseCodeCriteria();
+					BaseCodeCriteria.Criteria cri2 = criteria2.createCriteria();
+					cri2.andStatusEqualTo(1);// 只查询状态为1的
+					cri2.andCodeTypeEqualTo(codeType);
+					BaseCode baseCode=new BaseCode();
+			 		baseCode.setStatus(0);
+			 		baseCodeService.updateBaseCode(criteria2, baseCode);
 	    			map.put("result", true);
 		    	}
 		    	else{

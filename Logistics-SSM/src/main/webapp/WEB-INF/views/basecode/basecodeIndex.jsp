@@ -141,7 +141,7 @@
                     <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body" style="margin-right: 30px">
-                <input type="hidden" name="id" id="id" />
+                <input type="hidden" name="ids" id="id" />
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">类别代码:</label>
                         <div class="col-sm-4">
@@ -160,7 +160,7 @@
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12 ">
                             <textarea class="form-control" name="remark" id="remark" style="resize:none; height: 70px"
-                                      rows="3" placeholder="请输入..."
+                                      rows="3" placeholder="请输入..." oninput="check()" onmouseleave="checkInputing()"
                                       onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
                         </div>
                     </div>
@@ -186,27 +186,27 @@
                     <h4 class="modal-title" id="gridSystemModalLabelTwo">Modal title</h4>
                 </div>
                 <div class="modal-body" style="margin-right: 30px">
-                <input type="hidden" name="codes" id="id" />
+                <input type="hidden" name="codes" id="codes" />
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">代码:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="code" id="code" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            <input type="text" class="form-control" name="code" id="code" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
                         <label class="control-label col-sm-2">名称:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="dataName" id="dataName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
+                            <input type="text" class="form-control" name="dataName" id="dataName" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
                         </div>
                     </div>
 					<div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">序号:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="sort" id="sort" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            <input type="text" class="form-control" name="sort" id="sort" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
                         <label class="control-label col-sm-2">是否有效:</label>
                          <div class="col-sm-4">
-						      	<select name="enable" id="enable" class="form-control" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+						      	<select name="enable" id="enable" class="form-control" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
 									<option value="1">是</option>
 									<option value="0">否</option>
@@ -216,7 +216,7 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">类别代码:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="codeType" id="codeTypeTwo" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            <input type="text" class="form-control" name="codeType" id="codeTypeTwo" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -225,7 +225,7 @@
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12 ">
                             <textarea class="form-control" name="remark" id="remarkTwo" style="resize:none; height: 70px"
-                                      rows="3" placeholder="请输入..."
+                                      rows="3" placeholder="请输入..." oninput="check2()" onmouseleave="checkInputing2()"
                                       onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
                         </div>
                     </div>
@@ -331,30 +331,52 @@ var codeRemark=null;
    
    function check()
    {
-     $("#ok").removeAttr("disabled");
-     $("#reseted").removeAttr("disabled");
-     $("#reseted").removeAttr("style","border-color:grey;background-color:grey");
-     $("#ok").removeAttr("style","border-color:grey;background-color:grey");
+     $("#okCodeType").removeAttr("disabled");
+     $("#resetedCodeType").removeAttr("disabled");
+     $("#resetedCodeType").removeAttr("style","border-color:grey;background-color:grey");
+     $("#okCodeType").removeAttr("style","border-color:grey;background-color:grey");
    }
    function checkInputing(){
-		var  userCode=$("#userForm #userCode").val();
-		var  userName=$("#userForm #userName").val();
-		var  userPhone=$("#userForm #userPhone").val();
-		var  addr=$("#userForm #addr").val();
-		var  createTime=$("#userForm #createTime").val();
-		var  updateTime=$("#userForm #updateTime").val();
-		var  remark=$("#userForm #remark").val();
-		var  password=$("#userForm #password").val();
-		if((userCode=='')&& (userName=='' )&&(userPhone=='')&&(addr=='') &&(createTime=='')&&(updateTime=='')&&(remark=='')&&(password==''))
+		var  codeType=$("#baseCodeTypeForm #codeType").val();
+		var  codeName=$("#baseCodeTypeForm #codeName").val();
+		var  remark=$("#baseCodeTypeForm #remark").val();
+		if((codeType=='')&& (codeName=='' )&&(remark==''))
 		{
-			$("#ok").attr("disabled","true");
-			$("#reseted").attr("disabled","true");	
-			$("#ok").attr("style","background-color:grey;border-color:grey");
-			$("#reseted").attr("style","background-color:grey;border-color:grey");
+			$("#okCodeType").attr("disabled","true");
+			$("#resetedCodeType").attr("disabled","true");	
+			$("#okCodeType").attr("style","background-color:grey;border-color:grey");
+			$("#resetedCodeType").attr("style","background-color:grey;border-color:grey");
 	    }else{
 	    	check();
 	    }
 	}
+   
+   
+   function check2()
+   {
+     $("#okCode").removeAttr("disabled");
+     $("#resetedCode").removeAttr("disabled");
+     $("#resetedCode").removeAttr("style","border-color:grey;background-color:grey");
+     $("#okCode").removeAttr("style","border-color:grey;background-color:grey");
+   }
+   function checkInputing2(){
+	    var  code=$("#baseCodeTypeForm #code").val();
+		var  dataName=$("#baseCodeTypeForm #dataName").val();
+		var  enable=$("#baseCodeTypeForm #enable").val();
+		var  sort=$("#baseCodeTypeForm #sort").val();
+		var  remarkTwo=$("#baseCodeTypeForm #remarkTwo").val();
+		if((code=='')&& (dataName=='' )&&(enable=='')&&(sort=='')&&(remarkTwo==''))
+		{
+			$("#okCode").attr("disabled","true");
+			$("#resetedCode").attr("disabled","true");	
+			$("#okCode").attr("style","background-color:grey;border-color:grey");
+			$("#resetedCode").attr("style","background-color:grey;border-color:grey");
+	    }else{
+	    	check2();
+	    }
+	}
+   
+   
    //表单验证配置
    function codeTypeValidator(){
    $('#baseCodeTypeForm').bootstrapValidator({
@@ -634,7 +656,7 @@ var codeRemark=null;
 		 "value":$("#search_codeType").val()+$("#rowid").val()
 		}
 	 //alert打印查看 包含了基本的页码、页面数据元素、等信息以及新增的查询条件
-	console.info("codeTypeSearch:"+codeTypeSearch);
+	console.info("codeTypeSearch:"+codeTypeSearch.value);
 	 aoData.push(codeTypeSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
@@ -742,12 +764,11 @@ var codeRemark=null;
 		$("#searchBasecodeForm")[0].reset();
 		var table = $('#codeTypeListTable').DataTable();
 		table.draw(true);
-		var tableTwo = $('#codeListTable').DataTable();
-		tableTwo.draw(true);
 	}
    
 	/* 类别关闭模态框*/
 	$('#myModal').on('hidden.bs.modal', function() {
+		$("#id").val("");
 		$("#baseCodeTypeForm")[0].reset();//使用dom的reset
         $("#baseCodeTypeForm").data('bootstrapValidator').destroy();
         $('#baseCodeTypeForm').data('bootstrapValidator', null);
@@ -756,6 +777,7 @@ var codeRemark=null;
 	
 	/* 明细关闭模态框*/
 	$('#myModalTwo').on('hidden.bs.modal', function() {
+		 $("#codes").val("");
 		$("#baseCodeForm")[0].reset();//使用dom的reset
         $("#baseCodeForm").data('bootstrapValidator').destroy();
         $('#baseCodeForm').data('bootstrapValidator', null);
@@ -765,28 +787,28 @@ var codeRemark=null;
 	
    /* 按钮关闭类别模态框*/
    function closeCodeTypeModel(){
+	   $("#id").val("");
+	   $("#baseCodeTypeForm")[0].reset();//使用dom的reset
 	   $("#resetedCodeType").attr("disabled","true");	
 	   $("#okCodeType").attr("disabled","true");
 	   $("#resetedCodeType").attr("style","background-color:grey;border-color:grey");
 	   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
-	   $("#codeType").val("");
-	   $("#baseCodeTypeForm")[0].reset();//使用dom的reset
    }
    
    /* 按钮关闭明细模态框*/
    function  closeCodeModel(){
+	   $("#codes").val("");
+	   $("#baseCodeForm")[0].reset();//使用dom的reset
 	   $("#resetedCode").attr("disabled","true");	
 	   $("#okCode").attr("disabled","true");
 	   $("#resetedCode").attr("style","background-color:grey;border-color:grey");
 	   $("#okCode").attr("style","background-color:grey;border-color:grey");
-	   $("#code").val("");
-	   $("#baseCodeForm")[0].reset();//使用dom的reset
    }
    
    /* 按钮重置类别模态框 */
    function resetCodeType(){
 	   console.info("类别："+$("#codeType").val());
-	   if($("#codeType").val()==null || $("#codeType").val()==""){  //新增
+	   if($("#id").val()==null || $("#id").val()==""){  //新增
 		   $("#baseCodeTypeForm").data('bootstrapValidator').resetForm();
 		   $("#resetedCodeType").attr("disabled","true");	
 		   $("#okCodeType").attr("disabled","true");
@@ -794,7 +816,7 @@ var codeRemark=null;
 		   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
 		   baseCodeTypeForm.reset();
 	   }
-	   if($("#codeType").val()!=null && $("#codeType").val()!=""){  //修改
+	   if($("#id").val()!=null && $("#id").val()!=""){  //修改
 		   $("#codeType").val(codeType);
 		   $("#codeName").val(codeName);
 		   $("#remark").val(codeTypeRemark);
@@ -806,15 +828,21 @@ var codeRemark=null;
 	   
 	   /* 按钮重置明细模态框 */
 	   function resetCode(){
-		   if($("#code").val()==null || $("#code").val()==""){  //新增
+		   if($("#codes").val()==null || $("#codes").val()==""){  //新增
 			   $("#baseCodeForm").data('bootstrapValidator').resetForm();
 			   $("#resetedCode").attr("disabled","true");	
 			   $("#okCode").attr("disabled","true");
 			   $("#resetedCode").attr("style","background-color:grey;border-color:grey");
 			   $("#okCode").attr("style","background-color:grey;border-color:grey");
-			   baseCodeForm.reset();
+			   //baseCodeForm.reset();
+			   $("#code").val("");
+			   $("#codeTypeTwo").val(codeType); 
+			   $("#dataName").val("");
+			   $("#sort").val("");
+			   $("#enable").val("");
+			   $("#remarkTwo").val("");
 		   }
-		   if($("#code").val()!=null && $("#code").val()!=""){  //修改
+		   if($("#codes").val()!=null && $("#codes").val()!=""){  //修改
 			   $("#code").val(code);
 			   $("#codeTypeTwo").val(codeType); 
 			   $("#dataName").val(dataName);
@@ -831,6 +859,8 @@ var codeRemark=null;
    
    /**新增类别信息*/
 	function addCodeTypeFun() {
+		$("#id").val("");	//避免hidden出现不能reset的情况
+		$("#baseCodeTypeForm")[0].reset();//使用dom的reset
 		$('#okCodeType').removeAttr("disabled");
 		$("#okCodeType").removeAttr("style");
 		$('#resetedCodeType').removeAttr("disabled");
@@ -838,15 +868,15 @@ var codeRemark=null;
 		$("#okCodeType").attr("style","display: block;");
 		$("#resetedCodeType").attr("style","display: block;");
 		$('#closeCodeTypeModel').removeAttr("disabled");
-		$("#baseCodeTypeForm")[0].reset();//使用dom的reset
-		$("#id").val("");	//避免hidden出现不能reset的情况
-		$('#codeType').attr("disabled",false);
-		$('#codeName').attr("disabled",false);
-	    $('#remark').attr("disabled",false);
+		$('#codeType').removeAttr("readonly");
+		$('#codeName').removeAttr("readonly");
+	    $('#remark').removeAttr("readonly");
 		$('#myModal').modal('show');
 	}
 	 /**新增明细信息*/
 	function addCodeFun() {
+		$("#codes").val("");	//避免hidden出现不能reset的情况
+		$("#baseCodeForm")[0].reset();//使用dom的reset
 		$('#okCode').removeAttr("disabled");
 		$("#okCode").removeAttr("style");
 		$('#resetedCode').removeAttr("disabled");
@@ -854,16 +884,13 @@ var codeRemark=null;
 		$("#okCode").attr("style","display: block;");
 		$("#resetedCode").attr("style","display: block;");
 		$('#closeCodeModel').removeAttr("disabled");
-		$("#baseCodeForm")[0].reset();//使用dom的reset
-		$("#codes").val("");	//避免hidden出现不能reset的情况
-		$('#code').attr("disabled",false);
+		$('#code').removeAttr("readonly");
 		$('#codeTypeTwo').val($('#rowid').val());
-		$('#codeTypeTwo').attr("disabled",true);
-		$('#dataName').attr("disabled",false);
-		$('#dataName').attr("disabled",false);
-	    $('#sort').attr("disabled",false);
-	    $('#enable').attr("disabled",false);
-	    $('#remarkTwo').attr("disabled",false);
+		$('#codeTypeTwo').attr("readonly",true);
+		$('#dataName').removeAttr("readonly");
+	    $('#sort').removeAttr("readonly");
+	    $('#enable').removeAttr("readonly");
+	    $('#remarkTwo').removeAttr("readonly");
 		$('#myModalTwo').modal('show');
 	}
    
@@ -874,11 +901,11 @@ var codeRemark=null;
 	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
 	   $("#userId").val(data.userId);	//主键
 	   $("#codeType").val(data.codeType);
-	   $('#codeType').attr("disabled",true);
+	   $('#codeType').attr("readonly",true);
 	   $("#codeName").val(data.codeName);
-	   $('#codeName').attr("disabled",true);
+	   $('#codeName').attr("readonly",true);
 	   $("#remark").val(data.remark);
-	   $('#remark').attr("disabled",true);
+	   $('#remark').attr("readonly",true);
 	   $('#okCodeType').attr("disabled",true);
 	   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
 	   $('#resetedCodeType').attr("disabled",true);
@@ -892,17 +919,17 @@ var codeRemark=null;
 	   $('#myModalTwo').modal('show');
 	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
 	   $("#code").val(data.code);
-	   $('#code').attr("disabled",true);
+	   $('#code').attr("readonly",true);
 	   $("#dataName").val(data.dataName);
-	   $('#dataName').attr("disabled",true);
+	   $('#dataName').attr("readonly",true);
 	   $("#codeTypeTwo").val(data.codeType);
-	   $('#codeTypeTwo').attr("disabled",true);
+	   $('#codeTypeTwo').attr("readonly",true);
 	   $("#sort").val(data.sort);
-	   $('#sort').attr("disabled",true);
+	   $('#sort').attr("readonly",true);
 	   $("#enable").val(data.enable);
-	   $('#enable').attr("disabled",true);
+	   $('#enable').attr("readonly",true);
 	   $("#remarkTwo").val(data.remark);
-	   $('#remarkTwo').attr("disabled",true);
+	   $('#remarkTwo').attr("readonly",true);
 	   $('#okCode').attr("disabled",true);
 	   $("#okCode").attr("style","background-color:grey;border-color:grey");
 	   $('#resetedCode').attr("disabled",true);
@@ -921,15 +948,15 @@ var codeRemark=null;
 	   $("#okCodeType").attr("style","display: block;");
 	   $("#resetedCodeType").attr("style","display: block;");
 	   $('#closeCodeTypeModel').removeAttr("disabled");
-	   $('#codeType').attr("disabled",true);
-	   $('#codeName').attr("disabled",false);
-	   $('#remark').attr("disabled",false);
+	   $('#codeType').attr("readonly",true);
+	   $('#codeName').removeAttr("readonly");
+	   $('#remark').removeAttr("readonly");
 	   $('#myModal').modal('show');
 	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
-	   $("#codeType").val(data.codeType);
-	   $("#codeName").val(data.codeName);
-	   $("#remark").val(data.remark);
-	   $("#id").val(data.codeType);
+	   $("#baseCodeTypeForm #codeType").val(data.codeType);
+	   $("#baseCodeTypeForm #codeName").val(data.codeName);
+	   $("#baseCodeTypeForm #remark").val(data.remark);
+	   $("#baseCodeTypeForm #id").val(data.codeType);
 	   codeType=data.codeType;
 	   codeName=data.codeName;
 	   codeTypeRemark=data.remark;
@@ -945,28 +972,29 @@ var codeRemark=null;
 	   $("#okCode").attr("style","display: block;");
 	   $("#resetedCode").attr("style","display: block;");
 	   $('#closeCodeModel').removeAttr("disabled");
-	   $('#code').attr("disabled",true);
-	   $('#codeTypeTwo').attr("disabled",true);
-	   $('#dataName').attr("disabled",true);
-	   $('#sort').attr("disabled",false);
-	   $('#enable').attr("disabled",false);
-	   $('#remarkTwo').attr("disabled",false);
+	   $('#code').attr("readonly",true);
+	   $('#codeTypeTwo').attr("readonly",true);
+	   $('#dataName').attr("readonly",true);
+	   $('#sort').removeAttr("readonly");
+	   $('#enable').removeAttr("readonly");
+	   $('#remarkTwo').removeAttr("readonly");
 	   $('#myModalTwo').modal('show');
 	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
-	   console.info("data"+data);
-	   $("#codes").val(data.code);
-	   $("#code").val(data.code);
-	   $("#codeTypeTwo").val(data.codeType);
-	   $("#dataName").val(data.dataName);
-	   $("#sort").val(data.sort);
-	   $("#enable").val(data.enable);
-	   $("#remarkTwo").val(data.remark);
+	   $("#baseCodeForm #codes").val(data.code);
+	   $("#baseCodeForm #code").val(data.code);
+	   $("#baseCodeForm #codeTypeTwo").val(data.codeType);
+	   $("#baseCodeForm #dataName").val(data.dataName);
+	   $("#baseCodeForm #sort").val(data.sort);
+	   $("#baseCodeForm #enable").val(data.enable);
+	   $("#baseCodeForm #remarkTwo").val(data.remark);
 	   code=data.code;
 	   codeType=data.codeType;
 	   dataName=data.dataName;
 	   sort=data.sort;
 	   enable=data.enable;
 	   codeRemark=data.remark;
+	   console.info("#codes11111"+  $("#baseCodeForm #code").val());
+	   $("#code").val(data.code);
 	 }
 	 
 	 
@@ -1252,6 +1280,7 @@ var codeRemark=null;
 		if(validateResult){
 			var createCodeTypeUrl =null;
 			console.info("#id"+$("#id").val());
+			console.info("#codeType"+$("#codeType").val());
 			//修改
 			if($("#id").val()!="" && $("#id").val()!=null)
 			{
@@ -1340,7 +1369,7 @@ var codeRemark=null;
 		var validateResult = bootstrapValidator.validate().isValid();
 		if(validateResult){
 			var createCodeUrl =null;
-			//修改
+			console.info("#codes22222"+  $("#baseCodeForm #codeTypeTwo").val());
 			if($("#codes").val()!="" && $("#codes").val()!=null)
 			{
 				createCodeUrl = $("#updateCode").val();
@@ -1350,7 +1379,6 @@ var codeRemark=null;
 			{
 				createCodeUrl = $("#insertCode").val();
 			}
-			console.info("明细daima"+$("#code").val());
 			$.post(createCodeUrl, $("#baseCodeForm").serialize(), function(data) {
 				if (data.result==true) {
 					$.alert({
