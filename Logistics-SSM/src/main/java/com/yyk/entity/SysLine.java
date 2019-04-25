@@ -3,18 +3,30 @@ package com.yyk.entity;
 import java.util.Date;
 
 public class SysLine {
-    private String lineId;
-
     private Integer id;
 
+    private String lineId;
+
     private String lineCode;
-
+    
+    private String lineType;
+    
     private String linePrice;
+    
+    public String getLinePrice() {
+		return linePrice;
+	}
 
-    private Integer lineLength;
+	public void setLinePrice(String linePrice) {
+		this.linePrice = linePrice;
+	}
+
+	private Integer lineLength;
 
     private Date lineTime;
-
+    
+    private String  applyType;
+    
     private Integer status;
 
     private Date createTime;
@@ -22,6 +34,32 @@ public class SysLine {
     private Date updateTime;
 
     private String remark;
+
+
+    public String getLineType() {
+		return lineType;
+	}
+
+	public void setLineType(String lineType) {
+		this.lineType = lineType;
+	}
+
+	public String getApplyType() {
+		return applyType;
+	}
+
+	public void setApplyType(String applyType) {
+		this.applyType = applyType;
+	}
+
+	
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getLineId() {
         return lineId;
@@ -31,28 +69,12 @@ public class SysLine {
         this.lineId = lineId == null ? null : lineId.trim();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getLineCode() {
         return lineCode;
     }
 
     public void setLineCode(String lineCode) {
         this.lineCode = lineCode == null ? null : lineCode.trim();
-    }
-
-    public String getLinePrice() {
-        return linePrice;
-    }
-
-    public void setLinePrice(String linePrice) {
-        this.linePrice = linePrice == null ? null : linePrice.trim();
     }
 
     public Integer getLineLength() {

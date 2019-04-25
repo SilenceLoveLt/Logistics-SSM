@@ -6,6 +6,9 @@ public interface Url {
     String SELECT_LIST_ALL = "/selectListAll";
     /*列表数据分页查询*/
     String SELECT_LIST_BY_PAGE = "/selectListByPage";
+    /*左侧列表数查询*/
+    String SELECT_LEFT_TREE = "/selectLeftTree";
+
     /*信息查询*/
     String SELECT_INFO = "/selectInfo";
     /*插入数据或修改数据*/
@@ -30,6 +33,9 @@ public interface Url {
     //客户管理
     String USER_MANAGE = "/userManageList";
     String UPDATE_USER_PSW="/updateUserPsw";
+    
+    //线路管理
+    String LINE_MANAGE = "/lineManageList";
     
     //数据字典管理
     String BASECODE_MANAGE = "/basecodeManageList";

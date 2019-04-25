@@ -27,9 +27,14 @@ public interface Views {
 	public static final String USER_VIEW = "user.view";
 	
 	/**
-	 * 修改密码
+	 * 客户修改密码
 	 */
 	public static final String UPDATE_USER_VIEW = "update.user.view";
+	
+	/**
+	 * 线路页面
+	 */
+	public static final String LINE_VIEW = "line.view";
 	
 	/**
 	 * 数据字典

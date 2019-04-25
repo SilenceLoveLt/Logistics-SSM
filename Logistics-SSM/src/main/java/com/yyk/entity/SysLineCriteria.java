@@ -132,6 +132,66 @@ public class SysLineCriteria {
             addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
+        public Criteria andIdIsNull() {
+            addCriterion("ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIsNotNull() {
+            addCriterion("ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("ID =", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("ID <>", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("ID >", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ID >=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("ID <", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("ID <=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("ID in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("ID not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("ID between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("ID not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
         public Criteria andLineIdIsNull() {
             addCriterion("LINE_ID is null");
             return (Criteria) this;
@@ -199,66 +259,6 @@ public class SysLineCriteria {
 
         public Criteria andLineIdNotBetween(String value1, String value2) {
             addCriterion("LINE_ID not between", value1, value2, "lineId");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIsNull() {
-            addCriterion("ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIsNotNull() {
-            addCriterion("ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("ID =", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("ID <>", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("ID >", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ID >=", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("ID <", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("ID <=", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("ID in", values, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("ID not in", values, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("ID between", value1, value2, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("ID not between", value1, value2, "id");
             return (Criteria) this;
         }
 
@@ -332,76 +332,76 @@ public class SysLineCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceIsNull() {
-            addCriterion("LINE_PRICE is null");
+        public Criteria andLineTypeIsNull() {
+            addCriterion("LINE_TYPE is null");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceIsNotNull() {
-            addCriterion("LINE_PRICE is not null");
+        public Criteria andLineTypeIsNotNull() {
+            addCriterion("LINE_TYPE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceEqualTo(String value) {
-            addCriterion("LINE_PRICE =", value, "linePrice");
+        public Criteria andLineTypeEqualTo(String value) {
+            addCriterion("LINE_TYPE =", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceNotEqualTo(String value) {
-            addCriterion("LINE_PRICE <>", value, "linePrice");
+        public Criteria andLineTypeNotEqualTo(String value) {
+            addCriterion("LINE_TYPE <>", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceGreaterThan(String value) {
-            addCriterion("LINE_PRICE >", value, "linePrice");
+        public Criteria andLineTypeGreaterThan(String value) {
+            addCriterion("LINE_TYPE >", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceGreaterThanOrEqualTo(String value) {
-            addCriterion("LINE_PRICE >=", value, "linePrice");
+        public Criteria andLineTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("LINE_TYPE >=", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceLessThan(String value) {
-            addCriterion("LINE_PRICE <", value, "linePrice");
+        public Criteria andLineTypeLessThan(String value) {
+            addCriterion("LINE_TYPE <", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceLessThanOrEqualTo(String value) {
-            addCriterion("LINE_PRICE <=", value, "linePrice");
+        public Criteria andLineTypeLessThanOrEqualTo(String value) {
+            addCriterion("LINE_TYPE <=", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceLike(String value) {
-            addCriterion("LINE_PRICE like", value, "linePrice");
+        public Criteria andLineTypeLike(String value) {
+            addCriterion("LINE_TYPE like", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceNotLike(String value) {
-            addCriterion("LINE_PRICE not like", value, "linePrice");
+        public Criteria andLineTypeNotLike(String value) {
+            addCriterion("LINE_TYPE not like", value, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceIn(List<String> values) {
-            addCriterion("LINE_PRICE in", values, "linePrice");
+        public Criteria andLineTypeIn(List<String> values) {
+            addCriterion("LINE_TYPE in", values, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceNotIn(List<String> values) {
-            addCriterion("LINE_PRICE not in", values, "linePrice");
+        public Criteria andLineTypeNotIn(List<String> values) {
+            addCriterion("LINE_TYPE not in", values, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceBetween(String value1, String value2) {
-            addCriterion("LINE_PRICE between", value1, value2, "linePrice");
+        public Criteria andLineTypeBetween(String value1, String value2) {
+            addCriterion("LINE_TYPE between", value1, value2, "lineType");
             return (Criteria) this;
         }
 
-        public Criteria andLinePriceNotBetween(String value1, String value2) {
-            addCriterion("LINE_PRICE not between", value1, value2, "linePrice");
+        public Criteria andLineTypeNotBetween(String value1, String value2) {
+            addCriterion("LINE_TYPE not between", value1, value2, "lineType");
             return (Criteria) this;
         }
-
+        
         public Criteria andLineLengthIsNull() {
             addCriterion("LINE_LENGTH is null");
             return (Criteria) this;
@@ -521,7 +521,67 @@ public class SysLineCriteria {
             addCriterionForJDBCDate("LINE_TIME not between", value1, value2, "lineTime");
             return (Criteria) this;
         }
+        
+        public Criteria andApplyTypeIsNull() {
+            addCriterion("APPLY_TYPE is null");
+            return (Criteria) this;
+        }
 
+        public Criteria andApplyTypeIsNotNull() {
+            addCriterion("APPLY_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeEqualTo(String value) {
+        	addCriterion("APPLY_TYPE =", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotEqualTo(String value) {
+        	addCriterion("APPLY_TYPE <>", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeGreaterThan(String value) {
+        	addCriterion("APPLY_TYPE >", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeGreaterThanOrEqualTo(String value) {
+        	addCriterion("APPLY_TYPE >=", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeLessThan(String value) {
+        	addCriterion("APPLY_TYPE <", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeLessThanOrEqualTo(String value) {
+        	addCriterion("APPLY_TYPE <=", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeIn(List<String> values) {
+        	addCriterion("APPLY_TYPE in", values, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotIn(List<String> values) {
+        	addCriterion("APPLY_TYPE not in", values, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeBetween(String value1, String value2) {
+        	addCriterion("APPLY_TYPE between", value1, value2, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotBetween(String value1, String value2) {
+        	addCriterion("APPLY_TYPE not between", value1, value2, "applyType");
+            return (Criteria) this;
+        }
+        
         public Criteria andStatusIsNull() {
             addCriterion("STATUS is null");
             return (Criteria) this;

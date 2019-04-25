@@ -341,7 +341,7 @@ var remark=null;
    function dataTableDraw(){
     $("#dutyListTable").dataTable({
 	 pagingType: 'full_numbers',
-	 scrollY:"275px",
+	 scrollY:"320px",
 	 scrollX:false,
 	 processing : true, //加载转态
 	 ordering:false,       //禁用排序去掉图标

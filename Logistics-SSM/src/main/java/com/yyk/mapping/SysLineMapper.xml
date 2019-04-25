@@ -1,37 +1,39 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yyk.dao.SysLineMapper" >
-  <resultMap id="BaseResultMap" type="com.yyk.entity.SysLine" >
-    <id column="LINE_ID" property="lineId" jdbcType="VARCHAR" />
-    <result column="ID" property="id" jdbcType="INTEGER" />
-    <result column="LINE_CODE" property="lineCode" jdbcType="VARCHAR" />
-    <result column="LINE_PRICE" property="linePrice" jdbcType="VARCHAR" />
-    <result column="LINE_LENGTH" property="lineLength" jdbcType="INTEGER" />
-    <result column="LINE_TIME" property="lineTime" jdbcType="DATE" />
-    <result column="STATUS" property="status" jdbcType="INTEGER" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
-    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
-    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyk.dao.SysLineMapper">
+  <resultMap id="BaseResultMap" type="com.yyk.entity.SysLine">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="LINE_ID" jdbcType="VARCHAR" property="lineId" />
+    <result column="LINE_CODE" jdbcType="VARCHAR" property="lineCode" />
+    <result column="LINE_TYPE" jdbcType="VARCHAR" property="lineType" />
+    <result column="LINE_PRICE" jdbcType="VARCHAR" property="linePrice" />
+    <result column="LINE_LENGTH" jdbcType="VARCHAR" property="lineLength" />
+    <result column="LINE_TIME" jdbcType="TIME" property="lineTime" />
+    <result column="APPLY_TYPE" jdbcType="VARCHAR" property="applyType" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -42,25 +44,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,222 +73,195 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    LINE_ID, ID, LINE_CODE, LINE_PRICE, LINE_LENGTH, LINE_TIME, STATUS, CREATE_TIME, 
-    UPDATE_TIME, REMARK
+  <sql id="Base_Column_List">
+    ID, LINE_ID, LINE_CODE, LINE_TYPE, LINE_PRICE, LINE_LENGTH, LINE_TIME, APPLY_TYPE, 
+    STATUS, CREATE_TIME, UPDATE_TIME, REMARK
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yyk.entity.SysLineCriteria" >
+  <select id="selectByExample" parameterType="com.yyk.entity.SysLineCriteria" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from line_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from line_table
-    where LINE_ID = #{lineId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByExample" parameterType="com.yyk.entity.SysLineCriteria">
     delete from line_table
-    where LINE_ID = #{lineId,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.yyk.entity.SysLineCriteria" >
-    delete from line_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yyk.entity.SysLine" >
-    insert into line_table (LINE_ID, ID, LINE_CODE, 
-      LINE_PRICE, LINE_LENGTH, LINE_TIME, 
-      STATUS, CREATE_TIME, UPDATE_TIME, 
-      REMARK)
-    values (#{lineId,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{lineCode,jdbcType=VARCHAR}, 
-      #{linePrice,jdbcType=VARCHAR}, #{lineLength,jdbcType=INTEGER}, #{lineTime,jdbcType=DATE}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, 
-      #{remark,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.yyk.entity.SysLine">
+    insert into line_table (ID, LINE_ID, LINE_CODE, 
+      LINE_TYPE, LINE_PRICE, LINE_LENGTH, 
+      LINE_TIME, APPLY_TYPE, STATUS, 
+      CREATE_TIME, UPDATE_TIME, REMARK
+      )
+    values (#{id,jdbcType=INTEGER}, #{lineId,jdbcType=VARCHAR}, #{lineCode,jdbcType=VARCHAR}, 
+      #{lineType,jdbcType=VARCHAR}, #{linePrice,jdbcType=VARCHAR}, #{lineLength,jdbcType=VARCHAR}, 
+      #{lineTime,jdbcType=TIME}, #{applyType,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.yyk.entity.SysLine" >
+  <insert id="insertSelective" parameterType="com.yyk.entity.SysLine">
     insert into line_table
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="lineId != null" >
-        LINE_ID,
-      </if>
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         ID,
       </if>
-      <if test="lineCode != null" >
+      <if test="lineId != null">
+        LINE_ID,
+      </if>
+      <if test="lineCode != null">
         LINE_CODE,
       </if>
-      <if test="linePrice != null" >
+      <if test="lineType != null">
+        LINE_TYPE,
+      </if>
+      <if test="linePrice != null">
         LINE_PRICE,
       </if>
-      <if test="lineLength != null" >
+      <if test="lineLength != null">
         LINE_LENGTH,
       </if>
-      <if test="lineTime != null" >
+      <if test="lineTime != null">
         LINE_TIME,
       </if>
-      <if test="status != null" >
+      <if test="applyType != null">
+        APPLY_TYPE,
+      </if>
+      <if test="status != null">
         STATUS,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         CREATE_TIME,
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         UPDATE_TIME,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         REMARK,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="lineId != null" >
-        #{lineId,jdbcType=VARCHAR},
-      </if>
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="lineCode != null" >
+      <if test="lineId != null">
+        #{lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="lineCode != null">
         #{lineCode,jdbcType=VARCHAR},
       </if>
-      <if test="linePrice != null" >
+      <if test="lineType != null">
+        #{lineType,jdbcType=VARCHAR},
+      </if>
+      <if test="linePrice != null">
         #{linePrice,jdbcType=VARCHAR},
       </if>
-      <if test="lineLength != null" >
-        #{lineLength,jdbcType=INTEGER},
+      <if test="lineLength != null">
+        #{lineLength,jdbcType=VARCHAR},
       </if>
-      <if test="lineTime != null" >
-        #{lineTime,jdbcType=DATE},
+      <if test="lineTime != null">
+        #{lineTime,jdbcType=TIME},
       </if>
-      <if test="status != null" >
+      <if test="applyType != null">
+        #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=DATE},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         #{updateTime,jdbcType=DATE},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yyk.entity.SysLineCriteria" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.yyk.entity.SysLineCriteria" resultType="java.lang.Integer">
     select count(*) from line_table
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update line_table
-    <set >
-      <if test="record.lineId != null" >
-        LINE_ID = #{record.lineId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         ID = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.lineCode != null" >
+      <if test="record.lineId != null">
+        LINE_ID = #{record.lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lineCode != null">
         LINE_CODE = #{record.lineCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.linePrice != null" >
+      <if test="record.lineType != null">
+        LINE_TYPE = #{record.lineType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linePrice != null">
         LINE_PRICE = #{record.linePrice,jdbcType=VARCHAR},
       </if>
-      <if test="record.lineLength != null" >
-        LINE_LENGTH = #{record.lineLength,jdbcType=INTEGER},
+      <if test="record.lineLength != null">
+        LINE_LENGTH = #{record.lineLength,jdbcType=VARCHAR},
       </if>
-      <if test="record.lineTime != null" >
-        LINE_TIME = #{record.lineTime,jdbcType=DATE},
+      <if test="record.lineTime != null">
+        LINE_TIME = #{record.lineTime,jdbcType=TIME},
       </if>
-      <if test="record.status != null" >
+      <if test="record.applyType != null">
+        APPLY_TYPE = #{record.applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
         STATUS = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null" >
+      <if test="record.createTime != null">
         CREATE_TIME = #{record.createTime,jdbcType=DATE},
       </if>
-      <if test="record.updateTime != null" >
+      <if test="record.updateTime != null">
         UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
       </if>
-      <if test="record.remark != null" >
+      <if test="record.remark != null">
         REMARK = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update line_table
-    set LINE_ID = #{record.lineId,jdbcType=VARCHAR},
-      ID = #{record.id,jdbcType=INTEGER},
+    set ID = #{record.id,jdbcType=INTEGER},
+      LINE_ID = #{record.lineId,jdbcType=VARCHAR},
       LINE_CODE = #{record.lineCode,jdbcType=VARCHAR},
+      LINE_TYPE = #{record.lineType,jdbcType=VARCHAR},
       LINE_PRICE = #{record.linePrice,jdbcType=VARCHAR},
-      LINE_LENGTH = #{record.lineLength,jdbcType=INTEGER},
-      LINE_TIME = #{record.lineTime,jdbcType=DATE},
+      LINE_LENGTH = #{record.lineLength,jdbcType=VARCHAR},
+      LINE_TIME = #{record.lineTime,jdbcType=TIME},
+      APPLY_TYPE = #{record.applyType,jdbcType=VARCHAR},
       STATUS = #{record.status,jdbcType=INTEGER},
       CREATE_TIME = #{record.createTime,jdbcType=DATE},
       UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
       REMARK = #{record.remark,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yyk.entity.SysLine" >
-    update line_table
-    <set >
-      <if test="id != null" >
-        ID = #{id,jdbcType=INTEGER},
-      </if>
-      <if test="lineCode != null" >
-        LINE_CODE = #{lineCode,jdbcType=VARCHAR},
-      </if>
-      <if test="linePrice != null" >
-        LINE_PRICE = #{linePrice,jdbcType=VARCHAR},
-      </if>
-      <if test="lineLength != null" >
-        LINE_LENGTH = #{lineLength,jdbcType=INTEGER},
-      </if>
-      <if test="lineTime != null" >
-        LINE_TIME = #{lineTime,jdbcType=DATE},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=DATE},
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME = #{updateTime,jdbcType=DATE},
-      </if>
-      <if test="remark != null" >
-        REMARK = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where LINE_ID = #{lineId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yyk.entity.SysLine" >
-    update line_table
-    set ID = #{id,jdbcType=INTEGER},
-      LINE_CODE = #{lineCode,jdbcType=VARCHAR},
-      LINE_PRICE = #{linePrice,jdbcType=VARCHAR},
-      LINE_LENGTH = #{lineLength,jdbcType=INTEGER},
-      LINE_TIME = #{lineTime,jdbcType=DATE},
-      STATUS = #{status,jdbcType=INTEGER},
-      CREATE_TIME = #{createTime,jdbcType=DATE},
-      UPDATE_TIME = #{updateTime,jdbcType=DATE},
-      REMARK = #{remark,jdbcType=VARCHAR}
-    where LINE_ID = #{lineId,jdbcType=VARCHAR}
-  </update>
+  
+  
+  <select id="countByBaseCode" parameterType="com.yyk.dto.baseCodeDTO.BaseCodeDTO" resultType="java.lang.Integer">
+  select  count(l.LINE_TYPE) from line_table l INNER JOIN base_code b on l.LINE_TYPE=b.`CODE`
+  where APPLY_TYPE=#{applyType,jdbcType=VARCHAR}   AND  LINE_TYPE=#{lineType,jdbcType=VARCHAR}   AND CODE_TYPE=#{codeType,jdbcType=VARCHAR}  AND b.`STATUS`='1'
+  </select>
+  
 </mapper>

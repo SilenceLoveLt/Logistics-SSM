@@ -1,5 +1,7 @@
 package com.yyk.dao;
 
+import com.yyk.dto.baseCodeDTO.BaseCodeDTO;
+import com.yyk.entity.BaseCode;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
 import java.util.List;
@@ -10,21 +12,17 @@ public interface SysLineMapper {
 
     int deleteByExample(SysLineCriteria example);
 
-    int deleteByPrimaryKey(String lineId);
-
     int insert(SysLine record);
 
     int insertSelective(SysLine record);
 
     List<SysLine> selectByExample(SysLineCriteria example);
 
-    SysLine selectByPrimaryKey(String lineId);
-
     int updateByExampleSelective(@Param("record") SysLine record, @Param("example") SysLineCriteria example);
 
     int updateByExample(@Param("record") SysLine record, @Param("example") SysLineCriteria example);
+    
+    int  countByBaseCode(BaseCodeDTO object);
+    
 
-    int updateByPrimaryKeySelective(SysLine record);
-
-    int updateByPrimaryKey(SysLine record);
 }

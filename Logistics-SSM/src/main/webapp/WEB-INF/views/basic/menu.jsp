@@ -38,7 +38,8 @@
 	<input type="hidden" id="updatePassword" value="<%=basePath%>updateUserPsw/" />
 	<input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
 	<input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
-	<input type="hidden" id="basecodeList" value="<%=basePath%>basecodeManageList/" />
+	<input type="hidden" id="basecodeList" value="<%=basePath%>basecodeManageList/" /> 
+	<input type="hidden" id="lineList" value="<%=basePath%>lineManageList/" />
 	<input type="hidden" id="orderList" value="/orderManageList" />
 	<input type="hidden" id="stockList" value="/stockManageList" />
 	<input type="hidden" id="storeOutList" value="/storeOutList" />
@@ -77,12 +78,12 @@
     	
     		<li><i class="fa fa-truck fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>车辆列表</li>
+    				<li class="lineList">车辆列表</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>线路列表</li>
+    				<li class="lineList">线路列表</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
