@@ -326,9 +326,10 @@ var codeRemark=null;
 	  
    });
    
-   $("#ok").attr("disabled","true");
-   $("#ok").attr("style","background-color:grey;border-color:grey");
-   
+   $("#okCodeType").attr("disabled","true");
+   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
+   $("#okCode").attr("disabled","true");
+   $("#okCode").attr("style","background-color:grey;border-color:grey");
    function check()
    {
      $("#okCodeType").removeAttr("disabled");
@@ -336,7 +337,7 @@ var codeRemark=null;
      $("#resetedCodeType").removeAttr("style","border-color:grey;background-color:grey");
      $("#okCodeType").removeAttr("style","border-color:grey;background-color:grey");
    }
-   function checkInputing(){
+    function checkInputing(){
 		var  codeType=$("#baseCodeTypeForm #codeType").val();
 		var  codeName=$("#baseCodeTypeForm #codeName").val();
 		var  remark=$("#baseCodeTypeForm #remark").val();
@@ -360,11 +361,11 @@ var codeRemark=null;
      $("#okCode").removeAttr("style","border-color:grey;background-color:grey");
    }
    function checkInputing2(){
-	    var  code=$("#baseCodeTypeForm #code").val();
-		var  dataName=$("#baseCodeTypeForm #dataName").val();
-		var  enable=$("#baseCodeTypeForm #enable").val();
-		var  sort=$("#baseCodeTypeForm #sort").val();
-		var  remarkTwo=$("#baseCodeTypeForm #remarkTwo").val();
+	    var  code=$("#baseCodeForm #code").val();
+		var  dataName=$("#baseCodeForm #dataName").val();
+		var  enable=$("#baseCodeForm #enable").val();
+		var  sort=$("#baseCodeForm #sort").val();
+		var  remarkTwo=$("#baseCodeForm #remarkTwo").val();
 		if((code=='')&& (dataName=='' )&&(enable=='')&&(sort=='')&&(remarkTwo==''))
 		{
 			$("#okCode").attr("disabled","true");
@@ -375,7 +376,7 @@ var codeRemark=null;
 	    	check2();
 	    }
 	}
-   
+    
    
    //表单验证配置
    function codeTypeValidator(){
