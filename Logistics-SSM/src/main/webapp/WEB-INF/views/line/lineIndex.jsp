@@ -196,11 +196,12 @@
     </style>
 </head>
 <body>
+<input type="hidden" id="backIndexUrl" value="<%=basePath%>lineManageList/" />
+<input type="hidden" id="addPageUrl" value="<%=basePath%>lineManageList/addLinePage" />
 <input type="hidden" id="lineTypeTree" value="<%=basePath%>lineManageList/selectLeftTree" />
 <input type="hidden" id="lineListPage" value="<%=basePath%>lineManageList/selectListByPage" />
-<input type="hidden" id="insertOrUpdateUser" value="<%=basePath%>userManageList/insertOrUpdateInfo" />
-<input type="hidden" id="deleteInfoUser" value="<%=basePath%>userManageList/deleteInfo" />
-<input type="hidden" id="deleteListUser" value="<%=basePath%>userManageList/deleteList" />
+<input type="hidden" id="updateLine" value="<%=basePath%>lineManageList/updateInfo" />
+<input type="hidden" id="deleteInfoLine" value="<%=basePath%>lineManageList/deleteInfo" />
 
 
 
@@ -216,19 +217,19 @@
 
 
 <!-- 导航栏开始 -->
-<!-- 题目管理和新增题目 -->
+<!-- 线路管理和新增线路 -->
 	<div class="container-fluid" style="background-color: lightgrey;margin-bottom: 20px;">
 		<div class="row" >
 		    <div class="lk-header">
 		    <form method="post" id="addForm">
 				<div class="col-sm-2" style="background-color:lightgrey;">
 				   <div class="btn-style" onclick="changeColor(this)" >
-				    <input type="button" id="btnstyle" style="background-color:darkgrey;line-height:50px;border-radius: 15px;" role="button" class="btn  btn-link" onclick="returnFun()" value="题目管理">
+				    <input type="button" id="btnstyle" style="background-color:darkgrey;line-height:50px;border-radius: 15px;" role="button" class="btn  btn-link" onclick="returnFun()" value="线路管理">
 				   </div> 
 				</div>
 				<div class="col-sm-2" style="background-color:lightgrey ;" >	
 				   <div	 class="btn-style1" onclick="changeColor2(this)">
-					 <input type="button"  role="button" class="btn  btn-link" onclick="addFun()"  style="background-color:darkgrey; line-height:50px;border-radius: 15px;"  value="新增题目">
+					 <input type="button"  role="button" class="btn  btn-link" onclick="addFun()"  style="background-color:darkgrey; line-height:50px;border-radius: 15px;"  value="新增线路">
 				   </div> 
 				</div>
 
@@ -256,40 +257,93 @@
 						<th>线路用时</th>
 						<th>操作</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
           </table>
 			</div>
-			
-			
-			<!-- 无题目时会显示出来 -->
-			<div class="col-sm-9 " id="noQues" style="padding-right:0px;padding-left:0px; display:none">
-			       <p style="font-size:20px;color:red;padding-left:145px;padding-top:100px">该类别暂无线路设置，请先点击上方的“新增线路”进行新增！</p>
-			</div>
-		</div>
-		
-		
-		<div class="page_style" style="height:55px; margin-bottom: 20px; margin-left:500px" >
-		
-        <div id="btn_look"  style="display:none;border:none; "><button  class="btn btn-default" style="outline: none;border:none;color:blue" onclick="btnPage()">查看更多题目</button></div>
-        <div id="btn_nolook"  style="display:none;border:none;"><button class="btn btn-default" disabled="disabled" style="outline: none;border:none;" >无更多题目</button></div>
 		</div>
 </div>
     
-   
-    <!-- 用于跳转修改页面所需传的数据 -->
-    <div id="DivId">
-       	<form id="FormId" method="post">
-       		<!-- 选择当前节点的id -->
-       		<input type="hidden" id="updateTopicId" name="updateTopicId" >
-       		<!-- 当前所选的适应类别 -->
-       		<input type="hidden" id="updateApplyType" name="updateApplyType" >
-       		<!-- 当前所选的题目类型 -->
-       		<input type="hidden" id="updateTopicType" name="updateTopicType" >
-       	</form>
+   <!--模态框 start-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="form-horizontal" role="form" id="lineForm" name="lineForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body" style="margin-right: 30px">
+                <input type="hidden" name="lineId" id="lineId" />
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2 ">线路编码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="lineCode" id="lineCode"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                        </div>
+                        
+                        <label class="control-label col-sm-2">线路类型:</label>
+                        <div class="col-sm-4">
+						      	<select name="lineType" id="lineType" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<option value="">请选择</option>
+									<option value="1">是</option>
+									<option value="0">否</option>
+								</select>
+						 </div>
+                    </div>
+
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2 "><span>*</span>线路缴费:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="linePrice" id="linePrice" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
+                        </div>
+                        <label class="control-label col-sm-2">线路长度:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="lineLength" id="lineLength"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2 ">线路用时:</label>
+                       <div class="col-md-4  has-feedback"  >
+							<input  name="lineTime" id="lineTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
+							onclick="WdatePicker({ dateFmt: 'HH:mm:ss ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
+                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+						</div>
+						 <label class="control-label col-sm-2">适用类别:</label>
+                         <div class="col-sm-4">
+						      	<select name="applyType" id="applyType"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<option value="">请选择</option>
+									<option value="A">是</option>
+									<option value="B">否</option>
+								</select>
+						 </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2">描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述:</label>
+                    </div>
+                    <div class="form-group form-group-sm" style="padding-left: 10px">
+                        <div class="col-sm-12 ">
+                            <textarea class="form-control" name="remark" id="remark" style="resize:none; height: 70px"
+                                      rows="3" placeholder="请输入..."
+                                      onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <button id="ok" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitHandler()" style="width: 80px">保存</button>
+                    <button id="reseted" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetHandler()" style="width: 80px">重置</button>
+                    <button id="closeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+    <!--模态框 end-->
+    
 	
 </body>
 
@@ -297,12 +351,22 @@
 <script type="text/javascript">
 var parentCode=null;
 var childerCode=null;
-
+var lineId=null;
+var lineCode=null;
+var lineName=null;
+var lineType=null;
+var linePrice=null;
+var lineLength=null;
+var lineTime=null;
+var applyType=null;
+var remark=null;
 
    $(document).ready(function() {
 	   //默认加载表格
 	   dataTableDraw();
 	   
+	   //表单验证
+	   formValidator();
 	  //默认加载类别数
 	   var lineTypeTreeUrl=$("#lineTypeTree").val();
        $.ajax({
@@ -326,6 +390,95 @@ var childerCode=null;
 	   
    });
    
+	//跳转到题目新增页面
+	function addFun(){
+		var url=$("#addPageUrl").val();
+		$("#addForm").attr("action",url);
+		$("#addForm").submit();
+	}
+	
+	
+	//返回题目管理页面
+	function returnFun(){
+		var url=$("#backIndexUrl").val();
+		$("#addForm").attr("action",url);
+		$("#addForm").submit();
+		
+	}
+   
+	//点击按钮改变背景颜色
+	function changeColor(btn)
+	{
+		btn.style.backgroundColor = "darkgrey";
+	}
+	function changeColor2(btn)
+	{
+		$("#btnstyle").removeAttr("style");
+		btn.style.backgroundColor = "darkgrey";
+	}
+   //表单验证配置
+   function formValidator(){
+   $('#lineForm').bootstrapValidator({
+	   message: '不可用的值',
+       feedbackIcons: {
+	   valid: 'glyphicon glyphicon-ok',
+	   invalid: 'glyphicon glyphicon-remove',
+	   validating: 'glyphicon glyphicon-refresh'
+            }, 
+      fields: {
+    	  lineCode: {
+              validators: {
+                  notEmpty: {
+                      message: '线路编码不能为空'
+                  }
+              }
+          },
+          lineType: {
+              validators: {
+                  notEmpty: {
+                      message: '线路类别不能为空'
+                  }
+              }
+          },
+          linePrice: {
+              validators: {
+                  notEmpty: {
+                      message: '线路缴费不能为空'
+                  },
+                  regexp: {
+                      regexp: "^\\d+$",
+                      message: '只能录入正整数'
+                  }
+              }
+          },
+          lineLength: {
+              validators: {
+                  notEmpty: {
+                      message: '线路长度不能为空'
+                  },
+                  regexp: {
+                      regexp: "^\\d+$",
+                      message: '只能录入正整数'
+                  }
+              }
+          },
+          lineTime: {
+              validators: {
+            	  notEmpty: {
+                      message: '线路用时不能为空'
+                  }
+              }
+          },
+          applyType: {
+              validators: {
+            	  notEmpty: {
+                      message: '适用类别不能为空'
+                  }
+              }
+          },
+      }
+    });
+   }  
    
 	 //点击左边树触发事件
 	  function addRightTree (event, node) 
@@ -337,6 +490,7 @@ var childerCode=null;
    	      tableTwo.draw(true); 
 	      $('.rightTable').css("visibility", "visible");
 	  }
+	 
 	 
 	 
    var lineListUrl=$("#lineListPage").val();
@@ -385,6 +539,9 @@ var childerCode=null;
 				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.lineId+"')\">删除</button>"
 				               return html;  
 				            }
+				      },
+				      { "mData": "applyType",
+				        "visible": false
 				      },
 				      { "mData": "remark",
 				    	  "visible": false
@@ -446,7 +603,8 @@ var childerCode=null;
 	 });
 	}
    
-  
+
+	
    /* 日期格式化代码 */
 	function getMyDate(time){  
 	    if(typeof(time)=="undefined"){
@@ -460,7 +618,7 @@ var childerCode=null;
 	     oMin = oDate.getMinutes(),  
 	     oSen = oDate.getSeconds(),  
 	    // oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay);//最后拼接时间  
-	      oTime= getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen)
+	      oTime= getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);
 	     return oTime;  
 	    }
 	    
@@ -472,44 +630,18 @@ var childerCode=null;
 	        return num;  
 	    }
 
-	     
-	     
-	  //datatable全选
-        $('.checkall').on('click', function () {
-              if (this.checked) {
-                   $(this).attr('checked','checked')
-                   $('.checkbox_select').each(function () {
-                       this.checked = true;                        
-                   });
-               } else {
-                   $(this).removeAttr('checked')
-                   $('.checkbox_select').each(function () {
-                       this.checked = false;
-                   });
-               }                 
-       });     
-
-
-	    
-   /* 查询查询条件 */
-   function searchDatas(){
-	   var table = $('#dutyListTable').DataTable();
-	   table.draw(true);
-    }
-   
-   /**重置查询条件*/
-	function resetSearchConditions() {
-		$("#searchUserForm")[0].reset();
-		var table = $('#dutyListTable').DataTable();
-		table.draw(true);
+	 /* 刷新Table */
+    function searchDatas(){
+	 	var table = $('#dutyListTable').DataTable();
+	 	table.draw(true);
 	}
    
 	/* 关闭模态框*/
 	$('#myModal').on('hidden.bs.modal', function() {
-		$("#userForm")[0].reset();//使用dom的reset
-		$("#userId").val("");
-        $("#userForm").data('bootstrapValidator').destroy();
-        $('#userForm').data('bootstrapValidator', null);
+		$("#lineForm")[0].reset();//使用dom的reset
+		$("#lineId").val("");
+        $("#lineForm").data('bootstrapValidator').destroy();
+        $('#lineForm').data('bootstrapValidator', null);
         formValidator();
     });
 	
@@ -519,83 +651,45 @@ var childerCode=null;
 	   $("#ok").attr("disabled","true");
 	   $("#reseted").attr("style","background-color:grey;border-color:grey");
 	   $("#ok").attr("style","background-color:grey;border-color:grey");
-	   $("#userId").val("");
-	   $("#userForm")[0].reset();//使用dom的reset
+	   $("#lineId").val("");
+	   $("#lineForm")[0].reset();//使用dom的reset
    }
    
    
    /* 按钮重置模态框 */
    function resetHandler(){
-	   //$("#userForm")[0].reset();//使用dom的reset
-	   if($("#userId").val()==null || $("#userId").val()==""){
-		   $("#userForm").data('bootstrapValidator').resetForm();
-		   $("#reseted").attr("disabled","true");	
-		   $("#ok").attr("disabled","true");
-		   $("#reseted").attr("style","background-color:grey;border-color:grey");
-		   $("#ok").attr("style","background-color:grey;border-color:grey");
-		   userForm.reset();
-	   }
-	   if($("#userId").val()!=null && $("#userId").val()!=""){
-		   $("#userId").val(userId);
-		   $("#pwd").val(password); 
-		   $("#userCode").val(userCode);
-		   $("#userPhone").val(userPhone);
-		   $("#userName").val(userName);
-		   $("#addr").val(addr);
-		   $("#createTime").val(createTime);
-		   $("#updateTime").val(updateTime);
-		   $("#remark").val(remark);
-		   $("#userForm").data('bootstrapValidator').destroy();
-	       $('#userForm').data('bootstrapValidator', null);
-	       formValidator(); 
-	   }
+		 $("#lineId").val(lineId);
+		 $("#lineCode").val(lineCode); 
+		 $("#lineTime").val(lineTime);
+		 $("#lineType").val(lineType);
+		 $("#linePrice").val(linePrice);
+		 $("#lineLength").val(lineLength);
+		 $("#applyType").val(applyType);
+		 $("#remark").val(remark);
+		 $("#lineForm").data('bootstrapValidator').destroy();
+	     $('#lineForm').data('bootstrapValidator', null);
+	     formValidator(); 
 	   
    }
    
    
-   /**新增信息*/
-	function addFun() {
-		$('#ok').removeAttr("disabled");
-		$("#ok").removeAttr("style");
-		$('#reseted').removeAttr("disabled");
-		$("#reseted").removeAttr("style");
-		$("#ok").attr("style","display: block;");
-		$("#reseted").attr("style","display: block;");
-		$('#closeModel').removeAttr("disabled");
-		$("#userForm")[0].reset();//使用dom的reset
-		$("#userId").val("");	//避免hidden出现不能reset的情况
-		$("#pwd").attr("style","display:block;");
-		$('#userCode').attr("disabled",false);
-		$('#userPhone').attr("disabled",false);
-		$('#userName').attr("disabled",false);
-	    $('#addr').attr("disabled",false);
-	    $('#createTime').attr("disabled",false);
-	    $('#updateTime').attr("disabled",false);
-	    $('#remark').attr("disabled",false);
-		$('#myModal').modal('show');
-		console.info("111111111"+$("#userId").val());
-	}
-   
    /* 查看信息*/
    function oemp_editsr(Row){
-	   $("#pwd").attr("style","display:none;");
 	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
-	   $("#userId").val(data.userId);	//主键
-	   $("#userCode").val(data.userCode);
-	   $('#userCode').attr("disabled",true);
-	   $("#userPhone").val(data.userPhone);
-	   $('#userPhone').attr("disabled",true);
-	   $("#userName").val(data.userName);
-	   $('#userName').attr("disabled",true);
-	   $("#password").val(data.password);
-	   $('#password').attr("disabled",true);
-	   $("#addr").val(data.addr);
-	   $('#addr').attr("disabled",true);
-	   $("#createTime").val(getMyDate(data.createTime));
-	   $('#createTime').attr("disabled",true);
-	   $("#updateTime").val(getMyDate(data.updateTime));
-	   $('#updateTime').attr("disabled",true);
+	   $("#lineId").val(data.lineId);	//主键
+	   $("#lineCode").val(data.lineCode);
+	   $('#lineCode').attr("disabled",true);
+	   $("#lineType").val(data.lineType);
+	   $('#lineType').attr("disabled",true);
+	   $("#linePrice").val(data.linePrice);
+	   $('#linePrice').attr("disabled",true);
+	   $("#lineLength").val(data.lineLength);
+	   $('#lineLength').attr("disabled",true);
+	   $("#applyType").val(data.applyType);
+	   $('#applyType').attr("disabled",true);
+	   $("#lineTime").val(getMyDate(data.lineTime));
+	   $('#lineTime').attr("disabled",true);
 	   $("#remark").val(data.remark);
 	   $('#remark').attr("disabled",true);
 	   $('#ok').attr("disabled",true);
@@ -607,7 +701,6 @@ var childerCode=null;
    }
    /* 修改 */
 	 function oemp_editmn(Row){
-	   
 	   $('#ok').removeAttr("disabled");
 	   $("#ok").removeAttr("style");
 	   $('#reseted').removeAttr("disabled");
@@ -615,37 +708,35 @@ var childerCode=null;
 	   $("#ok").attr("style","display: block;");
 	   $("#reseted").attr("style","display: block;");
 	   $('#closeModel').removeAttr("disabled");
-	   $('#userCode').attr("disabled",true);
-	   $("#pwd").attr("style","display:none;");
-	   $('#userPhone').attr("disabled",false);
-	   $('#userName').attr("disabled",false);
-	   $('#addr').attr("disabled",false);
-	   $('#createTime').attr("disabled",false);
-	   $('#updateTime').attr("disabled",false);
+	   $("#lineCode").attr("readonly",true);
+	   $('#lineType').attr("disabled",false);
+	   $('#linePrice').attr("disabled",false);
+	   $('#lineTime').attr("disabled",false);
+	   $('#lineLength').attr("disabled",false);
+	   $('#applyType').attr("disabled",false);
 	   $('#remark').attr("disabled",false);
 	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
-	   $("#userId").val(data.userId);
-	   $("#userCode").val(data.userCode);
-	   $("#userPhone").val(data.userPhone);
-	   $("#userName").val(data.userName);
-	   $("#password").val(data.password);
-	   $("#addr").val(data.addr);
-	   $("#createTime").val(getMyDate(data.createTime));
-	   $("#updateTime").val(getMyDate(data.updateTime));
+	   $("#lineId").val(data.lineId);
+	   $("#lineCode").val(data.lineCode);
+	   $("#lineType").val(data.lineType);
+	   $("#linePrice").val(data.linePrice);
+	   $("#lineLength").val(data.lineLength);
+	   $("#applyType").val(data.applyType);
+	   $("#lineTime").val(getMyDate(data.lineTime));
 	   $("#remark").val(data.remark);
-	   userId=$("#userId").val();
-	   userCode=data.userCode;
-	   userPhone=data.userPhone;
-	   userName=data.userName;
-	   password=data.password;
-	   addr=data.addr;
-	   createTime=getMyDate(data.createTime);
-	   updateTime=getMyDate(data.updateTime);
+	   lineId=$("#lineId").val();
+	   lineCode=data.lineCode;
+	   lineType=data.lineType;
+	   linePrice=data.linePrice;
+	   applyType=data.applyType;
+	   lineLength=data.lineLength;
+	   lineTime=getMyDate(data.lineTime);
 	   remark=data.remark;
-	   console.info("222222222222"+userId);
 	 }
-		/* 删除  */
+   
+   
+	 /* 删除  */
 	 function oemp_editzt(id){
 		 $.confirm({
 	            title: '提示',
@@ -671,9 +762,9 @@ var childerCode=null;
 	 }
 	
 	 /* 删除数据 */
-	 function deleteUser(userId){
-	 var delUrl = $("#deleteInfoUser").val();
-	 $.post(delUrl,  {"userId": userId},function(data) {
+	 function deleteUser(lineId){
+	 var delUrl = $("#deleteInfoLine").val();
+	 $.post(delUrl,  {"lineId": lineId},function(data) {
 	 			if (data || data=='true') {
 	 				$.alert({
 	 	                title: '提示',
@@ -708,99 +799,27 @@ var childerCode=null;
 	 }
 	 
 	 
-		
-	 /* 批量删除 */
-	  function deleteFun(){
-		  var selectLoans = [];
-          $('.checkbox_select').each(function () {
-              if($(this).is(':checked')){
-            	   selectLoans.push($(this).val());                  
-              }
-          });
-         if(selectLoans.length == 0){ 
-        	 $.alert({
- 			    title: '提示',
- 			    content: '请选择一行数据进行删除！',
- 			    type:'red',				//一般危险操作用red,保存成功操作green
- 			    buttons: {				//定义按钮
- 			        confirm: {
- 			        	text: '确认',
- 			        	btnClass: 'btn-primary',
- 			        	action: function(){	//这里写点击按钮回调函数
- 			        		
- 			        	}
- 			        }
- 			    }
- 			});           
-         }else{
-             var idListStr ='';
-             for (var i = 0; i < selectLoans.length; i++) { 
-                 if(i!=selectLoans.length-1){
-                     idListStr = idListStr + selectLoans[i] +",";
-                 }else{
-                     idListStr = idListStr + selectLoans[i];
-                 } 
-             }  
-             console.info("id:"+idListStr);
-             var deleteInfoUrl = $("#deleteListUser").val();
-        	 $.post(deleteInfoUrl,  {"idListStr": idListStr},function(data) {
-        	 			if (data || data=='true') {
-        	 				$.alert({
-        	 	                title: '提示',
-        	 	                content: '删除成功！',
-        	 	                type:'green',             //一般危险操作用red,保存成功操作green
-        	 	                buttons: {              //定义按钮
-        	 	                    confirm: {
-        	 	                        text: '确认',
-        	 	                        btnClass: 'btn-primary',
-        	 	                        action: function(){ //这里写点击按钮回调函数
-        	 	                        }
-        	 	                    }
-        	 	                }
-        	 	            });
-        	 				searchDatas(); //刷新列表
-        	 			} else {
-        	 				$.alert({
-        	 	                title: '提示',
-        	 	                content: '删除失败,如有问题请联系管理员！',
-        	 	                type:'red',             //一般危险操作用red,保存成功操作green
-        	 	                buttons: {              //定义按钮
-        	 	                    confirm: {
-        	 	                        text: '确认',
-        	 	                        btnClass: 'btn-primary',
-        	 	                        action: function(){ //这里写点击按钮回调函数
-        	 	                        }
-        	 	                    }
-        	 	                }
-        	 	            });
-        	 			}
-        	 		}, 'json');
-         }
-	  	
-	 }
-	 
-	 
 	 
 	/**表单提交事件*/
 	function submitHandler() {
-		var bootstrapValidator = $("#userForm").data('bootstrapValidator');
+		var bootstrapValidator = $("#lineForm").data('bootstrapValidator');
 		//获取表单验证结果
 		var validateResult = bootstrapValidator.validate().isValid();
 		if(validateResult){
-			var createUrl = $("#insertOrUpdateUser").val();
-			$.post(createUrl, $("#userForm").serialize(), function(data) {
+			var createUrl = $("#updateLine").val();
+			$.post(createUrl, $("#lineForm").serialize(), function(data) {
 				if (data.result==true) {
 					$.alert({
 		                title: '提示',
-		                content: '客户保存成功！',
+		                content: '线路修改成功！',
 		                type:'green',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {
 		                        text: '确认',
 		                        btnClass: 'btn-primary',
 		                        action: function(){ //这里写点击按钮回调函数
-		                        	 $("#userForm").data('bootstrapValidator').resetForm();
-							         $('#userForm')[0].reset();
+		                        	 $("#lineForm").data('bootstrapValidator').resetForm();
+							         $('#lineForm')[0].reset();
 							         searchDatas(); //刷新列表
 		                      	     $('#myModal').modal('hide');
 					        		 $('#ok').removeAttr("disabled");
@@ -812,7 +831,7 @@ var childerCode=null;
 				else {
 					$.alert({
 		                title: '提示',
-		                content: '客户保存失败！',
+		                content: '线路修改失败！',
 		                type:'red',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {

@@ -1,11 +1,15 @@
 package com.yyk.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -157,19 +161,40 @@ public class SysLineController {
 		    return getObj.toString();
 		}
 	
-	 
-	   /*@RequestMapping(value = Url.DELETE_INFO, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> deleteInfoUser(@RequestParam(required=false,value = "userId") String userId) {
+	    @RequestMapping(value = Url.UPDATE_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> UpdateLine(SysLine sysLine) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	SysUserCriteria criteria = new SysUserCriteria();
- 			SysUserCriteria.Criteria cri = criteria.createCriteria();
- 			cri.andStatusEqualTo(1);// 只查询状态为1的
- 			cri.andUserIdEqualTo(userId);	
- 			SysUser sysUser=new SysUser();
- 			sysUser.setStatus(0);
- 			int i=sysUserService.updateUser(criteria, sysUser);
- 			if(i==1){
-    			map.put("result", true);
+	    	//修改
+	    	if(StringUtils.isNotBlank(sysLine.getLineId())){
+	    		SysLineCriteria criteria = new SysLineCriteria();
+				SysLineCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);
+	 			cri.andLineIdEqualTo(sysLine.getLineId());	
+	 			int i=sysLineService.updateLine(criteria, sysLine);
+		    	if(i==1){
+		    			map.put("result", true);
+		    	}
+		    	else{
+		    			map.put("result", false);
+		    	}
+	    	}
+	    	return map;
+		}
+	 
+	 
+	    
+	    @RequestMapping(value = Url.DELETE_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> deleteInfoLine(@RequestParam(required=false,value = "lineId") String lineId) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	SysLineCriteria criteria = new SysLineCriteria();
+			SysLineCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1);
+ 			cri.andLineIdEqualTo(lineId);
+ 			SysLine sysLine=new SysLine();
+ 			sysLine.setStatus(0);
+			int i=sysLineService.updateLine(criteria, sysLine);
+			if(i==1){
+ 			map.put("result", true);
 	    	}
 	    	else{
 	    			map.put("result", false);
@@ -177,37 +202,42 @@ public class SysLineController {
 	    	return map;
 		}
 	    
-	    *//**
-	     * 批量删除
-	     * @param userId
-	     * @return
-	     *//*
 	 
-	    @RequestMapping(value = Url.DELETE_LIST, method = RequestMethod.POST)
-		public @ResponseBody Map<String, Object> deleteListUser(@RequestParam(required=false,value = "idListStr") String userId) {
+	 
+	 
+	    @RequestMapping(value = Url.ADD_LINE_PAGE, method = RequestMethod.POST)
+		 public String addLinePage(){
+		   return Views.ADD_LINE_VIEW;
+		 }
+	 
+	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> insertLine(SysLine sysLine) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	SysUserCriteria criteria = new SysUserCriteria();
- 			SysUserCriteria.Criteria cri = criteria.createCriteria();
- 			List<String> userIds=Arrays.asList(userId.split(","));
- 			cri.andStatusEqualTo(1);// 只查询状态为1的
- 			cri.andUserIdIn(userIds);
- 			SysUser sysUser=new SysUser();
- 			sysUser.setStatus(0);
- 			int i=sysUserService.updateUser(criteria, sysUser);
- 			if(i>=1){
-    			map.put("result", true);
-	    	}
-	    	else{
-	    			map.put("result", false);
-	    	}
+	    	String flag=null;
+	    	//新增
+	    	SysLineCriteria criteria = new SysLineCriteria();
+			SysLineCriteria.Criteria cri = criteria.createCriteria();
+	 		cri.andLineCodeEqualTo(sysLine.getLineCode());	
+	 		List<SysLine> list=sysLineService.selectLine(criteria);
+	 		if(list.isEmpty() && list.size()==0){
+	 			int i=sysLineService.insertLine(sysLine);
+	 			if(i==1)
+	 			{
+	 				flag="true";
+		 			map.put("result", flag);
+	 			}
+	 			else
+	 			{
+	 				flag="false";
+		 			map.put("result", flag);
+	 			}
+	 		}
+	 		else{
+	 			flag="repeat";
+	 			map.put("result", flag);
+		    }
 	    	return map;
-		}*/
-	 
-	 
-	 
-	 
-	 
-	 
+		}
 	 
 	 
 	 

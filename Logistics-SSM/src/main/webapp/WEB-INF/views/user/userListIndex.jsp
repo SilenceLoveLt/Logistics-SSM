@@ -200,11 +200,6 @@
     </div>
 </div>
     <!--模态框 end-->
-<!-- <div class="btnfun"> 
-	<button type="button" class="btn btn-primary" onclick="addFun()" style="margin-left:16px">新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	<button type="button" class="btn btn-primary" onclick="updateFun()"style="margin-left:40px" >修&nbsp;&nbsp;&nbsp;改</button>
-	<button class="btn btn-primary" onclick="deleteFun()" style="margin-left:40px">批量删除</button>
-</div> -->
 
 <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
@@ -341,7 +336,7 @@ var remark=null;
    function dataTableDraw(){
     $("#dutyListTable").dataTable({
 	 pagingType: 'full_numbers',
-	 scrollY:"320px",
+	 scrollY:"300px",
 	 scrollX:false,
 	 processing : true, //加载转态
 	 ordering:false,       //禁用排序去掉图标

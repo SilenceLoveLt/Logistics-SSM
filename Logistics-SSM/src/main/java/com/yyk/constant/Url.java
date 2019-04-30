@@ -36,6 +36,7 @@ public interface Url {
     
     //线路管理
     String LINE_MANAGE = "/lineManageList";
+    String ADD_LINE_PAGE="/addLinePage";
     
     //数据字典管理
     String BASECODE_MANAGE = "/basecodeManageList";

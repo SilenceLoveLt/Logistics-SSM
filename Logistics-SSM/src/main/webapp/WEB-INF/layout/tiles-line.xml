@@ -10,6 +10,11 @@
         <put-attribute name="body" value="/WEB-INF/views/line/lineIndex.jsp" />
     </definition>
     
+     <!-- Templates -->
+    <definition name="add.line.view"  extends="layout.basic">
+        <put-attribute name="title" value="线路列表" />
+        <put-attribute name="body" value="/WEB-INF/views/line/lineDetail.jsp" />
+    </definition>
     
     
 </tiles-definitions>

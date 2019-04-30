@@ -35,6 +35,7 @@ public interface Views {
 	 * 线路页面
 	 */
 	public static final String LINE_VIEW = "line.view";
+	public static final String ADD_LINE_VIEW = "add.line.view";
 	
 	/**
 	 * 数据字典

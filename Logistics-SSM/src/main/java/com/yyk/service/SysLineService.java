@@ -19,6 +19,12 @@ import com.yyk.entity.SysUserCriteria;
 public interface SysLineService {
 	 List<BaseCodeDTO> selectLeftTrees();
 	 
+	 int updateLine (SysLineCriteria criteria,SysLine sysLine);
+	 
+	 List<SysLine> selectLine (SysLineCriteria criteria);
+	 
+	 int insertLine (SysLine sysLine);
+	 
 	 ResDataDTO<List<SysLine>>  selectApplyTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
 	 
 	 ResDataDTO<List<SysLine>>  selectLineTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);

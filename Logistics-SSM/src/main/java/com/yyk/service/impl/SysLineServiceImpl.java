@@ -1,8 +1,10 @@
 package com.yyk.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.velocity.tools.config.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -127,6 +129,32 @@ public class SysLineServiceImpl implements SysLineService{
 		listRes.setData(sysLineList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
+	}
+
+
+
+	@Override
+	public int updateLine(SysLineCriteria criteria, SysLine sysLine) {
+		sysLine.setUpdateTime(new Date());
+		return sysLineDao.updateByExampleSelective(sysLine, criteria);
+	}
+
+
+
+	@Override
+	public int insertLine(SysLine sysLine) {
+		sysLine.setStatus(1);
+		sysLine.setLineId(UUIDGenerator.create32Key());
+		sysLine.setCreateTime(new Date());
+		sysLine.setUpdateTime(new Date());
+		return sysLineDao.insertSelective(sysLine);
+	}
+
+
+
+	@Override
+	public List<SysLine> selectLine(SysLineCriteria criteria) {
+		return sysLineDao.selectByExample(criteria);
 	}
 
 	

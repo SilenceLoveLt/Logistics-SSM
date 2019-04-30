@@ -1,6 +1,10 @@
 package com.yyk.entity;
 
+import java.sql.Time;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class SysLine {
     private Integer id;
@@ -13,13 +17,6 @@ public class SysLine {
     
     private String linePrice;
     
-    public String getLinePrice() {
-		return linePrice;
-	}
-
-	public void setLinePrice(String linePrice) {
-		this.linePrice = linePrice;
-	}
 
 	private Integer lineLength;
 
@@ -29,12 +26,20 @@ public class SysLine {
     
     private Integer status;
 
+    
     private Date createTime;
 
     private Date updateTime;
 
     private String remark;
 
+    public String getLinePrice() {
+  		return linePrice;
+  	}
+
+  	public void setLinePrice(String linePrice) {
+  		this.linePrice = linePrice;
+  	}
 
     public String getLineType() {
 		return lineType;
@@ -85,15 +90,17 @@ public class SysLine {
         this.lineLength = lineLength;
     }
 
-    public Date getLineTime() {
-        return lineTime;
-    }
 
-    public void setLineTime(Date lineTime) {
-        this.lineTime = lineTime;
-    }
 
-    public Integer getStatus() {
+	public Date getLineTime() {
+		return lineTime;
+	}
+
+	public void setLineTime(Date lineTime) {
+		this.lineTime = lineTime;
+	}
+
+	public Integer getStatus() {
         return status;
     }
 
