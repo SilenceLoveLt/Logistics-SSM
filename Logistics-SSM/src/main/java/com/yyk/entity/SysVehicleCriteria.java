@@ -592,6 +592,76 @@ public class SysVehicleCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andApplyTypeIsNull() {
+            addCriterion("APPLY_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeIsNotNull() {
+            addCriterion("APPLY_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeEqualTo(String value) {
+            addCriterion("APPLY_TYPE =", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotEqualTo(String value) {
+            addCriterion("APPLY_TYPE <>", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeGreaterThan(String value) {
+            addCriterion("APPLY_TYPE >", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("APPLY_TYPE >=", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeLessThan(String value) {
+            addCriterion("APPLY_TYPE <", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeLessThanOrEqualTo(String value) {
+            addCriterion("APPLY_TYPE <=", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeLike(String value) {
+            addCriterion("APPLY_TYPE like", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotLike(String value) {
+            addCriterion("APPLY_TYPE not like", value, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeIn(List<String> values) {
+            addCriterion("APPLY_TYPE in", values, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotIn(List<String> values) {
+            addCriterion("APPLY_TYPE not in", values, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeBetween(String value1, String value2) {
+            addCriterion("APPLY_TYPE between", value1, value2, "applyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyTypeNotBetween(String value1, String value2) {
+            addCriterion("APPLY_TYPE not between", value1, value2, "applyType");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("STATUS is null");
             return (Criteria) this;

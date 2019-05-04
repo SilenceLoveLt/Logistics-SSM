@@ -15,7 +15,8 @@
     <title>header</title>
     <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
-    <%-- <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css"> --%>
+     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css"> 
+      <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap-theme.min.css"> 
     <style>
         .lee-h2{
            padding: 0;

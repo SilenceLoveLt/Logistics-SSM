@@ -1,6 +1,5 @@
 package com.yyk.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,15 +19,13 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
-import com.yyk.dto.LineDTO.LineResDTO;
-import com.yyk.dto.UserDTO.SysUserListReqDTO;
-import com.yyk.dto.baseCodeDTO.BaseCodeDTO;
-import com.yyk.entity.BaseCodeCriteria;
+import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.entity.SysInvoice;
+import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
-import com.yyk.entity.SysUser;
-import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.BaseCodeService;
+import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysLineService;
 import com.yyk.util.JsonChangeUtil;
 
@@ -49,6 +45,10 @@ public class SysLineController {
 	@Autowired
 	@Qualifier("sysLineService")
 	private  SysLineService sysLineService;
+	
+	@Autowired
+	@Qualifier("sysInvoiceService")
+	private  SysInvoiceService sysInvoiceService;
 	
 	@Autowired
 	@Qualifier("baseCodeService")
@@ -89,7 +89,18 @@ public class SysLineController {
 			return JsonChangeUtil.list2json(baselistdto);
 		}
 	 
-		 
+	/**
+	 *  
+	* @author yyk  
+	* @Title: queryPages 
+	* @Package com.yyk.controller  
+	* @Description: TODO
+	* @param aoData
+	* @return
+	* @return String   
+	* @date 2019年5月2日 下午8:29:19     
+	* @throws 
+	 */
 	 
 	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
 	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
@@ -160,6 +171,19 @@ public class SysLineController {
 		    getObj.put("aaData", list.getData());//把查到数据装入aaData,要以JSON格式返回
 		    return getObj.toString();
 		}
+	 
+	 /**
+	  * 
+	 * @author yyk  
+	 * @Title: UpdateLine 
+	 * @Package com.yyk.controller  
+	 * @Description: TODO
+	 * @param sysLine
+	 * @return
+	 * @return Map<String,Object>   
+	 * @date 2019年5月2日 下午8:29:06     
+	 * @throws 
+	  */
 	
 	    @RequestMapping(value = Url.UPDATE_INFO, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> UpdateLine(SysLine sysLine) {
@@ -181,35 +205,83 @@ public class SysLineController {
 	    	return map;
 		}
 	 
-	 
+	 /**
+	  * 
+	 * @author yyk  
+	 * @Title: deleteInfoLine 
+	 * @Package com.yyk.controller  
+	 * @Description: TODO
+	 * @param lineId
+	 * @return
+	 * @return Map<String,Object>   
+	 * @date 2019年5月2日 下午8:28:56     
+	 * @throws 
+	  */
 	    
 	    @RequestMapping(value = Url.DELETE_INFO, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> deleteInfoLine(@RequestParam(required=false,value = "lineId") String lineId) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
-	    	SysLineCriteria criteria = new SysLineCriteria();
-			SysLineCriteria.Criteria cri = criteria.createCriteria();
+	    	String flag=null;
+	    	SysInvoiceCriteria criteria = new SysInvoiceCriteria();
+	    	SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);
  			cri.andLineIdEqualTo(lineId);
- 			SysLine sysLine=new SysLine();
- 			sysLine.setStatus(0);
-			int i=sysLineService.updateLine(criteria, sysLine);
-			if(i==1){
- 			map.put("result", true);
+	    	List<SysInvoice> list=sysInvoiceService.selectSysInvoice(criteria);
+	    	if(list.isEmpty() || list.size()==0){
+	    		SysLineCriteria criteria2 = new SysLineCriteria();
+				SysLineCriteria.Criteria cri2 = criteria2.createCriteria();
+				cri2.andStatusEqualTo(1);
+				cri2.andLineIdEqualTo(lineId);
+	 			SysLine sysLine=new SysLine();
+	 			sysLine.setStatus(0);
+				int i=sysLineService.updateLine(criteria2, sysLine);
+				if(i==1){
+					flag="true";
+					map.put("result", flag);
+		    	}
+		    	else{
+		    		flag="false";
+		    	    map.put("result", flag);
+		    	}
 	    	}
-	    	else{
-	    			map.put("result", false);
+	    	else
+	    	{
+	    		flag="repeat";
+	    	    map.put("result", flag);
 	    	}
 	    	return map;
 		}
 	    
 	 
-	 
+	 /**
+	  * 
+	 * @author yyk  
+	 * @Title: addLinePage 
+	 * @Package com.yyk.controller  
+	 * @Description: TODO
+	 * @return
+	 * @return String   
+	 * @date 2019年5月2日 下午8:29:25     
+	 * @throws 
+	  */
 	 
 	    @RequestMapping(value = Url.ADD_LINE_PAGE, method = RequestMethod.POST)
 		 public String addLinePage(){
 		   return Views.ADD_LINE_VIEW;
 		 }
-	 
+	    
+	 /**
+	  * 
+	 * @author yyk  
+	 * @Title: insertLine 
+	 * @Package com.yyk.controller  
+	 * @Description: TODO
+	 * @param sysLine
+	 * @return
+	 * @return Map<String,Object>   
+	 * @date 2019年5月2日 下午8:29:30     
+	 * @throws 
+	  */
 	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> insertLine(SysLine sysLine) {
 	    	Map<String, Object> map = new HashMap<String, Object>();
@@ -219,7 +291,7 @@ public class SysLineController {
 			SysLineCriteria.Criteria cri = criteria.createCriteria();
 	 		cri.andLineCodeEqualTo(sysLine.getLineCode());	
 	 		List<SysLine> list=sysLineService.selectLine(criteria);
-	 		if(list.isEmpty() && list.size()==0){
+	 		if(list.isEmpty() || list.size()==0){
 	 			int i=sysLineService.insertLine(sysLine);
 	 			if(i==1)
 	 			{

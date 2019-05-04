@@ -48,7 +48,7 @@ public class SysUserServiceImpl implements SysUserService{
 	public int insertUser(SysUser sysUser) {
 		sysUser.setStatus(1);
     	sysUser.setUserId(UUIDGenerator.create32Key());
-		return SysUserDao.insert(sysUser);
+		return SysUserDao.insertSelective(sysUser);
 	}
 
 	@Override

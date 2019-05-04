@@ -21,24 +21,44 @@ public interface Url {
     String DELETE_INFO = "/deleteInfo";
     /*批量删除*/
     String DELETE_LIST = "/deleteList";
-	//登录请求地址
+	/*登录请求地址*/
 	String BACK_LOGIN_URL = "/login/user";
 	
-	//员工管理
+	/*员工管理*/
 	String EMP_MANAGE = "/empManageList";
 	
-	//职位管理
+	/*职位管理*/
     String JOB_MANAGE = "/jobManageList";
     
-    //客户管理
+    /*员工职位管理*/
+    String EMP_JOB_MANAGE = "/empJobManageList";
+    String ON_JOB_MANAGE = "/onJobList";
+    String OFF_JOB_MANAGE = "/offJobList";
+    
+    /*客户管理*/
     String USER_MANAGE = "/userManageList";
     String UPDATE_USER_PSW="/updateUserPsw";
     
-    //线路管理
+    /*订单管理*/
+	String ORDER_MANAGE = "/orderManageList";
+	String CHECK_ORDER_MANAGE = "/checkOrderManage";
+	String CHECK_ORDER_LIST = "/checkOrderList";
+	String CANCEL_ORDER_MANAGE = "/cancelOrderManage";
+	String SELECT_CANCEL_BY_PAGE = "/selectCancelByPage";
+	String CANCEL_ORDER_LIST = "/cancleOrderList";
+	String SELECT_ORDER_MANAGE = "/selectOrderManage";
+	String SELECT_ORDER_BY_PAGE = "/selectlOrderByPage";
+	
+	
+    /*线路管理*/
     String LINE_MANAGE = "/lineManageList";
     String ADD_LINE_PAGE="/addLinePage";
     
-    //数据字典管理
+    /*线路管理*/
+    String VHEICLE_MANAGE = "/vehicleManageList";
+    String ADD_VEHICLE_PAGE="/addVehiclePage";
+    
+    /*数据字典管理*/
     String BASECODE_MANAGE = "/basecodeManageList";
     String BASECODETYPE_LIST_BY_PAGE = "/selectCodeTypeListByPage";
     String BASECODE_LIST_BY_PAGE = "/selectCodeListByPage";

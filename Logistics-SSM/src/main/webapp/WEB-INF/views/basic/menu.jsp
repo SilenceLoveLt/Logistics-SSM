@@ -23,7 +23,8 @@
         }
         .nav>li{
         border-bottom: 1px solid #414040;
-        padding-top: 13px;
+        padding-top: 20px;
+       
         }
        /*  .nav>li>span>{
         padding-top: 13px;
@@ -31,6 +32,11 @@
         li>span>{
         padding-top: 13px;
         }
+       .nav>li>.right{
+           padding-top: 22px;
+       
+       }
+       
         </style>
  </head>
     <body>
@@ -40,35 +46,39 @@
 	<input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
 	<input type="hidden" id="basecodeList" value="<%=basePath%>basecodeManageList/" /> 
 	<input type="hidden" id="lineList" value="<%=basePath%>lineManageList/" />
-	<input type="hidden" id="orderList" value="/orderManageList" />
-	<input type="hidden" id="stockList" value="/stockManageList" />
-	<input type="hidden" id="storeOutList" value="/storeOutList" />
+	<input type="hidden" id="vehicleList" value="<%=basePath%>vehicleManageList/" />
+	<input type="hidden" id="checkOrder" value="<%=basePath%>orderManageList/checkOrderManage" />
+	<input type="hidden" id="cancelOrder" value="<%=basePath%>orderManageList/cancelOrderManage" />
+	<input type="hidden" id="selectOrder" value="<%=basePath%>orderManageList/selectOrderManage" />
 	<input type="hidden" id="storeInList" value="/storeInList" />
 
     	<ul class="nav" >
-    		<li><i class="fa fa-gear fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="empList">员工列表</li>
     				<li class="jobList">职位列表</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-users fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
     				<li class="updatePassword">修改密码</li>
     			</ul>
     		</li>
-    			<li><i class="fa fa-reorder fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="orderList">订单列表</li>
+    				<li class="orderList">新增订单</li>
+    				<li class="checkOrder">审核订单</li>
+    				<li class="cancelOrder">取消订单</li>
+    				<li class="selectOrder">查询订单</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-envelope-open fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-envelope-open fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="pdtList">货物列表</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-server fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-server fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="stockList">货架列表</li>
     				<li class="storeInList">入库记录</li>
@@ -76,24 +86,24 @@
     			</ul>
     		</li>
     	
-    		<li><i class="fa fa-truck fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-truck fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="lineList">车辆列表</li>
+    				<li class="vehicleList">车辆列表</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-random fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="lineList">线路列表</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-random fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-taxi fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li>配送单管理</li>
     				<li>货物跟踪</li>
     				<li>确认签收</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-file-text-o fa-lg"></i>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-table fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="basecodeList">数据字典</li>
     			</ul>

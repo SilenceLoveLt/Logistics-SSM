@@ -1,4 +1,4 @@
-package com.yyk.dto.baseCodeDTO;
+package com.yyk.dto.BaseCodeDTO;
 
 import java.util.List;
 
@@ -22,10 +22,16 @@ public class BaseCodeDTO extends BaseCode {
     private String[] tags;
     private String applyType;
     private String lineType;
-    private String partentCode;
+    private String vehicleType;
+	private String partentCode;
     
     
-    
+	public String getVehicleType() {
+		return vehicleType;
+	}
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
     public String getLineType() {
 		return lineType;
 	}

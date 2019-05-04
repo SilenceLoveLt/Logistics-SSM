@@ -1,28 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--
+  User: liting
+  Date: 2019/3/26
+  Time: 9:36 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>系统提示</title>
+    <base href="<%=basePath%>">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>403</title>
+    <!-- jQuery -->
+    <script src="<%=basePath%>static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="<%=basePath%>static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="<%=basePath%>static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="<%=basePath%>static/vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="<%=basePath%>static/build/js/custom.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="<%=basePath%>static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="<%=basePath%>static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<%=basePath%>static/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="<%=basePath%>static/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="errorInfo">
-	<div class="topbg">
-		<p class="title">系统提示</p>
-	</div>
-	<div class="midbg">
-		<div class="box">
-			<p><b>坏消息</b>是阁下无权限进行此操作！<br />
-				<b>好消息</b>是您可以向客服申请执行此操作的权限，我们在将竭诚为您服务。</p>
-			<p>对于由此造成的任何不便，我们深表歉意。<br />
-				同时，如果您希望了解有关此问题及其他问题的更新信息，请访问：<br />
-<!--				http://www.sipmall.org</p>-->
-			<p><b>抱歉！同时谢谢您的帮助！</b></p>
-			<div class="btn"><a href="#" onclick="window.history.back();">返回</a></div>
-		</div>
-	</div>
-	<div class="btmbg"></div>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="col-md-12">
+            <div class="col-middle">
+                <div class="text-center text-center">
+                    <h1 class="error-number">403</h1>
+                    <h2>Access denied</h2>
+                    <p>Full authentication is required to access this resource. <a href="#">Report this?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
 </div>
-<!-- 403 -->
+
+
 </body>
 </html>

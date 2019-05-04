@@ -17,6 +17,8 @@ public class SysInvoice {
 
     private String empId;
 
+    private String addrNow;
+
     private Integer invoiceStatus;
 
     private Date startTime;
@@ -85,6 +87,14 @@ public class SysInvoice {
 
     public void setEmpId(String empId) {
         this.empId = empId == null ? null : empId.trim();
+    }
+
+    public String getAddrNow() {
+        return addrNow;
+    }
+
+    public void setAddrNow(String addrNow) {
+        this.addrNow = addrNow == null ? null : addrNow.trim();
     }
 
     public Integer getInvoiceStatus() {

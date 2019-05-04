@@ -243,7 +243,7 @@
 
 <div id='table-div1' style="width:45%;float:left;">
 	<div class="btn-group" style="margin-top:10px; " >
-	   <button type="button" class="btn btn-default" onclick="addCodeTypeFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+	   <button type="button" class="btn btn-default" onclick="addCodeTypeFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
 		<button class="btn btn-default" onclick="deleteCodeTypeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeTypeListTable" style="white-space:nowrap">
@@ -265,7 +265,7 @@
 </div>
 <div id='table-div2'  style="width:54%;float: right;visibility: hidden">
 	<div class="btn-group" style="margin-top:10px; " >
-	   <button type="button" class="btn btn-default" onclick="addCodeFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+	   <button type="button" class="btn btn-default" onclick="addCodeFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
 	   <button class="btn btn-default" onclick="deleteCodeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeListTable" style="white-space:nowrap">

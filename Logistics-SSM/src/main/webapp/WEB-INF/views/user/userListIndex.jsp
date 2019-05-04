@@ -202,7 +202,7 @@
     <!--模态框 end-->
 
 <div class="btn-group" style="margin-top:10px; " >
-   <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-trash-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
+   <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
 	<button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
@@ -741,48 +741,68 @@ var remark=null;
  			    }
  			});           
          }else{
-             var idListStr ='';
-             for (var i = 0; i < selectLoans.length; i++) { 
-                 if(i!=selectLoans.length-1){
-                     idListStr = idListStr + selectLoans[i] +",";
-                 }else{
-                     idListStr = idListStr + selectLoans[i];
-                 } 
-             }  
-             console.info("id:"+idListStr);
-             var deleteInfoUrl = $("#deleteListUser").val();
-        	 $.post(deleteInfoUrl,  {"idListStr": idListStr},function(data) {
-        	 			if (data || data=='true') {
-        	 				$.alert({
-        	 	                title: '提示',
-        	 	                content: '删除成功！',
-        	 	                type:'green',             //一般危险操作用red,保存成功操作green
-        	 	                buttons: {              //定义按钮
-        	 	                    confirm: {
-        	 	                        text: '确认',
-        	 	                        btnClass: 'btn-primary',
-        	 	                        action: function(){ //这里写点击按钮回调函数
-        	 	                        }
-        	 	                    }
-        	 	                }
-        	 	            });
-        	 				searchDatas(); //刷新列表
-        	 			} else {
-        	 				$.alert({
-        	 	                title: '提示',
-        	 	                content: '删除失败,如有问题请联系管理员！',
-        	 	                type:'red',             //一般危险操作用red,保存成功操作green
-        	 	                buttons: {              //定义按钮
-        	 	                    confirm: {
-        	 	                        text: '确认',
-        	 	                        btnClass: 'btn-primary',
-        	 	                        action: function(){ //这里写点击按钮回调函数
-        	 	                        }
-        	 	                    }
-        	 	                }
-        	 	            });
-        	 			}
-        	 		}, 'json');
+        	 $.confirm({
+ 	            title: '提示',
+ 	            content: '您确认需要删除选中的数据吗？',
+ 	            type:'red',
+ 	            icon:'glyphicon glyphicon-question-sign',
+ 	            buttons: {
+ 	                ok: {
+ 	                    text: '确认',
+ 	                    btnClass: 'btn-primary',
+ 	                    action: function(){ //确认按钮回调
+ 	                       var idListStr ='';
+ 	                       for (var i = 0; i < selectLoans.length; i++) { 
+ 	                           if(i!=selectLoans.length-1){
+ 	                               idListStr = idListStr + selectLoans[i] +",";
+ 	                           }else{
+ 	                               idListStr = idListStr + selectLoans[i];
+ 	                           } 
+ 	                       }  
+ 	                       console.info("id:"+idListStr);
+ 	                       var deleteInfoUrl = $("#deleteListUser").val();
+ 	                  	   $.post(deleteInfoUrl,  {"idListStr": idListStr},function(data) {
+ 	                  	 			if (data || data=='true') {
+ 	                  	 				$.alert({
+ 	                  	 	                title: '提示',
+ 	                  	 	                content: '删除成功！',
+ 	                  	 	                type:'green',             //一般危险操作用red,保存成功操作green
+ 	                  	 	                buttons: {              //定义按钮
+ 	                  	 	                    confirm: {
+ 	                  	 	                        text: '确认',
+ 	                  	 	                        btnClass: 'btn-primary',
+ 	                  	 	                        action: function(){ //这里写点击按钮回调函数
+ 	                  	 	                        }
+ 	                  	 	                    }
+ 	                  	 	                }
+ 	                  	 	            });
+ 	                  	 				searchDatas(); //刷新列表
+ 	                  	 			} else {
+ 	                  	 				$.alert({
+ 	                  	 	                title: '提示',
+ 	                  	 	                content: '删除失败,如有问题请联系管理员！',
+ 	                  	 	                type:'red',             //一般危险操作用red,保存成功操作green
+ 	                  	 	                buttons: {              //定义按钮
+ 	                  	 	                    confirm: {
+ 	                  	 	                        text: '确认',
+ 	                  	 	                        btnClass: 'btn-primary',
+ 	                  	 	                        action: function(){ //这里写点击按钮回调函数
+ 	                  	 	                        }
+ 	                  	 	                    }
+ 	                  	 	                }
+ 	                  	 	            });
+ 	                  	 			}
+ 	                  	 		}, 'json');
+ 	                    }
+ 	                },
+ 	                cancel: {
+ 	                    text: '取消',
+ 	                    btnClass: 'btn-primary',
+ 	                    action: function(){ //取消按钮回调
+ 	                    }
+ 	                }
+ 	            },
+ 	        });
          }
 	  	
 	 }

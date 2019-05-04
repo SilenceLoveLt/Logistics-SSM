@@ -259,7 +259,7 @@
   </update>
   
   
-  <select id="countByBaseCode" parameterType="com.yyk.dto.baseCodeDTO.BaseCodeDTO" resultType="java.lang.Integer">
+  <select id="countByBaseCode" parameterType="com.yyk.dto.BaseCodeDTO.BaseCodeDTO" resultType="java.lang.Integer">
   select  count(l.LINE_TYPE) from line_table l INNER JOIN base_code b on l.LINE_TYPE=b.`CODE`
   where APPLY_TYPE=#{applyType,jdbcType=VARCHAR}   AND  LINE_TYPE=#{lineType,jdbcType=VARCHAR}   AND CODE_TYPE=#{codeType,jdbcType=VARCHAR}  AND b.`STATUS`='1'
   </select>

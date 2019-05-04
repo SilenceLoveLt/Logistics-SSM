@@ -612,6 +612,76 @@ public class SysInvoiceCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andAddrNowIsNull() {
+            addCriterion("ADDR_NOW is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowIsNotNull() {
+            addCriterion("ADDR_NOW is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowEqualTo(String value) {
+            addCriterion("ADDR_NOW =", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowNotEqualTo(String value) {
+            addCriterion("ADDR_NOW <>", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowGreaterThan(String value) {
+            addCriterion("ADDR_NOW >", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowGreaterThanOrEqualTo(String value) {
+            addCriterion("ADDR_NOW >=", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowLessThan(String value) {
+            addCriterion("ADDR_NOW <", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowLessThanOrEqualTo(String value) {
+            addCriterion("ADDR_NOW <=", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowLike(String value) {
+            addCriterion("ADDR_NOW like", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowNotLike(String value) {
+            addCriterion("ADDR_NOW not like", value, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowIn(List<String> values) {
+            addCriterion("ADDR_NOW in", values, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowNotIn(List<String> values) {
+            addCriterion("ADDR_NOW not in", values, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowBetween(String value1, String value2) {
+            addCriterion("ADDR_NOW between", value1, value2, "addrNow");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddrNowNotBetween(String value1, String value2) {
+            addCriterion("ADDR_NOW not between", value1, value2, "addrNow");
+            return (Criteria) this;
+        }
+
         public Criteria andInvoiceStatusIsNull() {
             addCriterion("INVOICE_STATUS is null");
             return (Criteria) this;

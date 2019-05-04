@@ -7,6 +7,8 @@ public class SysEmp {
 
     private Integer id;
 
+    private String empCode;
+
     private String empName;
 
     private String password;
@@ -15,7 +17,7 @@ public class SysEmp {
 
     private Integer roleid;
 
-    private String job;
+    private String jobName;
 
     private Integer sex;
 
@@ -45,6 +47,14 @@ public class SysEmp {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode == null ? null : empCode.trim();
     }
 
     public String getEmpName() {
@@ -79,12 +89,12 @@ public class SysEmp {
         this.roleid = roleid;
     }
 
-    public String getJob() {
-        return job;
+    public String getJobName() {
+        return jobName;
     }
 
-    public void setJob(String job) {
-        this.job = job == null ? null : job.trim();
+    public void setJobName(String jobName) {
+        this.jobName = jobName == null ? null : jobName.trim();
     }
 
     public Integer getSex() {

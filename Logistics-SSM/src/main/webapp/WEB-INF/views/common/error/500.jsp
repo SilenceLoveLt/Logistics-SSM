@@ -1,35 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isErrorPage="true"%>
-<%@ include file="/WEB-INF/views/common/base.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--
+  User: liting
+  Date: 2019/3/26
+  Time: 9:36 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
-<link href="css/global.css" rel="stylesheet" type="text/css" />
-<link href="css/layout_cn.css" rel="stylesheet" type="text/css" />
+    <base href="<%=basePath%>">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>500</title>
+    <!-- jQuery -->
+    <script src="<%=basePath%>static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="<%=basePath%>static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="<%=basePath%>static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="<%=basePath%>static/vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="<%=basePath%>static/build/js/custom.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="<%=basePath%>static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="<%=basePath%>static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<%=basePath%>static/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="<%=basePath%>static/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="errorInfo">
-<div class="topbg">
-<p class="title">系统提示</p>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="col-md-12">
+            <div class="col-middle">
+                <div class="text-center text-center">
+                    <h1 class="error-number">500</h1>
+                    <h2>Access denied</h2>
+                    <p>Full authentication is required to access this resource. <a href="#">Report this?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
 </div>
-<div class="midbg">
-<div class="box">
-<p><b>坏消息</b>是 系统 刚发生了一个错误。<br />
-<b>好消息</b>是您帮我们发现了一个问题，我们会立刻对其进行调查。</p>
-<p>对于由此造成的任何不便，我们深表歉意。<br />
-同时，如果您希望了解有关此问题及其他问题的更新信息，请访问：<br />
-<!--http://www.sipmall.com/help/qa</p>-->
-<p><b>抱歉！同时谢谢您的帮助！</b></p>
-<div class="btn"><a href="#" onclick="window.history.back();">返回</a></div>
-</div>
-<div class="btmbg"></div>
-</div>
-<div>
-错误堆栈信息：<br/>  
-		<ifa:exception/>
-</div>
-<!-- 500 -->
+
+
 </body>
 </html>

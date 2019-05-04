@@ -748,7 +748,7 @@ var remark=null;
 	                    text: '确认',
 	                    btnClass: 'btn-primary',
 	                    action: function(){ //确认按钮回调
-	                        deleteUser(id);
+	                    	deleteLine(id);
 	                    }
 	                },
 	                cancel: {
@@ -762,10 +762,11 @@ var remark=null;
 	 }
 	
 	 /* 删除数据 */
-	 function deleteUser(lineId){
+	 function deleteLine(lineId){
+		 
 	 var delUrl = $("#deleteInfoLine").val();
 	 $.post(delUrl,  {"lineId": lineId},function(data) {
-	 			if (data || data=='true') {
+	 			if (data.result=='true') {
 	 				$.alert({
 	 	                title: '提示',
 	 	                content: '删除成功！',
@@ -780,10 +781,26 @@ var remark=null;
 	 	                }
 	 	            });
 	 				searchDatas(); //刷新列表
-	 			} else {
+	 			} 
+	 			if(data.result=='false'){
 	 				$.alert({
 	 	                title: '提示',
 	 	                content: '删除失败,如有问题请联系管理员！',
+	 	                type:'red',             //一般危险操作用red,保存成功操作green
+	 	                buttons: {              //定义按钮
+	 	                    confirm: {
+	 	                        text: '确认',
+	 	                        btnClass: 'btn-primary',
+	 	                        action: function(){ //这里写点击按钮回调函数
+	 	                        }
+	 	                    }
+	 	                }
+	 	            });
+	 			}
+	 			if(data.result=='repeat'){
+	 				$.alert({
+	 	                title: '提示',
+	 	                content: '删除失败,该线路正在使用！',
 	 	                type:'red',             //一般危险操作用red,保存成功操作green
 	 	                buttons: {              //定义按钮
 	 	                    confirm: {

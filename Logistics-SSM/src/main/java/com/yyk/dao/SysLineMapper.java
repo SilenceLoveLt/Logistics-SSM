@@ -1,11 +1,12 @@
 package com.yyk.dao;
 
-import com.yyk.dto.baseCodeDTO.BaseCodeDTO;
-import com.yyk.entity.BaseCode;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface SysLineMapper {
     int countByExample(SysLineCriteria example);

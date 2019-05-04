@@ -32,13 +32,39 @@ public interface Views {
 	public static final String UPDATE_USER_VIEW = "update.user.view";
 	
 	/**
+	 * 订单页面
+	 */
+	public static final String CHECK_ORDER_VIEW = "check.order.view";
+	public static final String CANCEL_ORDER_VIEW = "cancel.order.view";
+	public static final String SELECT_ORDER_VIEW = "select.order.view";
+	
+	/**
 	 * 线路页面
 	 */
 	public static final String LINE_VIEW = "line.view";
 	public static final String ADD_LINE_VIEW = "add.line.view";
 	
 	/**
+	 * 车辆页面
+	 */
+	public static final String VHEICLE_VIEW = "vehicle.view";
+	public static final String ADD_VEHICLE_VIEW = "add.vehicle.view";
+	
+	/**
 	 * 数据字典
 	 */
 	public static final String BASECODE_VIEW = "basecode.view";
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

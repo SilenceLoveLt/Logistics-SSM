@@ -17,6 +17,8 @@ public class SysVehicle {
 
     private Integer volume;
 
+    private String applyType;
+
     private Integer status;
 
     private Date createTime;
@@ -79,6 +81,14 @@ public class SysVehicle {
 
     public void setVolume(Integer volume) {
         this.volume = volume;
+    }
+
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType == null ? null : applyType.trim();
     }
 
     public Integer getStatus() {

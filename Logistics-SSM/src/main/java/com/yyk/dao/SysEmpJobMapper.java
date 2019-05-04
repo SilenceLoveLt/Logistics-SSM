@@ -27,4 +27,6 @@ public interface SysEmpJobMapper {
     int updateByPrimaryKeySelective(SysEmpJob record);
 
     int updateByPrimaryKey(SysEmpJob record);
+    
+    int insertByBatch(List<SysEmpJob> list);
 }

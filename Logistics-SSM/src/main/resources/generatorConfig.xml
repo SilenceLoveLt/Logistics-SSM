@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>         <!--数据库驱动路径 -->
     <classPathEntry
-            location="C:/SettingXml/Repository/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar"/>
+            location="D:/WorkSettingXML/repository/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!-- 使用criteria代替Examples自动生成结尾 如这里会在dao下生成MyInfoCriteria 否则默认的为MyInfoExample-->
         <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
@@ -40,16 +40,26 @@
         </javaClientGenerator>
         <!--下面是数据库表名和项目中需要生成类的名称，建议和数据库保持一致，如果有多个表，添加多个节点即可 -->
 
+	     <table tableName="order_table" domainObjectName="SysOrder" 
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+        </table>
 		<!-- <table tableName="user_table" domainObjectName="SysUser" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
         </table> -->
-       <!--  <table tableName="emp_table" domainObjectName="SysEmp" 
+        <!-- <table tableName="emp_table" domainObjectName="SysEmp" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
-        </table>-->
+        </table> -->
+       <!--  <table tableName="job_table" domainObjectName="SysJob" 
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+        </table> -->
        <!--  <table tableName="emp_job_table" domainObjectName="SysEmpJob" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
@@ -75,22 +85,17 @@
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
         </table> -->
-        <!--  <table tableName="invoice_table" domainObjectName="SysInvoice" 
+         <!-- <table tableName="line_table" domainObjectName="SysLine" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
         </table> -->
-         <table tableName="line_table" domainObjectName="SysLine" 
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true">
-        </table>
         <!--  <table tableName="shelves_table" domainObjectName="SysShelves" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
         </table> -->
-          <!-- <table tableName="vehicle_table" domainObjectName="SysVehicle" 
+         <!--  <table tableName="vehicle_table" domainObjectName="SysVehicle" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">

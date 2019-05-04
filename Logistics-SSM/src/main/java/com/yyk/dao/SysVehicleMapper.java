@@ -1,9 +1,12 @@
 package com.yyk.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
 import com.yyk.entity.SysVehicle;
 import com.yyk.entity.SysVehicleCriteria;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface SysVehicleMapper {
     int countByExample(SysVehicleCriteria example);
@@ -27,4 +30,6 @@ public interface SysVehicleMapper {
     int updateByPrimaryKeySelective(SysVehicle record);
 
     int updateByPrimaryKey(SysVehicle record);
+    
+    int  countByBaseCode(BaseCodeDTO object);
 }

@@ -273,4 +273,72 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where EMP_JOB_ID = #{empJobId,jdbcType=VARCHAR}
   </update>
+  
+  
+  <insert id="insertByBatch" parameterType="com.yyk.entity.SysEmpJob" >
+    insert into emp_job_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    EMP_JOB_ID, ID, EMP_ID, JOB_ID, JOB_CODE, STATUS, CREATE_TIME, UPDATE_TIME, REMARK
+    </trim>
+    <trim prefix="values" suffix="" suffixOverrides="," >
+    <foreach collection="list" item="item" index="index" separator=",">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="item.empJobId != null" >
+        #{item.empJobId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.empJobId == null" >
+        null,
+      </if>
+      <if test="item.id != null" >
+        #{item.id,jdbcType=INTEGER},
+      </if>
+      <if test="item.id == null" >
+        null,
+      </if>
+      <if test="item.empId != null" >
+        #{item.empId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.empId == null" >
+       null,
+      </if>
+      <if test="item.jobId != null" >
+        #{item.jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.jobId == null" >
+       null,
+      </if>
+      <if test="item.jobCode != null" >
+        #{item.jobCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.jobCode == null" >
+        null,
+      </if>
+      <if test="item.status != null" >
+        #{item.status,jdbcType=INTEGER},
+      </if>
+       <if test="item.status == null" >
+        null,
+      </if>
+      <if test="item.createTime != null" >
+        #{item.createTime,jdbcType=DATE},
+      </if>
+      <if test="item.createTime == null" >
+        null,
+      </if>
+      <if test="item.updateTime != null" >
+        #{item.updateTime,jdbcType=DATE},
+      </if>
+      <if test="item.updateTime == null" >
+        null,
+      </if>
+      <if test="item.remark != null" >
+        #{item.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="item.remark == null" >
+        null,
+      </if>
+      </trim>
+     </foreach>
+    </trim>
+  </insert>
 </mapper>
