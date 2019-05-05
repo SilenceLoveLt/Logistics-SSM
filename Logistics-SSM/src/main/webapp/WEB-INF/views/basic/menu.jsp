@@ -45,6 +45,7 @@
 	<input type="hidden" id="empList" value="<%=basePath%>empManageList/" />
 	<input type="hidden" id="jobList" value="<%=basePath%>jobManageList/" />
 	<input type="hidden" id="basecodeList" value="<%=basePath%>basecodeManageList/" /> 
+	<input type="hidden" id="addOrder" value="<%=basePath%>orderManageList/addOrderManage" />
 	<input type="hidden" id="lineList" value="<%=basePath%>lineManageList/" />
 	<input type="hidden" id="vehicleList" value="<%=basePath%>vehicleManageList/" />
 	<input type="hidden" id="checkOrder" value="<%=basePath%>orderManageList/checkOrderManage" />
@@ -67,7 +68,7 @@
     		</li>
     		<li><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="orderList">新增订单</li>
+    				<li class="addOrder">新增订单</li>
     				<li class="checkOrder">审核订单</li>
     				<li class="cancelOrder">取消订单</li>
     				<li class="selectOrder">查询订单</li>

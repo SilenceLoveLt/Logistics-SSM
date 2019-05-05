@@ -21,4 +21,8 @@
         <put-attribute name="body" value="/WEB-INF/views/order/selectOrderIndex.jsp" />
     </definition>
 
+	<definition name="add.order.view"  extends="layout.basic">
+        <put-attribute name="title" value="查询订单" />
+        <put-attribute name="body" value="/WEB-INF/views/order/insertOrderIndex.jsp" />
+    </definition>
 </tiles-definitions>

@@ -37,6 +37,8 @@ public interface Views {
 	public static final String CHECK_ORDER_VIEW = "check.order.view";
 	public static final String CANCEL_ORDER_VIEW = "cancel.order.view";
 	public static final String SELECT_ORDER_VIEW = "select.order.view";
+	public static final String ADD_ORDER_VIEW = "add.order.view";
+	
 	
 	/**
 	 * 线路页面

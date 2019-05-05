@@ -18,6 +18,17 @@
     <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapNew" type="com.yyk.dto.OrderDTO.OrderResDTO">
+    <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
+    <result column="EMP_NAME" jdbcType="VARCHAR" property="empName" />
+    <result column="VEHICLE_ID" jdbcType="VARCHAR" property="vehicleId" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="ADDR_NOW" jdbcType="VARCHAR" property="addrNow" />
+    <result column="INVOICE_STATUS" jdbcType="INTEGER" property="invoiceStatus" />
+    <result column="START_TIME" jdbcType="DATE" property="startTime" />
+    <result column="END_TIME" jdbcType="DATE" property="endTime" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -368,5 +379,24 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where INVOICE_ID = #{invoiceId,jdbcType=VARCHAR}
   </update>
- 
+  
+  
+ <select id="selectOrderByExample" parameterType="com.yyk.entity.SysInvoiceCriteria" resultMap="BaseResultMapNew">
+    select  i.order_id ORDER_ID,e.EMP_NAME EMP_NAME,e.PHONE PHONE,i.addr_now ADDR_NOW,i.start_time START_TIME,i.end_time END_TIME,b.data_name INVOICE_STATUS from 
+    (select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from invoice_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>)i
+    left join emp_table e on i.emp_id=e.EMP_ID and  e.`STATUS`&gt;= 1
+    LEFT JOIN base_code b on i.invoice_status=b.code and b.CODE_TYPE='INVOICETYPE' and b.`STATUS`&gt;= 1
+  </select>
 </mapper>

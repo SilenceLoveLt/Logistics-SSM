@@ -1,5 +1,6 @@
 package com.yyk.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,12 @@ public class SysUserServiceImpl implements SysUserService{
 	public int insertUser(SysUser sysUser) {
 		sysUser.setStatus(1);
     	sysUser.setUserId(UUIDGenerator.create32Key());
+    	if(sysUser.getCreateTime()==null){
+    		sysUser.setCreateTime(new Date());
+    	}
+    	if(sysUser.getUpdateTime()==null){
+    		sysUser.setUpdateTime(new Date());
+    	}
 		return SysUserDao.insertSelective(sysUser);
 	}
 

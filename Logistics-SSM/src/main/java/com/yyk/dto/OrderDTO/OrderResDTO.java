@@ -10,7 +10,9 @@ import java.util.Date;
 public class OrderResDTO {
       private String orderId;
       
-      private String phone;
+      private String empName;
+      
+	  private String phone;
       
       private String addrNow;
       
@@ -19,6 +21,15 @@ public class OrderResDTO {
       private Date endTime;
       
       private String invoiceStatus;
+      
+      
+      public String getEmpName() {
+  		return empName;
+  	}
+
+  	public void setEmpName(String empName) {
+  		this.empName = empName;
+  	}
 
 	public String getOrderId() {
 		return orderId;

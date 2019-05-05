@@ -112,6 +112,7 @@
 	<thead>
 		<tr class="text-c">
 			<th>订单编号</th>
+			<th>派送人姓名</th>
 			<th>派送人电话</th>
 			<th>当前地点</th>
 			<th>发货时间</th>
@@ -157,6 +158,7 @@
      fnServerData: retrieveData, //执行函数
      aoColumns:[//列表元素  支持多种属性 
 					  { "mData": "orderId"},
+					  { "mData": "empName"},
                       { "mData": "phone"},
                       { "mData": "addrNow"},
                       { "mData": "startTime"},
@@ -189,16 +191,11 @@
    
    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
-	 var createTimeSearch = {
-	   "name":"createTimeSearch",
-	   "value":$("#search_createTime").val()
+	 var orderIdSearch = {
+	   "name":"orderIdSearch",
+	   "value":$("#search_orderId").val()
 	 }
-	 var updateTimeSearch = {
-	   "name":"updateTimeSearch",
-	   "value":$("#search_updateTime").val()
-	 }
-	 aoData.push(createTimeSearch);
-	 aoData.push(updateTimeSearch);
+	 aoData.push(orderIdSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
 	     data : {"aoData":JSON.stringify(aoData)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数

@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
+import com.yyk.dto.OrderDTO.OrderResDTO;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
+import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
@@ -18,6 +20,8 @@ import com.yyk.entity.SysUserCriteria;
 */
 public interface SysOrderService {
 	ResDataDTO<List<SysOrder>> selectSysOrderByPage(SysOrderCriteria criteria,PageInfo pageInfo);
+	
+	ResDataDTO<List<OrderResDTO>> selectOrderByOrderId(SysInvoiceCriteria criteria,PageInfo pageInfo);
 	
 	int insertOrder(SysOrder sysOrder);
 	

@@ -1,5 +1,6 @@
 package com.yyk.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,13 @@ import com.github.pagehelper.PageHelper;
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.dao.SysEmpMapper;
+import com.yyk.dao.SysInvoiceMapper;
 import com.yyk.dao.SysOrderMapper;
 import com.yyk.dao.SysUserMapper;
+import com.yyk.dto.OrderDTO.OrderResDTO;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
+import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
@@ -32,6 +36,9 @@ public class SysOrderServiceImpl implements SysOrderService{
 	
 	@Autowired
 	private SysOrderMapper SysOrderDao;
+	
+	@Autowired
+	private SysInvoiceMapper SysInvoiceDao;
 
 	@Override
 	public ResDataDTO<List<SysOrder>> selectSysOrderByPage(SysOrderCriteria criteria, PageInfo pageInfo) {
@@ -54,7 +61,16 @@ public class SysOrderServiceImpl implements SysOrderService{
 
 	@Override
 	public int insertOrder(SysOrder sysOrder) {
+		/**
+    	 *  OrderStatus:1 代表待审核
+    	 *  OrderStatus:2 代表审核通过
+    	 *  OrderStatus:3代表取消订单
+    	 *  
+    	 */
 		sysOrder.setStatus(1);
+		sysOrder.setOrderStatus(1);  
+		sysOrder.setCreateTime(new Date());
+		sysOrder.setUpdateTime(new Date());
 		sysOrder.setOrderId(UUIDGenerator.create32Key());
 		return SysOrderDao.insertSelective(sysOrder);
 	}
@@ -67,6 +83,25 @@ public class SysOrderServiceImpl implements SysOrderService{
 	@Override
 	public List<SysOrder> selectInfoOrder(SysOrderCriteria criteria) {
 		return SysOrderDao.selectByExample(criteria);
+	}
+
+	@Override
+	public ResDataDTO<List<OrderResDTO>> selectOrderByOrderId(SysInvoiceCriteria criteria, PageInfo pageInfo) {
+		List<OrderResDTO> sysOrderList=null;
+		if(pageInfo!=null){
+			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			sysOrderList=SysInvoiceDao.selectOrderByExample(criteria);
+			PageHelper.clearPage();
+			pageInfo.setTotal(SysInvoiceDao.countByExample(criteria));
+			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
+			pageInfo.setPageTotal(pageTotal);
+		}else{
+			sysOrderList=SysInvoiceDao.selectOrderByExample(criteria);
+		}
+		ResDataDTO<List<OrderResDTO>> listRes=new ResDataDTO<List<OrderResDTO>>();
+		listRes.setData(sysOrderList);
+		listRes.setPageInfo(pageInfo);
+		return listRes;
 	}
 
 	

@@ -21,12 +21,20 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
+import com.yyk.dto.OrderDTO.OrderResDTO;
+import com.yyk.entity.SysGoods;
+import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysJob;
 import com.yyk.entity.SysJobCriteria;
+import com.yyk.entity.SysLine;
+import com.yyk.entity.SysLineCriteria;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
+import com.yyk.entity.SysUser;
+import com.yyk.service.GoodsService;
 import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysOrderService;
+import com.yyk.service.SysUserService;
 
 
 /**
@@ -45,6 +53,15 @@ public class OrderController {
 	@Autowired
 	@Qualifier("sysOrderService")
 	private SysOrderService sysOrderService;
+	
+	@Autowired
+	@Qualifier("goodsService")
+	private GoodsService goodsService;
+	
+	@Autowired
+	@Qualifier("sysUserService")
+	private SysUserService sysUserService;
+	
 	
 	@Autowired
 	@Qualifier("sysInvoiceService")
@@ -276,7 +293,7 @@ public class OrderController {
 		 }
 	 
 	    @RequestMapping(value = Url.SELECT_ORDER_BY_PAGE, method = RequestMethod.POST)
-		public @ResponseBody String selectOrderPages(@RequestParam(required=false,value = "aoData") String aoData) {
+		public @ResponseBody String selectOrderByOrderId(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysOrder sysOrder=new SysOrder();
 		 String sEcho = null;
@@ -299,10 +316,9 @@ public class OrderController {
 					sysOrder.setOrderId(obj.get("value").toString());
 	            }
 	        }
-		    SysOrderCriteria criteria = new SysOrderCriteria();
-		    SysOrderCriteria.Criteria cri = criteria.createCriteria();
+		    SysInvoiceCriteria criteria = new SysInvoiceCriteria();
+		    SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
 		    cri.andStatusNotEqualTo(0);// 只查询状态为1的。
-			cri.andOrderStatusNotEqualTo(2);  //只查询出待审核
 			if (StringUtils.isNotBlank(sysOrder.getOrderId())) { // 查询起止时间时间大于等于开始
 				cri.andOrderIdEqualTo(sysOrder.getOrderId());
 			}
@@ -316,7 +332,7 @@ public class OrderController {
 					
 				}
 			}
-			ResDataDTO<List<SysOrder>> list=sysOrderService.selectSysOrderByPage(criteria, pageInfo);
+			ResDataDTO<List<OrderResDTO>> list=sysOrderService.selectOrderByOrderId(criteria, pageInfo);
 			PageInfo page=list.getPageInfo();
 			JSONObject getObj = new JSONObject();
 		    getObj.put("sEcho", sEcho);// DataTable前台必须要的
@@ -327,9 +343,48 @@ public class OrderController {
 		}
 	 
 	 
+	    @RequestMapping(value = Url.ADD_ORDER_MANAGE, method = RequestMethod.POST)
+		 public String insertOrder(){
+			 System.out.println("订单");
+		   return Views.ADD_ORDER_VIEW;
+		 }
 	 
-	 
-	 
+	    
+	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> insertOrder(SysOrder sysOrder) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	String flag=null;
+	 		int i=sysOrderService.insertOrder(sysOrder);
+	 		if(i==1)
+	 		{
+	 			//新增货物信息
+	 			SysGoods sysGoods=new SysGoods();
+	 			sysGoods.setGoodsName(sysOrder.getGoodsName());
+	 			sysGoods.setGoodsCode(sysOrder.getGoodsCood());
+	 			sysGoods.setGoodsNum(sysOrder.getGoodsNum());
+	 			sysGoods.setGoodsType(sysOrder.getGoodsType());
+	 			sysGoods.setGoodsVolume(sysOrder.getGoodsVolume());
+	 			sysGoods.setGoodsWeight(sysOrder.getGoodsWeight());
+	 			sysGoods.setOrderId(sysOrder.getOrderId());
+	 			goodsService.insertGoods(sysGoods);
+	 			
+	 			//新增客户信息
+	 			SysUser sysUser =new SysUser();
+	 			sysUser.setUserName(sysOrder.getUserName());
+	 			sysUser.setUserPhone(sysOrder.getShippPhone());
+	 			sysUser.setAddr(sysOrder.getShippAddre());
+	 			sysUserService.insertUser(sysUser);
+	 			flag="true";
+		 		map.put("result", flag);
+	 		}
+	 		else
+	 		{
+	 			flag="false";
+		 		map.put("result", flag);
+	 		}
+	 		
+	    	return map;
+		}
 	 
 	 
 }

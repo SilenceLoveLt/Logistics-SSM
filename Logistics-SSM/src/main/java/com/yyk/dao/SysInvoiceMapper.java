@@ -1,5 +1,6 @@
 package com.yyk.dao;
 
+import com.yyk.dto.OrderDTO.OrderResDTO;
 import com.yyk.entity.SysInvoice;
 import com.yyk.entity.SysInvoiceCriteria;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface SysInvoiceMapper {
     int updateByPrimaryKeySelective(SysInvoice record);
 
     int updateByPrimaryKey(SysInvoice record);
+    
+    List<OrderResDTO> selectOrderByExample(SysInvoiceCriteria example);
 }

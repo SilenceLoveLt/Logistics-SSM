@@ -47,7 +47,9 @@ public interface Url {
 	String SELECT_CANCEL_BY_PAGE = "/selectCancelByPage";
 	String CANCEL_ORDER_LIST = "/cancleOrderList";
 	String SELECT_ORDER_MANAGE = "/selectOrderManage";
-	String SELECT_ORDER_BY_PAGE = "/selectlOrderByPage";
+	String SELECT_ORDER_BY_PAGE = "/selectOrderByPage";
+	String ADD_ORDER_MANAGE = "/addOrderManage";
+	
 	
 	
     /*线路管理*/
