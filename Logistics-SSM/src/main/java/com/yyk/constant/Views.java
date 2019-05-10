@@ -41,6 +41,20 @@ public interface Views {
 	
 	
 	/**
+	 * 货物页面
+	 */
+	public static final String GOODS_VIEW = "goods.view";
+	
+	
+	/**
+	 * 货架页面
+	 */
+	public static final String SHELVES_VIEW = "shelves.view";
+	public static final String IN_SHELVES_VIEW = "in.shelves.view";
+	public static final String OUT_SHELVES_VIEW = "out.shelves.view";
+	
+	
+	/**
 	 * 线路页面
 	 */
 	public static final String LINE_VIEW = "line.view";
@@ -49,7 +63,7 @@ public interface Views {
 	/**
 	 * 车辆页面
 	 */
-	public static final String VHEICLE_VIEW = "vehicle.view";
+	public static final String VEHICLE_VIEW = "vehicle.view";
 	public static final String ADD_VEHICLE_VIEW = "add.vehicle.view";
 	
 	/**

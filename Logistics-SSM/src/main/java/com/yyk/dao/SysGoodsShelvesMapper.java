@@ -27,4 +27,6 @@ public interface SysGoodsShelvesMapper {
     int updateByPrimaryKeySelective(SysGoodsShelves record);
 
     int updateByPrimaryKey(SysGoodsShelves record);
+    
+    int insertByBatch(List<SysGoodsShelves> record);
 }

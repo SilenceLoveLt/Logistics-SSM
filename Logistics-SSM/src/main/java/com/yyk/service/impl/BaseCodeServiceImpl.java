@@ -11,6 +11,7 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.dao.BaseCodeMapper;
 import com.yyk.dao.BaseCodeTypeMapper;
+import com.yyk.dto.BaseCodeDTO.BaseCodeResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.BaseCodeType;
@@ -27,19 +28,19 @@ public class BaseCodeServiceImpl implements BaseCodeService{
 	private BaseCodeMapper baseCodeDao;
 
 	@Override
-	public ResDataDTO<List<BaseCode>> selectCodeByPage(BaseCodeCriteria criteria, PageInfo pageInfo) {
-		List<BaseCode> baseCodeList=null;
+	public ResDataDTO<List<BaseCodeResDTO>> selectCodeByPage(BaseCodeCriteria criteria, PageInfo pageInfo) {
+		List<BaseCodeResDTO> baseCodeList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-			baseCodeList=baseCodeDao.selectByExample(criteria);
+			baseCodeList=baseCodeDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(baseCodeDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			baseCodeList=baseCodeDao.selectByExample(criteria);
+			baseCodeList=baseCodeDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<BaseCode>> listRes=new ResDataDTO<List<BaseCode>>();
+		ResDataDTO<List<BaseCodeResDTO>> listRes=new ResDataDTO<List<BaseCodeResDTO>>();
 		listRes.setData(baseCodeList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;

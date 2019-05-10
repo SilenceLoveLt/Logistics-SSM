@@ -16,6 +16,12 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+   <resultMap id="BaseResultMapNew" type="com.yyk.dto.GoodsDTO.GoodsResDTO"  extends="BaseResultMap">
+    <result column="STATUS_NAME" property="statusName" jdbcType="VARCHAR" />
+    <result column="GOODS_TYPE_NAME" property="goodsTypeName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -77,6 +83,11 @@
   <sql id="Base_Column_List" >
     GOODS_ID, ID, ORDER_ID, GOODS_CODE, GOODS_NAME, GOODS_TYPE, GOODS_WEIGHT, GOODS_VOLUME, 
     GOODS_NUM, STATUS, CREATE_TIME, UPDATE_TIME, REMARK
+  </sql>
+  
+  <sql id="Goods_Shelves_List" >
+    GOODS_SHELVES_ID, ID, SHELVES_ID, GOODS_ID, GOODS_CODE, IN_TIME, OUT_TIME, STATUS, 
+    CREATE_TIME, UPDATE_TIME, REMARK
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yyk.entity.SysGoodsCriteria" >
     select
@@ -336,4 +347,85 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 出库操作 -->
+   <select id="selectOutGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   select  g.ORDER_ID,g.GOODS_ID,g.GOODS_NAME,g.GOODS_CODE,b.DATA_NAME GOODS_TYPE
+   from(
+    select
+    <include refid="Goods_Shelves_List" />
+    from goods_shelves_table 
+    where `STATUS`='1'
+    <if test="shelvesId != null" >
+      and shelves_id=#{shelvesId,jdbcType=VARCHAR}
+    </if>
+    )s
+    inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS`='1'
+    LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE`  and b.CODE_TYPE='GOODSTYPE' and b.`STATUS`='1' GROUP BY g.GOODS_ID
+  </select>
+  
+   <select id="countOutGoods" parameterType="java.lang.String"  resultType="java.lang.Long" >
+   select  count(distinct g.GOODS_ID)
+   from(
+     select
+    <include refid="Goods_Shelves_List" />
+    from goods_shelves_table 
+    where `STATUS`='1'
+    <if test="shelvesId != null" >
+      and shelves_id=#{shelvesId,jdbcType=VARCHAR}
+    </if>
+    )s
+	inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS`='1'
+	LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and b.`STATUS`='1' 
+  </select>
+  
+  
+  <!-- 入库操作 -->
+   <select id="selectInGoods" resultMap="BaseResultMap" parameterType="java.util.List" >
+   select  g.ORDER_ID,g.GOODS_ID,g.GOODS_NAME,g.GOODS_CODE,b.DATA_NAME GOODS_TYPE
+   from goods_table  g
+   LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS`='1'
+   where b.`STATUS`='1' 
+   <if test="list != null and  list.size()>0">
+			and g.GOODS_ID not in
+			 <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+					#{item,jdbcType=VARCHAR}
+			</foreach>
+	</if>
+   GROUP BY g.GOODS_ID
+  </select>
+  
+   <select id="countInGoods" parameterType="java.util.List"  resultType="java.lang.Long" >
+	  select count(g.GOODS_ID)
+	 from goods_table  g
+	 LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS`='1'
+	 where b.`STATUS`='1'  
+	 <if test="list != null and  list.size()>0">
+				and g.GOODS_ID not in
+		      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+					#{item,jdbcType=VARCHAR}
+			</foreach>
+	</if> 
+  </select>
+  
+  
+   <select id="selectByExampleNew" resultMap="BaseResultMapNew" parameterType="com.yyk.entity.SysGoodsCriteria" >
+   select t.GOODS_ID, t.ID, t.ORDER_ID, t.GOODS_CODE, t.GOODS_NAME, b.data_name GOODS_TYPE_NAME,t.GOODS_TYPE , t.GOODS_WEIGHT, t.GOODS_VOLUME, 
+    t.GOODS_NUM, b1.data_name STATUS_NAME,t.STATUS, t.CREATE_TIME, t.UPDATE_TIME, t.REMARK from(
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from goods_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>) t
+    left join base_code b on t.GOODS_TYPE=b.code and b.code_type='GOODSTYPE' and b.status=1
+    left join base_code b1 on t.STATUS=b1.code and b1.code_type='GOODSSTATUS' and b1.status=1
+  </select>
 </mapper>

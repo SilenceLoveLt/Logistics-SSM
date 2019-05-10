@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
+import com.yyk.dto.BaseCodeDTO.BaseCodeResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 
@@ -13,7 +14,7 @@ import com.yyk.entity.BaseCodeCriteria;
 * 类说明
 */
 public interface BaseCodeService {
-	ResDataDTO<List<BaseCode>> selectCodeByPage(BaseCodeCriteria criteria,PageInfo pageInfo);
+	ResDataDTO<List<BaseCodeResDTO>> selectCodeByPage(BaseCodeCriteria criteria,PageInfo pageInfo);
 	
 	int insertBaseCode (BaseCode baseCode);
 	

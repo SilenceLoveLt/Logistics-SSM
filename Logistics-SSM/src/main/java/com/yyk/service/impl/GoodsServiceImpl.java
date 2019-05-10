@@ -14,6 +14,7 @@ import com.yyk.dao.SysGoodsMapper;
 import com.yyk.dao.SysInvoiceMapper;
 import com.yyk.dao.SysOrderMapper;
 import com.yyk.dao.SysUserMapper;
+import com.yyk.dto.GoodsDTO.GoodsResDTO;
 import com.yyk.dto.OrderDTO.OrderResDTO;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
@@ -39,23 +40,76 @@ import com.yyk.util.UUIDGenerator;
 public class GoodsServiceImpl implements GoodsService{
 	
 	@Autowired
-	private SysGoodsMapper SysGoodsDao;
+	private SysGoodsMapper sysGoodsDao;
 	
-	@Autowired
-	private SysInvoiceMapper SysInvoiceDao;
 
 	@Override
-	public ResDataDTO<List<SysGoods>> selectSysGoodsByPage(SysGoodsCriteria criteria, PageInfo pageInfo) {
-		List<SysGoods> sysGoodsList=null;
+	public ResDataDTO<List<GoodsResDTO>> selectSysGoodsByPage(SysGoodsCriteria criteria, PageInfo pageInfo) {
+		List<GoodsResDTO> sysGoodsList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-			sysGoodsList=SysGoodsDao.selectByExample(criteria);
+			sysGoodsList=sysGoodsDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
-			pageInfo.setTotal(SysGoodsDao.countByExample(criteria));
+			pageInfo.setTotal(sysGoodsDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysGoodsList=SysGoodsDao.selectByExample(criteria);
+			sysGoodsList=sysGoodsDao.selectByExampleNew(criteria);
+		}
+		ResDataDTO<List<GoodsResDTO>> listRes=new ResDataDTO<List<GoodsResDTO>>();
+		listRes.setData(sysGoodsList);
+		listRes.setPageInfo(pageInfo);
+		return listRes;
+	}
+
+
+	@Override
+	public List<SysGoods> selectInfoGoods(SysGoodsCriteria criteria) {
+		return sysGoodsDao.selectByExample(criteria);
+	}
+
+
+	@Override
+	public int insertGoods(SysGoods sysGoods) {
+		sysGoods.setCreateTime(new Date());
+		sysGoods.setUpdateTime(new Date());
+		sysGoods.setGoodsId(UUIDGenerator.create32Key());
+		return sysGoodsDao.insertSelective(sysGoods);
+		
+	}
+
+
+	@Override
+	public ResDataDTO<List<SysGoods>> selectInGoods(List<String> goodsIdList,PageInfo pageInfo) {
+		List<SysGoods> sysGoodsList=null;
+		if(pageInfo!=null){
+			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			sysGoodsList=sysGoodsDao.selectInGoods(goodsIdList);
+			PageHelper.clearPage();
+			pageInfo.setTotal(sysGoodsDao.countInGoods(goodsIdList));
+			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
+			pageInfo.setPageTotal(pageTotal);
+		}else{
+			sysGoodsList=sysGoodsDao.selectInGoods(goodsIdList);
+		}
+		ResDataDTO<List<SysGoods>> listRes=new ResDataDTO<List<SysGoods>>();
+		listRes.setData(sysGoodsList);
+		listRes.setPageInfo(pageInfo);
+		return listRes;
+	}
+
+	@Override
+	public ResDataDTO<List<SysGoods>> selectOutGoods(String shelvesId,PageInfo pageInfo) {
+		List<SysGoods> sysGoodsList=null;
+		if(pageInfo!=null){
+			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			sysGoodsList=sysGoodsDao.selectOutGoods(shelvesId);
+			PageHelper.clearPage();
+			pageInfo.setTotal(sysGoodsDao.countOutGoods(shelvesId));
+			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
+			pageInfo.setPageTotal(pageTotal);
+		}else{
+			sysGoodsList=sysGoodsDao.selectOutGoods(shelvesId);
 		}
 		ResDataDTO<List<SysGoods>> listRes=new ResDataDTO<List<SysGoods>>();
 		listRes.setData(sysGoodsList);
@@ -65,21 +119,9 @@ public class GoodsServiceImpl implements GoodsService{
 
 
 	@Override
-	public List<SysGoods> selectInfoGoods(SysGoodsCriteria criteria) {
-		return SysGoodsDao.selectByExample(criteria);
+	public List<SysGoods> selectGoods(String shelvesId) {
+		return sysGoodsDao.selectOutGoods(shelvesId);
 	}
-
-
-	@Override
-	public int insertGoods(SysGoods sysGoods) {
-		sysGoods.setCreateTime(new Date());
-		sysGoods.setUpdateTime(new Date());
-		sysGoods.setGoodsId(UUIDGenerator.create32Key());
-		return SysGoodsDao.insertSelective(sysGoods);
-		
-	}
-
-
 	
 	
 	

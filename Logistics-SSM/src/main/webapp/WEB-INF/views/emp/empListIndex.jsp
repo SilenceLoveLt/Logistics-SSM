@@ -919,7 +919,7 @@ var remark=null;
 				$.alert({
 				    title: '提示',
 				    content: '添加职位成功！',
-				    type:'red',				//一般危险操作用red,保存成功操作green
+				    type:'green',				//一般危险操作用red,保存成功操作green
 				    buttons: {				//定义按钮
 				        confirm: {
 				        	text: '确认',
@@ -977,7 +977,7 @@ var remark=null;
 				$.alert({
 				    title: '提示',
 				    content: '取消职位成功！',
-				    type:'red',				//一般危险操作用red,保存成功操作green
+				    type:'green',				//一般危险操作用red,保存成功操作green
 				    buttons: {				//定义按钮
 				        confirm: {
 				        	text: '确认',

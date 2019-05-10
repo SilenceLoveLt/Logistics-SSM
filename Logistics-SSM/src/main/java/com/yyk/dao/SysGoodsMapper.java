@@ -1,5 +1,6 @@
 package com.yyk.dao;
 
+import com.yyk.dto.GoodsDTO.GoodsResDTO;
 import com.yyk.entity.SysGoods;
 import com.yyk.entity.SysGoodsCriteria;
 import java.util.List;
@@ -27,4 +28,14 @@ public interface SysGoodsMapper {
     int updateByPrimaryKeySelective(SysGoods record);
 
     int updateByPrimaryKey(SysGoods record);
+    
+    List<SysGoods> selectInGoods(List<String> goodsIdList);
+    
+    long countInGoods(List<String> goodsIdList);
+    
+    List<SysGoods> selectOutGoods(@Param("shelvesId")String shelvesId);
+    
+    long countOutGoods(@Param("shelvesId")String shelvesId);
+    
+    List<GoodsResDTO> selectByExampleNew(SysGoodsCriteria example);
 }

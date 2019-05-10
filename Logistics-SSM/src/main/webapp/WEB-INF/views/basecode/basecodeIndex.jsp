@@ -277,6 +277,7 @@
 	            <th></th>
 				<th>代码</th>
 				<th>名称</th>
+				<th></th>
 				<th>是否有效</th>
 				<th></th>
 				<th></th>
@@ -611,7 +612,10 @@ var codeRemark=null;
 						"mData": "code"
 					  },
                       { "mData": "dataName"},
-                      { "mData": "enable"},
+  					  { "mData": "enable",
+	                    "visible": false
+  					  },
+                      { "mData": "enableName"},
                       { "mData": "codeType",
 	                    "visible": false
 	                  },

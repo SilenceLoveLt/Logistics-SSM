@@ -215,6 +215,11 @@ public class EmpJobController {
 	    		sysEmpJob.setEmpId(empId);
 	    		sysEmpJob.setEmpJobId(UUIDGenerator.create32Key());
 	    		sysEmpJob.setJobId(jobId);
+	    		SysJobCriteria criteria = new SysJobCriteria();
+				SysJobCriteria.Criteria cri = criteria.createCriteria();
+				cri.andStatusEqualTo(1);// 只查询状态为1的
+				List<SysJob> jodlist=sysJobService.selectInfoJob(criteria);
+				sysEmpJob.setJobCode(jodlist.get(0).getJobCode());
 	    		list.add(sysEmpJob);
 	    	}
 	    	int i=sysEmpJobService.insertEmpJob(list);

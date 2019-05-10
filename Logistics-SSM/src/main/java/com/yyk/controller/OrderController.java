@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,8 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.OrderDTO.OrderResDTO;
+import com.yyk.entity.BaseCode;
+import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysGoods;
 import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysJob;
@@ -31,10 +34,12 @@ import com.yyk.entity.SysLineCriteria;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
+import com.yyk.service.BaseCodeService;
 import com.yyk.service.GoodsService;
 import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysOrderService;
 import com.yyk.service.SysUserService;
+import com.yyk.util.JsonChangeUtil;
 
 
 /**
@@ -67,6 +72,10 @@ public class OrderController {
 	@Qualifier("sysInvoiceService")
 	private  SysInvoiceService sysInvoiceService;
 	
+	@Autowired
+	@Qualifier("baseCodeService")
+	private BaseCodeService baseCodeService;
+	
 	
 	/**
 	 * 
@@ -85,6 +94,14 @@ public class OrderController {
 	   return Views.CHECK_ORDER_VIEW;
 	 }
 
+	 public List<BaseCode> selectCode(String codeType){
+			BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1); 
+			cri.andCodeTypeEqualTo(codeType);
+			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
+		    return topicTypeList;
+	}
 	 /**
 	  * 
 	 * @author yyk  
@@ -344,8 +361,11 @@ public class OrderController {
 	 
 	 
 	    @RequestMapping(value = Url.ADD_ORDER_MANAGE, method = RequestMethod.POST)
-		 public String insertOrder(){
-			 System.out.println("订单");
+		 public String insertOrder(final ModelMap model){
+	    	List<BaseCode> goodsTypeList = selectCode("GOODSTYPE");
+			List<BaseCode> payMethodList = selectCode("PEYMETHOD");
+			model.put("goodsTypeList", JsonChangeUtil.list2json(goodsTypeList));
+			model.put("payMethodList", JsonChangeUtil.list2json(payMethodList));
 		   return Views.ADD_ORDER_VIEW;
 		 }
 	 

@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,8 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.entity.BaseCode;
+import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysInvoice;
 import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysLine;
@@ -69,6 +72,15 @@ public class SysLineController {
 	 public String get(){
 	   return Views.LINE_VIEW;
 	 }
+	 
+	 public List<BaseCode> selectCode(String codeType){
+			BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1); 
+			cri.andCodeTypeEqualTo(codeType);
+			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
+		    return topicTypeList;
+	}
 	
 	 /**
 	  * 
@@ -266,7 +278,11 @@ public class SysLineController {
 	  */
 	 
 	    @RequestMapping(value = Url.ADD_LINE_PAGE, method = RequestMethod.POST)
-		 public String addLinePage(){
+		 public String addLinePage(final ModelMap model){
+	    	List<BaseCode> lineTypeList = selectCode("LINETYPE");
+			List<BaseCode> applyTypeList = selectCode("APPLYTYPE");
+			model.put("lineTypeList", JsonChangeUtil.list2json(lineTypeList));
+			model.put("applyTypeList", JsonChangeUtil.list2json(applyTypeList));
 		   return Views.ADD_LINE_VIEW;
 		 }
 	    

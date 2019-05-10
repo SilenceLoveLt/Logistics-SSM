@@ -327,8 +327,6 @@
 				<div class="col-sm-2">
 				<select name="goodsType" id="goodsType" class="form-control"    oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 						<option value="">请选择</option>
-						<option value="0">高速</option>
-						<option value="1">弯路</option>
 					</select>
 				</div>
 				<label for="applyType" class="col-sm-2 control-label"><span
@@ -386,8 +384,6 @@
 				<div class="col-sm-2">
 					<select name="payMethod" id="payMethod" class="form-control"    oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 						<option value="">请选择</option>
-						<option value="0">高速</option>
-						<option value="1">弯路</option>
 					</select>
 				</div>
 
@@ -426,13 +422,27 @@
 
 
 <script type="text/javascript">
+var goodsTypeList = ${goodsTypeList}; //货物类型
+var payMethodList = ${payMethodList};     //付款方式
 
    $(document).ready(function() {
 	   
 	   //表单验证
 	   checkform();
 	   
+	   initSelectOptions(goodsTypeList, "code", "dataName", "goodsType");
+	   initSelectOptions(payMethodList, "code", "dataName", "payMethod");
    });
+   
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
+   
    
    //表单验证配置
    function checkform(){

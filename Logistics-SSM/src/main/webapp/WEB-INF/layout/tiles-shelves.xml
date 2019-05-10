@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!-- Templates -->
+    <definition name="shelves.view"  extends="layout.basic">
+        <put-attribute name="title" value="货架列表" />
+        <put-attribute name="body" value="/WEB-INF/views/shelves/shelvesListIndex.jsp" />
+    </definition>
+    
+    <!-- Templates -->
+    <definition name="in.shelves.view"  extends="layout.basic">
+        <put-attribute name="title" value="入库列表" />
+        <put-attribute name="body" value="/WEB-INF/views/shelves/selectInGoodsIndex.jsp" />
+    </definition>
+    
+    <!-- Templates -->
+    <definition name="out.shelves.view"  extends="layout.basic">
+        <put-attribute name="title" value="出库列表" />
+        <put-attribute name="body" value="/WEB-INF/views/shelves/selectOutGoodsIndex.jsp" />
+    </definition>
+    
+</tiles-definitions>

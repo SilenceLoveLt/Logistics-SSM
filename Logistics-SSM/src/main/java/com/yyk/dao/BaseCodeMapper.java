@@ -1,5 +1,6 @@
 package com.yyk.dao;
 
+import com.yyk.dto.BaseCodeDTO.BaseCodeResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface BaseCodeMapper {
     int updateByPrimaryKeySelective(BaseCode record);
 
     int updateByPrimaryKey(BaseCode record);
+    
+    List<BaseCodeResDTO>  selectByExampleNew(BaseCodeCriteria example);
 }

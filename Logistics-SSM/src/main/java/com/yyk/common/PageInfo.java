@@ -9,7 +9,7 @@ public class PageInfo {
 	
 	private Integer pageNum;   //当前页
 	
-	private int total;  //总条数
+	private long total;  //总条数
 	
 	private Integer pageTotal;  //总页数
 	
@@ -29,18 +29,17 @@ public class PageInfo {
 		this.pageNum = pageNum;
 	}
 
-	
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
 
 	public Integer getPageTotal() {
 		return pageTotal;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
 	}
 
 	public void setPageTotal(Integer pageTotal) {

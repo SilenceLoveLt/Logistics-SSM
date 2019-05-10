@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,8 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.entity.BaseCode;
+import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysInvoice;
 import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysVehicle;
@@ -66,9 +69,19 @@ public class SysVehicleController {
 	* @throws 
 	 */
 	 @RequestMapping("/")
-	 public String get(){
-	   return Views.VHEICLE_VIEW;
+	 public String indexPage(){
+		
+	    return Views.VEHICLE_VIEW;
 	 }
+	 
+	 public List<BaseCode> selectCode(String codeType){
+			BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1); 
+			cri.andCodeTypeEqualTo(codeType);
+			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
+		    return topicTypeList;
+	}
 	
 	/**
 	 * 
@@ -264,7 +277,11 @@ public class SysVehicleController {
 	    * @throws 
 	     */
 	    @RequestMapping(value = Url.ADD_VEHICLE_PAGE, method = RequestMethod.POST)
-		 public String addLinePage(){
+		 public String addVehiclePage(final ModelMap model){
+	    	List<BaseCode> vehicleTypeList = selectCode("VEHICETYPE");
+			List<BaseCode> applyTypeList = selectCode("APPLYTYPE");
+			model.put("vehicleTypeList", JsonChangeUtil.list2json(vehicleTypeList));
+			model.put("applyTypeList", JsonChangeUtil.list2json(applyTypeList));
 		   return Views.ADD_VEHICLE_VIEW;
 		 }
 	 

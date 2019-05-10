@@ -24,20 +24,20 @@ import com.yyk.util.UUIDGenerator;
 public class SysUserServiceImpl implements SysUserService{
 	
 	@Autowired
-	private SysUserMapper SysUserDao;
+	private SysUserMapper sysUserDao;
 
 	@Override
 	public ResDataDTO<List<SysUser>> selectSysUserByPage(SysUserCriteria criteria, PageInfo pageInfo) {
 		List<SysUser> sysUserList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-			sysUserList=SysUserDao.selectByExample(criteria);
+			sysUserList=sysUserDao.selectByExample(criteria);
 			PageHelper.clearPage();
-			pageInfo.setTotal(SysUserDao.countByExample(criteria));
+			pageInfo.setTotal(sysUserDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysUserList=SysUserDao.selectByExample(criteria);
+			sysUserList=sysUserDao.selectByExample(criteria);
 		}
 		ResDataDTO<List<SysUser>> listRes=new ResDataDTO<List<SysUser>>();
 		listRes.setData(sysUserList);
@@ -55,17 +55,17 @@ public class SysUserServiceImpl implements SysUserService{
     	if(sysUser.getUpdateTime()==null){
     		sysUser.setUpdateTime(new Date());
     	}
-		return SysUserDao.insertSelective(sysUser);
+		return sysUserDao.insertSelective(sysUser);
 	}
 
 	@Override
 	public int updateUser(SysUserCriteria criteria,SysUser sysUser) {
-		return SysUserDao.updateByExampleSelective(sysUser,criteria);
+		return sysUserDao.updateByExampleSelective(sysUser,criteria);
 	}
 
 	@Override
 	public List<SysUser> selectInfoUser(SysUserCriteria criteria) {
-		return SysUserDao.selectByExample(criteria);
+		return sysUserDao.selectByExample(criteria);
 	}
 
 	

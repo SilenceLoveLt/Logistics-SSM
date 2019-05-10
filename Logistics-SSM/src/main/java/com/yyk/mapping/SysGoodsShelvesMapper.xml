@@ -304,4 +304,85 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where GOODS_SHELVES_ID = #{goodsShelvesId,jdbcType=VARCHAR}
   </update>
+  
+  
+  <insert id="insertByBatch" parameterType="com.yyk.entity.SysGoodsShelves" >
+    insert into goods_shelves_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    GOODS_SHELVES_ID, ID, SHELVES_ID, GOODS_ID, GOODS_CODE, IN_TIME, OUT_TIME, STATUS, 
+    CREATE_TIME, UPDATE_TIME, REMARK
+    </trim>
+    <trim prefix="values" suffix="" suffixOverrides="," >
+    <foreach collection="list" item="item" index="index" separator=",">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="item.goodsShelvesId != null" >
+        #{item.goodsShelvesId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.goodsShelvesId == null" >
+        null,
+      </if>
+      <if test="item.id != null" >
+        #{item.id,jdbcType=INTEGER},
+      </if>
+      <if test="item.id == null" >
+        null,
+      </if>
+      <if test="item.shelvesId!= null" >
+        #{item.shelvesId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.shelvesId == null" >
+       null,
+      </if>
+      <if test="item.goodsId!= null" >
+        #{item.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.goodsId == null" >
+       null,
+      </if>
+      <if test="item.goodsCode != null" >
+        #{item.goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.goodsCode == null" >
+        null,
+      </if>
+       <if test="item.inTime != null" >
+        #{item.inTime,jdbcType=DATE},
+      </if>
+      <if test="item.inTime == null" >
+        null,
+      </if>
+      <if test="item.outTime != null" >
+        #{item.outTime,jdbcType=DATE},
+      </if>
+      <if test="item.outTime == null" >
+        null,
+      </if>
+      <if test="item.status != null" >
+        #{item.status,jdbcType=INTEGER},
+      </if>
+       <if test="item.status == null" >
+        null,
+      </if>
+      <if test="item.createTime != null" >
+        #{item.createTime,jdbcType=DATE},
+      </if>
+      <if test="item.createTime == null" >
+        null,
+      </if>
+      <if test="item.updateTime != null" >
+        #{item.updateTime,jdbcType=DATE},
+      </if>
+      <if test="item.updateTime == null" >
+        null,
+      </if>
+      <if test="item.remark != null" >
+        #{item.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="item.remark == null" >
+        null,
+      </if>
+      </trim>
+     </foreach>
+    </trim>
+  </insert>
 </mapper>

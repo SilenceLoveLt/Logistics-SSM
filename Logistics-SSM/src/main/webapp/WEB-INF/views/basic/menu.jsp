@@ -51,7 +51,10 @@
 	<input type="hidden" id="checkOrder" value="<%=basePath%>orderManageList/checkOrderManage" />
 	<input type="hidden" id="cancelOrder" value="<%=basePath%>orderManageList/cancelOrderManage" />
 	<input type="hidden" id="selectOrder" value="<%=basePath%>orderManageList/selectOrderManage" />
-	<input type="hidden" id="storeInList" value="/storeInList" />
+	<input type="hidden" id="goodsList" value="<%=basePath%>goodsManageList/" />
+	<input type="hidden" id="shelvesList" value="<%=basePath%>shelvesManageList/" />
+	<input type="hidden" id="inShelvesList" value="<%=basePath%>goodsShelvesManageList/selectInShelvesManage" />
+	<input type="hidden" id="outShelvesList" value="<%=basePath%>goodsShelvesManageList/selectOutShelvesManage" />
 
     	<ul class="nav" >
     		<li><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
@@ -76,14 +79,14 @@
     		</li>
     		<li><i class="fa fa-envelope-open fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="pdtList">货物列表</li>
+    				<li class="goodsList">货物列表</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-server fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="stockList">货架列表</li>
-    				<li class="storeInList">入库记录</li>
-    				<li class="storeOutList">出库记录</li>
+    				<li class="shelvesList">货架列表</li>
+    				<li class="inShelvesList">入库记录</li>
+    				<li class="outShelvesList">出库记录</li>
     			</ul>
     		</li>
     	

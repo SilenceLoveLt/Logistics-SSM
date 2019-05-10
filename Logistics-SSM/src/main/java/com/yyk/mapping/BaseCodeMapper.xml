@@ -13,6 +13,10 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
+  
+   <resultMap id="BaseResultMapNew" type="com.yyk.dto.BaseCodeDTO.BaseCodeResDTO" extends="BaseResultMap" >
+    <result column="ENABLE_NAME" property="enableName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -288,4 +292,22 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where CODE = #{code,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectByExampleNew" resultMap="BaseResultMapNew" parameterType="com.yyk.entity.BaseCodeCriteria" >
+  select t.CODE, t.ID, t.CODE_TYPE, t.DATA_NAME,b.DATA_NAME ENABLE_NAME,t.ENABLE, t.SORT, t.STATUS, t.CREATE_TIME, t.UPDATE_TIME, t.REMARK from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from base_code
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>) t
+    left join base_code b on b.CODE=t.ENABLE and b.CODE_TYPE='YESORNO' and b.status=1
+  </select>
 </mapper>

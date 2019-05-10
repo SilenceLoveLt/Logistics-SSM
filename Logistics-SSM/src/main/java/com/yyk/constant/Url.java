@@ -50,6 +50,22 @@ public interface Url {
 	String SELECT_ORDER_BY_PAGE = "/selectOrderByPage";
 	String ADD_ORDER_MANAGE = "/addOrderManage";
 	
+	 /*货物管理*/
+	String GOODS_MANAGE = "/goodsManageList";
+	
+	/*货架管理*/
+	String SHELVES_MANAGE = "/shelvesManageList";
+	String GOODS_SHELVES_MANAGE = "/goodsShelvesManageList";
+	String IN_GOODS_SHELVES = "/inGoodsShelves";
+	String OUT_GOODS_SHELVES = "/outGoodsShelves";
+	String SELECT_IN_GOODS = "/selectInGoods";
+	String SELECT_OUT_GOODS = "/selectOutGoods";
+	String SELECT_IN_SHELVES_MANAGE = "/selectInShelvesManage";
+	String SELECT_OUT_SHELVES_MANAGE = "/selectOutShelvesManage";
+	String SELECT_IN_GOODS_LIST = "/selectInGoodsList";
+	String SELECT_OUT_GOODS_LIST = "/selectOutGoodsList";
+	String DELETE_IN_GOODS_LIST = "/deleteInGoodsShelves";
+	String DELETE_OUT_GOODS_LIST = "/deleteOutGoodsShelves";
 	
 	
     /*线路管理*/

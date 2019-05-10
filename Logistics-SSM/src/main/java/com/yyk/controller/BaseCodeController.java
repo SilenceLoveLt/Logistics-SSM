@@ -20,6 +20,7 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
+import com.yyk.dto.BaseCodeDTO.BaseCodeResDTO;
 import com.yyk.dto.UserDTO.SysUserListReqDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
@@ -74,10 +75,12 @@ public class BaseCodeController {
 	            JSONObject obj = (JSONObject) jsonarray.get(i);
 	            if (obj.get("name").equals("sEcho")){
 	            	sEcho = obj.get("value").toString();
+	            	//pageInfo.setPageNum(Integer.parseInt(sEcho));
 	            }
-	            if (obj.get("name").equals("iDisplayStart")){
+	           if (obj.get("name").equals("iDisplayStart")){
 	            	pageInfo.setPageNum(Integer.parseInt(obj.get("value").toString()));
 	            }
+	            
 	            if (obj.get("name").equals("iDisplayLength")){
 	            	pageInfo.setPageSize(Integer.parseInt(obj.get("value").toString()));
 	            }
@@ -152,7 +155,7 @@ public class BaseCodeController {
 					
 				}
 			}
-			ResDataDTO<List<BaseCode>> list=baseCodeService.selectCodeByPage(criteria, pageInfo);
+			ResDataDTO<List<BaseCodeResDTO>> list=baseCodeService.selectCodeByPage(criteria, pageInfo);
 			PageInfo page=list.getPageInfo();
 			JSONObject getObj = new JSONObject();
 		    getObj.put("sEcho", sEcho);// DataTable前台必须要的
