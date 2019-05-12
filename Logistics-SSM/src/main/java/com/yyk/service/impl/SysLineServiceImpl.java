@@ -93,7 +93,7 @@ public class SysLineServiceImpl implements SysLineService{
 	public ResDataDTO<List<SysLine>> selectApplyTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
 		List<SysLine> sysLineList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysLineList=sysLineDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysLineDao.countByExample(criteria));
@@ -114,7 +114,7 @@ public class SysLineServiceImpl implements SysLineService{
 	public ResDataDTO<List<SysLine>> selectLineTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
 		List<SysLine> sysLineList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysLineList=sysLineDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysLineDao.countByExample(criteria));

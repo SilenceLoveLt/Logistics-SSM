@@ -75,7 +75,6 @@ public class BaseCodeController {
 	            JSONObject obj = (JSONObject) jsonarray.get(i);
 	            if (obj.get("name").equals("sEcho")){
 	            	sEcho = obj.get("value").toString();
-	            	//pageInfo.setPageNum(Integer.parseInt(sEcho));
 	            }
 	           if (obj.get("name").equals("iDisplayStart")){
 	            	pageInfo.setPageNum(Integer.parseInt(obj.get("value").toString()));

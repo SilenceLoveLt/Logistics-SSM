@@ -342,9 +342,12 @@ public class ShelvesController {
 					}
 				}
 				List<String> goodsIds=new ArrayList<String>();
-				List<SysGoods> outGoods=goodsService.selectGoods(sysShelves.getShelvesId());
+				SysGoodsShelvesCriteria criteria = new SysGoodsShelvesCriteria();
+		    	SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
+		    	cri.andShelvesIdEqualTo(sysShelves.getShelvesId());
+				List<SysGoodsShelves> outGoods=goodsShelvesService.selectInfoGoodsShelves(criteria);
 				if(!outGoods.isEmpty() && outGoods.size()>0){
-					for(SysGoods goodsId:outGoods){
+					for(SysGoodsShelves goodsId:outGoods){
 						goodsIds.add(goodsId.getGoodsId());
 					}
 				}
@@ -357,4 +360,9 @@ public class ShelvesController {
 			    getObj.put("aaData", list.getData());//把查到数据装入aaData,要以JSON格式返回
 			    return getObj.toString();
 	    }
+	    
+	    
+	    
+	    
+	    
 }

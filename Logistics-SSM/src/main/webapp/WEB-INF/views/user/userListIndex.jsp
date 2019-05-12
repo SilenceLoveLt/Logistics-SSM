@@ -90,10 +90,10 @@
                                        placeholder="请输入客户名称">
                             </div>
 
-                            <label class="control-label col-md-1 ">客户编码:</label>
+                            <label class="control-label col-md-1 ">客户电话:</label>
                              <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_userCode" id="search_userCode"
-                                       placeholder="请输入客户编码">
+                                <input type="text" class="form-control  input-sm " name="search_userPhone" id="search_userPhone"
+                                       placeholder="请输入客户电话">
                             </div>
                           
 		                   <span class="input-group-btn ">
@@ -140,18 +140,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 "><span>*</span>客户编码:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="userCode" id="userCode"oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
-                        </div>
-                    </div>
-                    <div class="form-group" id="pwd">
-							<label for="name" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>密码：</label>
-							<div class="col-sm-10">
-								<input name="userPwd" id="userPwd" type="password"  class="form-control" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" />
-							</div>
-				    </div>
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2">居住地址:</label>
                     </div>
@@ -200,10 +188,9 @@
     </div>
 </div>
     <!--模态框 end-->
-
 <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	<button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+	<button class="btn btn-default" onclick="deleteFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
@@ -213,7 +200,6 @@
             </th>
 			<th></th> 
 			<th>客户姓名</th>
-			<th>客户编码</th>
 			<th>客户电话</th>
 			<th>客户地址</th>
 			<th>存档时间</th>
@@ -228,10 +214,8 @@
 </body>
 <script type="text/javascript">
 var userId=null;
-var userCode=null;
 var userPhone=null;
 var userName=null;
-var password=null;
 var addr=null;
 var createTime=null;
 var updateTime=null;
@@ -292,13 +276,6 @@ var remark=null;
                   }
               }
           },
-          userCode: {
-              validators: {
-                  notEmpty: {
-                      message: '客户编码不能为空'
-                  }
-              }
-          },
           userPhone: {
               validators: {
                   notEmpty: {
@@ -308,18 +285,6 @@ var remark=null;
                       regexp: "^\\d+$",
                       message: '只能录入正整数'
                   }
-              }
-          },
-          userPwd: {
-              validators: {
-                  notEmpty: {
-                      message: '客户密码不能为空'
-                  },
-                  stringLength: {
-                	  min: 6,
-                	  max: 15,
-                	  message: '密码长度最小为6最多为15'
-                	}
               }
           },
           addr: {
@@ -376,7 +341,6 @@ var remark=null;
 					     "visible": false
 					  },
                       { "mData": "userName"},
-                      { "mData": "userCode"},
                       { "mData": "userPhone"},
                       { "mData": "addr"},
 					  { "mData" : "createTime",render : function(obj) {  
@@ -427,16 +391,13 @@ var remark=null;
 	   "name":"userNameSearch",
 	   "value":$("#search_userName").val()
 	 }
-	 var userCodeSearch = {
-	   "name":"userCodeSearch",
-	   "value":$("#search_userCode").val()
+	 var userPhoneSearch = {
+	   "name":"userPhoneSearch",
+	   "value":$("#search_userPhone").val()
 	 }
 	 //我这里按照请求数据的格式增加了自己的查询条件 请求数据格式固定为 name-value的格式 可以使用
-	 //alert打印查看 包含了基本的页码、页面数据元素、等信息以及新增的查询条件
-	 console.info("userNameSearch:"+userNameSearch);
-	 console.info("userCodeSearch:"+userCodeSearch);
 	 aoData.push(userNameSearch);
-	 aoData.push(userCodeSearch);
+	 aoData.push(userPhoneSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
 	     data : {"aoData":JSON.stringify(aoData)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
@@ -545,8 +506,6 @@ var remark=null;
 	   }
 	   if($("#userId").val()!=null && $("#userId").val()!=""){
 		   $("#userId").val(userId);
-		   $("#pwd").val(password); 
-		   $("#userCode").val(userCode);
 		   $("#userPhone").val(userPhone);
 		   $("#userName").val(userName);
 		   $("#addr").val(addr);
@@ -572,8 +531,6 @@ var remark=null;
 		$('#closeModel').removeAttr("disabled");
 		$("#userForm")[0].reset();//使用dom的reset
 		$("#userId").val("");	//避免hidden出现不能reset的情况
-		$("#pwd").attr("style","display:block;");
-		$('#userCode').attr("disabled",false);
 		$('#userPhone').attr("disabled",false);
 		$('#userName').attr("disabled",false);
 	    $('#addr').attr("disabled",false);
@@ -586,18 +543,13 @@ var remark=null;
    
    /* 查看信息*/
    function oemp_editsr(Row){
-	   $("#pwd").attr("style","display:none;");
 	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
 	   $("#userId").val(data.userId);	//主键
-	   $("#userCode").val(data.userCode);
-	   $('#userCode').attr("disabled",true);
 	   $("#userPhone").val(data.userPhone);
 	   $('#userPhone').attr("disabled",true);
 	   $("#userName").val(data.userName);
 	   $('#userName').attr("disabled",true);
-	   $("#password").val(data.password);
-	   $('#password').attr("disabled",true);
 	   $("#addr").val(data.addr);
 	   $('#addr').attr("disabled",true);
 	   $("#createTime").val(getMyDate(data.createTime));
@@ -623,8 +575,6 @@ var remark=null;
 	   $("#ok").attr("style","display: block;");
 	   $("#reseted").attr("style","display: block;");
 	   $('#closeModel').removeAttr("disabled");
-	   $('#userCode').attr("disabled",true);
-	   $("#pwd").attr("style","display:none;");
 	   $('#userPhone').attr("disabled",false);
 	   $('#userName').attr("disabled",false);
 	   $('#addr').attr("disabled",false);
@@ -634,19 +584,15 @@ var remark=null;
 	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
 	   $("#userId").val(data.userId);
-	   $("#userCode").val(data.userCode);
 	   $("#userPhone").val(data.userPhone);
 	   $("#userName").val(data.userName);
-	   $("#password").val(data.password);
 	   $("#addr").val(data.addr);
 	   $("#createTime").val(getMyDate(data.createTime));
 	   $("#updateTime").val(getMyDate(data.updateTime));
 	   $("#remark").val(data.remark);
 	   userId=$("#userId").val();
-	   userCode=data.userCode;
 	   userPhone=data.userPhone;
 	   userName=data.userName;
-	   password=data.password;
 	   addr=data.addr;
 	   createTime=getMyDate(data.createTime);
 	   updateTime=getMyDate(data.updateTime);

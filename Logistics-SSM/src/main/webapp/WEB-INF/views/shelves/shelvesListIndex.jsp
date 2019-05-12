@@ -244,8 +244,8 @@
 
 <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-   <button class="btn btn-default" onclick="inFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物入库</button>
-   <button class="btn btn-default" onclick="outFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物出库</button>
+   <button class="btn btn-default" onclick="inFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物入库</button>
+   <button class="btn btn-default" onclick="outFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物出库</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>

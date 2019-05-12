@@ -30,7 +30,7 @@ public class SysUserServiceImpl implements SysUserService{
 	public ResDataDTO<List<SysUser>> selectSysUserByPage(SysUserCriteria criteria, PageInfo pageInfo) {
 		List<SysUser> sysUserList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysUserList=sysUserDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysUserDao.countByExample(criteria));

@@ -1,3 +1,23 @@
 1554440718381	Rename resource 'index.jsp'
 1554442117894	Delete element
 1554442499673	Delete element
+1554447890995	Delete elements
+1554447898344	Delete elements
+1554517900669	Move 'static' to 'webapp'
+1554522813019	Rename resource 'AdminController.java'
+1554522986950	Rename resource 'tiles.xml'
+1554523007121	Copy file
+1554523044379	Delete element
+1554523048429	Delete element
+1554528351886	Rename resource 'login.jsp.html'
+1554528369365	Delete element
+1554528393103	Rename resource 'login.jsp.html'
+1554531854088	Move 'index.jsp' to 'static'
+1554532191411	Move 'index.jsp' to 'views'
+1554536013074	Delete element
+1554539523745	Delete elements
+1554540039127	Delete element
+1554540126003	Delete element
+1554541333668	Delete element
+1554562659157	Move 'validatecode.jsp' to 'webapp'
+1554562788383	Move 'validatecode.jsp' to 'validatecode'

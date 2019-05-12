@@ -97,8 +97,8 @@ public class SysUserController {
 	            	sysUserListReqDTO.setUserName( obj.get("value").toString());
 	            }
 	            
-	            if (obj.get("name").equals("userCodeSearch")){
-	            	sysUserListReqDTO.setUserCode(obj.get("value").toString());
+	            if (obj.get("name").equals("userPhoneSearch")){
+	            	sysUserListReqDTO.setUserPhone(obj.get("value").toString());
 	            }
 	        }
 		    SysUserCriteria criteria = new SysUserCriteria();
@@ -107,8 +107,8 @@ public class SysUserController {
 			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserName())) { // 客户姓名查询
 				cri.andUserNameLike("%" + sysUserListReqDTO.getUserName() + "%");
 			}
-			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserCode())) { // 客户代码查询
-				cri.andUserCodeLike("%" + sysUserListReqDTO.getUserCode() + "%");
+			if (StringUtils.isNotBlank(sysUserListReqDTO.getUserPhone())) { // 客户代码查询
+				cri.andUserPhoneLike("%" + sysUserListReqDTO.getUserPhone() + "%");
 			}
 			if(pageInfo!=null)
 			{

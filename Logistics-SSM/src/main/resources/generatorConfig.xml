@@ -39,17 +39,17 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--下面是数据库表名和项目中需要生成类的名称，建议和数据库保持一致，如果有多个表，添加多个节点即可 -->
-
+<!-- 
 	     <table tableName="order_table" domainObjectName="SysOrder" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
-        </table>
-		<!-- <table tableName="user_table" domainObjectName="SysUser" 
+        </table> -->
+		<table tableName="user_table" domainObjectName="SysUser" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
-        </table> -->
+        </table>
         <!-- <table tableName="emp_table" domainObjectName="SysEmp" 
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"

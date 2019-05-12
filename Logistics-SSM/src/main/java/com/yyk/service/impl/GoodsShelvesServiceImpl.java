@@ -43,9 +43,8 @@ public class GoodsShelvesServiceImpl implements GoodsShelvesService{
 	public ResDataDTO<List<SysGoodsShelves>> selectGoodsShelvesByPage(SysGoodsShelvesCriteria criteria,
 			PageInfo pageInfo) {
 		List<SysGoodsShelves> sysGoodsShelvesList=null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysGoodsShelvesList=sysGoodsShelvesDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysGoodsShelvesDao.countByExample(criteria));

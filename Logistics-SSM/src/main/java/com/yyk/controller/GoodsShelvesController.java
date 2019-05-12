@@ -106,7 +106,7 @@ public class GoodsShelvesController {
 	    	cri.andShelvesIdEqualTo(shelvesId);
 	    	cri.andGoodsIdIn(goodsIds);
 	    	SysGoodsShelves sysGoodsShelves=new SysGoodsShelves();
-	    	sysGoodsShelves.setStatus(0);
+	    	//sysGoodsShelves.setStatus(1);
 	    	sysGoodsShelves.setUpdateTime(new Date());
 	    	sysGoodsShelves.setOutTime(new Date());
 	    	int i=goodsShelvesService.updateGoodsShelves(criteria, sysGoodsShelves);
@@ -164,7 +164,6 @@ public class GoodsShelvesController {
 		    SysGoodsShelvesCriteria criteria = new SysGoodsShelvesCriteria();
 		    SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);// 只查询状态为1的
-			cri.andRemarkEqualTo("1");// 只查询记录状态状态为1的
 			cri.andOutTimeIsNull();
 			if (StringUtils.isNotBlank(shelvesId)) { // 货架编号查询
 				cri.andShelvesIdEqualTo(shelvesId);
@@ -195,12 +194,8 @@ public class GoodsShelvesController {
  			SysGoodsShelvesCriteria criteria=new SysGoodsShelvesCriteria();
  			SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
  			cri.andGoodsShelvesIdEqualTo(goodsShelvesId);
- 			/**
- 			 * remark :1可查看
- 			 * remark :0删除该条记录
- 			 */
  			SysGoodsShelves sysGoodsShelves=new SysGoodsShelves();
- 			sysGoodsShelves.setRemark("0");
+ 			sysGoodsShelves.setStatus(0);
  			int i=goodsShelvesService.updateGoodsShelves(criteria, sysGoodsShelves);
  	 		if(i==1){
  	 			map.put("result", true);
@@ -261,7 +256,6 @@ public class GoodsShelvesController {
 		    SysGoodsShelvesCriteria criteria = new SysGoodsShelvesCriteria();
 		    SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);// 只查询状态为1的
-			cri.andRemarkEqualTo("1");// 只查询记录状态状态为1的
 			cri.andOutTimeIsNotNull();
 			if (StringUtils.isNotBlank(shelvesId)) { // 货架编号查询
 				cri.andShelvesIdEqualTo(shelvesId);
@@ -293,12 +287,8 @@ public class GoodsShelvesController {
  			SysGoodsShelvesCriteria criteria=new SysGoodsShelvesCriteria();
  			SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
  			cri.andGoodsShelvesIdEqualTo(goodsShelvesId);
- 			/**
- 			 * remark :1可查看
- 			 * remark :0删除该条记录
- 			 */
  			SysGoodsShelves sysGoodsShelves=new SysGoodsShelves();
- 			sysGoodsShelves.setRemark("0");
+ 			sysGoodsShelves.setStatus(0);
  			int i=goodsShelvesService.updateGoodsShelves(criteria, sysGoodsShelves);
  	 		if(i==1){
  	 			map.put("result", true);

@@ -244,7 +244,7 @@
 <div id='table-div1' style="width:45%;float:left;">
 	<div class="btn-group" style="margin-top:10px; " >
 	   <button type="button" class="btn btn-default" onclick="addCodeTypeFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-		<button class="btn btn-default" onclick="deleteCodeTypeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+		<button class="btn btn-default" onclick="deleteCodeTypeListFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeTypeListTable" style="white-space:nowrap">
 		<thead>
@@ -266,7 +266,7 @@
 <div id='table-div2'  style="width:54%;float: right;visibility: hidden">
 	<div class="btn-group" style="margin-top:10px; " >
 	   <button type="button" class="btn btn-default" onclick="addCodeFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	   <button class="btn btn-default" onclick="deleteCodeListFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+	   <button class="btn btn-default" onclick="deleteCodeListFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 	</div>
 	<table class="display table table-striped table-bordered table-hover table-checkable text-center" id="codeListTable" style="white-space:nowrap">
 		<thead>
@@ -904,13 +904,12 @@ var codeRemark=null;
    function selectCodeTypeFun(Row){
 	   $('#myModal').modal('show');
 	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
-	   $("#userId").val(data.userId);	//主键
 	   $("#codeType").val(data.codeType);
-	   $('#codeType').attr("readonly",true);
+	   $('#codeType').attr("disabled",true);
 	   $("#codeName").val(data.codeName);
-	   $('#codeName').attr("readonly",true);
+	   $('#codeName').attr("disabled",true);
 	   $("#remark").val(data.remark);
-	   $('#remark').attr("readonly",true);
+	   $('#remark').attr("disabled",true);
 	   $('#okCodeType').attr("disabled",true);
 	   $("#okCodeType").attr("style","background-color:grey;border-color:grey");
 	   $('#resetedCodeType').attr("disabled",true);
@@ -924,17 +923,17 @@ var codeRemark=null;
 	   $('#myModalTwo').modal('show');
 	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
 	   $("#code").val(data.code);
-	   $('#code').attr("readonly",true);
+	   $('#code').attr("disabled",true);
 	   $("#dataName").val(data.dataName);
-	   $('#dataName').attr("readonly",true);
+	   $('#dataName').attr("disabled",true);
 	   $("#codeTypeTwo").val(data.codeType);
-	   $('#codeTypeTwo').attr("readonly",true);
+	   $('#codeTypeTwo').attr("disabled",true);
 	   $("#sort").val(data.sort);
-	   $('#sort').attr("readonly",true);
+	   $('#sort').attr("disabled",true);
 	   $("#enable").val(data.enable);
-	   $('#enable').attr("readonly",true);
+	   $('#enable').attr("disabled",true);
 	   $("#remarkTwo").val(data.remark);
-	   $('#remarkTwo').attr("readonly",true);
+	   $('#remarkTwo').attr("disabled",true);
 	   $('#okCode').attr("disabled",true);
 	   $("#okCode").attr("style","background-color:grey;border-color:grey");
 	   $('#resetedCode').attr("disabled",true);
@@ -954,8 +953,9 @@ var codeRemark=null;
 	   $("#resetedCodeType").attr("style","display: block;");
 	   $('#closeCodeTypeModel').removeAttr("disabled");
 	   $('#codeType').attr("readonly",true);
-	   $('#codeName').removeAttr("readonly");
-	   $('#remark').removeAttr("readonly");
+	   $('#codeType').removeAttr("disabled");
+	   $('#codeName').removeAttr("disabled");
+	   $('#remark').removeAttr("disabled");
 	   $('#myModal').modal('show');
 	   var data= $('#codeTypeListTable').DataTable().rows(Row).data()[0];
 	   $("#baseCodeTypeForm #codeType").val(data.codeType);
@@ -978,11 +978,14 @@ var codeRemark=null;
 	   $("#resetedCode").attr("style","display: block;");
 	   $('#closeCodeModel').removeAttr("disabled");
 	   $('#code').attr("readonly",true);
+	   $('#code').removeAttr("disabled");
 	   $('#codeTypeTwo').attr("readonly",true);
+	   $('#codeTypeTwo').removeAttr("disabled");
 	   $('#dataName').attr("readonly",true);
-	   $('#sort').removeAttr("readonly");
-	   $('#enable').removeAttr("readonly");
-	   $('#remarkTwo').removeAttr("readonly");
+	   $('#dataName').removeAttr("disabled");
+	   $('#sort').removeAttr("disabled");
+	   $('#enable').removeAttr("disabled");
+	   $('#remarkTwo').removeAttr("disabled");
 	   $('#myModalTwo').modal('show');
 	   var data= $('#codeListTable').DataTable().rows(Row).data()[0];
 	   $("#baseCodeForm #codes").val(data.code);

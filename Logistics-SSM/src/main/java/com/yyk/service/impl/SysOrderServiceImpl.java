@@ -44,7 +44,7 @@ public class SysOrderServiceImpl implements SysOrderService{
 	public ResDataDTO<List<SysOrder>> selectSysOrderByPage(SysOrderCriteria criteria, PageInfo pageInfo) {
 		List<SysOrder> sysOrderList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysOrderList=SysOrderDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysOrderDao.countByExample(criteria));
@@ -89,7 +89,7 @@ public class SysOrderServiceImpl implements SysOrderService{
 	public ResDataDTO<List<OrderResDTO>> selectOrderByOrderId(SysInvoiceCriteria criteria, PageInfo pageInfo) {
 		List<OrderResDTO> sysOrderList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysOrderList=SysInvoiceDao.selectOrderByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysInvoiceDao.countByExample(criteria));

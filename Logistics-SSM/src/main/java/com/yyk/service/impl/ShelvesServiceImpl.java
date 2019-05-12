@@ -34,7 +34,7 @@ public class ShelvesServiceImpl implements ShelvesService{
 	public ResDataDTO<List<SysShelves>> selectSysShelvesByPage(SysShelvesCriteria criteria, PageInfo pageInfo) {
 		List<SysShelves> sysShelvesList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysShelvesList=sysShelvesDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysShelvesDao.countByExample(criteria));

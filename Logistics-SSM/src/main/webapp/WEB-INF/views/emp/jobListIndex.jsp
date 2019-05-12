@@ -178,7 +178,7 @@
 
 <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-	<button class="btn btn-default" onclick="deleteFun()" style="margin-left:40px"><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
+	<button class="btn btn-default" onclick="deleteFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>

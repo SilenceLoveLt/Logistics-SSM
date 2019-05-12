@@ -33,7 +33,7 @@ public class SysEmpServiceImpl implements SysEmpService{
 	public ResDataDTO<List<SysEmp>> selectSysEmpByPage(SysEmpCriteria criteria, PageInfo pageInfo) {
 		List<SysEmp> sysEmpList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysEmpList=SysEmpDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysEmpDao.countByExample(criteria));

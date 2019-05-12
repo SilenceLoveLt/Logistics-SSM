@@ -93,7 +93,7 @@ public class SysVehicleServiceImpl implements SysVehicleService{
 	public ResDataDTO<List<SysVehicle>> selectApplyTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
 		List<SysVehicle> sysVehicleList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysVehicleList=sysVehicleDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysVehicleDao.countByExample(criteria));
@@ -114,7 +114,7 @@ public class SysVehicleServiceImpl implements SysVehicleService{
 	public ResDataDTO<List<SysVehicle>> selectVehicleTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
 		List<SysVehicle> sysVehicleList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysVehicleList=sysVehicleDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysVehicleDao.countByExample(criteria));

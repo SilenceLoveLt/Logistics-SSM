@@ -47,7 +47,7 @@ public class GoodsServiceImpl implements GoodsService{
 	public ResDataDTO<List<GoodsResDTO>> selectSysGoodsByPage(SysGoodsCriteria criteria, PageInfo pageInfo) {
 		List<GoodsResDTO> sysGoodsList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysGoodsList=sysGoodsDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysGoodsDao.countByExample(criteria));

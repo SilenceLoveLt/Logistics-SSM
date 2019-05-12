@@ -42,7 +42,7 @@ public class SysEmpJobServiceImpl implements SysEmpJobService{
 	public ResDataDTO<List<SysEmpJob>> selectSysEmpJobByPage(SysEmpJobCriteria criteria, PageInfo pageInfo) {
 		List<SysEmpJob> sysEmpJobList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			sysEmpJobList=SysEmpJobDao.selectByExample(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysEmpJobDao.countByExample(criteria));

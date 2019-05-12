@@ -31,7 +31,7 @@ public class BaseCodeServiceImpl implements BaseCodeService{
 	public ResDataDTO<List<BaseCodeResDTO>> selectCodeByPage(BaseCodeCriteria criteria, PageInfo pageInfo) {
 		List<BaseCodeResDTO> baseCodeList=null;
 		if(pageInfo!=null){
-			PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
 			baseCodeList=baseCodeDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(baseCodeDao.countByExample(criteria));
