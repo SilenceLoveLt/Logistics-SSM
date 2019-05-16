@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.LineDTO.LineResDTO;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
 
@@ -24,6 +25,6 @@ public interface SysLineMapper {
     int updateByExample(@Param("record") SysLine record, @Param("example") SysLineCriteria example);
     
     int  countByBaseCode(BaseCodeDTO object);
-    
 
+    List<LineResDTO> selectByExampleNew(SysLineCriteria example);
 }

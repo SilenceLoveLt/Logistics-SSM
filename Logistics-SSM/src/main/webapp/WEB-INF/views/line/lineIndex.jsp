@@ -250,10 +250,11 @@
 			    <thead>
 					<tr class="text-c">
 						<th></th> 
-						<th>线路编码</th>
 						<th>线路类型</th>
-						<th>应缴价格</th>
-						<th>线路长度</th>
+						<th>线路编码</th>
+						<th></th>
+						<th>应缴价格(元)</th>
+						<th>线路长度(km)</th>
 						<th>线路用时</th>
 						<th>操作</th>
 						<th></th>
@@ -289,8 +290,6 @@
                         <div class="col-sm-4">
 						      	<select name="lineType" id="lineType" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
-									<option value="1">是</option>
-									<option value="0">否</option>
 								</select>
 						 </div>
                     </div>
@@ -299,10 +298,12 @@
                         <label class="control-label col-sm-2 "><span>*</span>线路缴费:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="linePrice" id="linePrice" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
+                        	<span class="form-control-feedback">(元)</span>
                         </div>
                         <label class="control-label col-sm-2">线路长度:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="lineLength" id="lineLength"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
+                        	<span class="form-control-feedback">(km)</span>
                         </div>
                     </div>
                    
@@ -315,10 +316,8 @@
 						</div>
 						 <label class="control-label col-sm-2">适用类别:</label>
                          <div class="col-sm-4">
-						      	<select name="applyType" id="applyType"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
+						      	<select name="applyType" id="applyType" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
-									<option value="A">是</option>
-									<option value="B">否</option>
 								</select>
 						 </div>
                     </div>
@@ -360,6 +359,9 @@ var lineLength=null;
 var lineTime=null;
 var applyType=null;
 var remark=null;
+var applyTypeList = ${applyTypeList};     //使用类别
+var lineTypeList = ${lineTypeList};     //线路类别
+
 
    $(document).ready(function() {
 	   //默认加载表格
@@ -387,8 +389,23 @@ var remark=null;
 	 				  });
 	            }
         });
+       
+       initSelectOptions(applyTypeList, "code", "dataName", "applyType");
+	   initSelectOptions(lineTypeList, "code", "dataName", "lineType");
 	   
    });
+   
+   
+
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
+   
    
 	//跳转到题目新增页面
 	function addFun(){
@@ -525,8 +542,10 @@ var remark=null;
 					     "mData": "lineId",
 					     "visible": false
 					  },
+					  { "mData": "lineTypeName"},
                       { "mData": "lineCode"},
-                      { "mData": "lineType"},
+                      { "mData": "lineType",
+	  					 "visible": false	},
                       { "mData": "linePrice"},
                       { "mData": "lineLength"},
 					  { "mData" : "lineTime",render : function(obj) {  

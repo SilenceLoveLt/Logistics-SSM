@@ -8,16 +8,25 @@ import com.yyk.entity.SysLine;
 
 public class LineResDTO extends SysLine{
 	
+	
 
 	private Map<String, Object> state;
     private String code;
 	private String codetype;
 	private Integer pageNo;
 	private Integer pageSize;
+    private String lineTypeName;
     
     
     
-    
+	public String getLineTypeName() {
+		return lineTypeName;
+	}
+
+	public void setLineTypeName(String lineTypeName) {
+		this.lineTypeName = lineTypeName;
+	}
+
 	public String getCodetype() {
 		return codetype;
 	}

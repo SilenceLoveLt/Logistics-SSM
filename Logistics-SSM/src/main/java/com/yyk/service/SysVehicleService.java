@@ -5,6 +5,7 @@ import java.util.List;
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.VehicleDTO.VehicleResDTO;
 import com.yyk.entity.SysVehicle;
 import com.yyk.entity.SysVehicleCriteria;
 
@@ -22,8 +23,8 @@ public interface SysVehicleService {
 	 
 	 int insertVehicle (SysVehicle sysVehicle);
 	 
-	 ResDataDTO<List<SysVehicle>>  selectApplyTypeListPage(SysVehicleCriteria criteria,PageInfo pageInfo);
+	 ResDataDTO<List<VehicleResDTO>>  selectApplyTypeListPage(SysVehicleCriteria criteria,PageInfo pageInfo);
 	 
-	 ResDataDTO<List<SysVehicle>>  selectVehicleTypeListPage(SysVehicleCriteria criteria,PageInfo pageInfo);
+	 ResDataDTO<List<VehicleResDTO>>  selectVehicleTypeListPage(SysVehicleCriteria criteria,PageInfo pageInfo);
 	 
 }

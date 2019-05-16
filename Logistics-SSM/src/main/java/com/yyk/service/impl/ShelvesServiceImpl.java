@@ -11,6 +11,7 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.dao.SysShelvesMapper;
 import com.yyk.dao.SysUserMapper;
+import com.yyk.dto.ShelvesDTO.ShelvesResDTO;
 import com.yyk.entity.SysShelves;
 import com.yyk.entity.SysShelvesCriteria;
 import com.yyk.entity.SysUser;
@@ -31,19 +32,19 @@ public class ShelvesServiceImpl implements ShelvesService{
 	private SysShelvesMapper sysShelvesDao;
 
 	@Override
-	public ResDataDTO<List<SysShelves>> selectSysShelvesByPage(SysShelvesCriteria criteria, PageInfo pageInfo) {
-		List<SysShelves> sysShelvesList=null;
+	public ResDataDTO<List<ShelvesResDTO>> selectSysShelvesByPage(SysShelvesCriteria criteria, PageInfo pageInfo) {
+		List<ShelvesResDTO> sysShelvesList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysShelvesList=sysShelvesDao.selectByExample(criteria);
+			sysShelvesList=sysShelvesDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysShelvesDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysShelvesList=sysShelvesDao.selectByExample(criteria);
+			sysShelvesList=sysShelvesDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysShelves>> listRes=new ResDataDTO<List<SysShelves>>();
+		ResDataDTO<List<ShelvesResDTO>> listRes=new ResDataDTO<List<ShelvesResDTO>>();
 		listRes.setData(sysShelvesList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
@@ -73,6 +74,11 @@ public class ShelvesServiceImpl implements ShelvesService{
 	@Override
 	public List<SysShelves> selectInfoShelves(SysShelvesCriteria criteria) {
 		return sysShelvesDao.selectByExample(criteria);
+	}
+
+	@Override
+	public List<ShelvesResDTO> selectByExampleNew(SysShelvesCriteria example) {
+		return sysShelvesDao.selectByExampleNew(example);
 	}
 
 	

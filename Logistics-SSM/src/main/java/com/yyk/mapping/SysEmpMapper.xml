@@ -368,4 +368,25 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where EMP_ID = #{empId,jdbcType=VARCHAR}
   </update>
+  
+  
+   <select id="selectByExampleNew" parameterType="com.yyk.entity.SysEmpCriteria" resultMap="BaseResultMap">
+   SELECT e.EMP_ID,e.EMP_NAME,e.EMP_CODE,GROUP_CONCAT(j.JOB_NAME)JOB_NAME,e.ADDR,e.PHONE,e.SAL,e.SEX,e.ROLEID,e.REMARK,e.CREATE_TIME,e.UPDATE_TIME from
+   (
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from emp_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>)e
+    LEFT JOIN emp_job_table ej on e.EMP_ID=ej.EMP_ID and ej.`STATUS`=1
+    LEFT JOIN job_table j on ej.JOB_ID=j.JOB_ID and j.`STATUS`=1 GROUP BY e.EMP_ID
+  </select>
 </mapper>

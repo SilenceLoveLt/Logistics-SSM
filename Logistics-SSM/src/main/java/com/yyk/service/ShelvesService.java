@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
+import com.yyk.dto.ShelvesDTO.ShelvesResDTO;
 import com.yyk.entity.SysShelves;
 import com.yyk.entity.SysShelvesCriteria;
 import com.yyk.entity.SysUser;
@@ -15,11 +16,13 @@ import com.yyk.entity.SysUserCriteria;
 * 类说明
 */
 public interface ShelvesService {
-	ResDataDTO<List<SysShelves>> selectSysShelvesByPage(SysShelvesCriteria criteria,PageInfo pageInfo);
+	ResDataDTO<List<ShelvesResDTO>> selectSysShelvesByPage(SysShelvesCriteria criteria,PageInfo pageInfo);
 	
 	int insertShelves (SysShelves sysShelves);
 	
 	int updateShelves (SysShelvesCriteria criteria,SysShelves sysShelves);
 	
 	List<SysShelves> selectInfoShelves(SysShelvesCriteria criteria);
+	
+	List<ShelvesResDTO> selectByExampleNew(SysShelvesCriteria example);
 }

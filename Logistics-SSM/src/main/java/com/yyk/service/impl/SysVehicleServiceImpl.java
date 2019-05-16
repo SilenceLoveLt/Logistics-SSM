@@ -14,6 +14,7 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.dao.BaseCodeMapper;
 import com.yyk.dao.SysVehicleMapper;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.VehicleDTO.VehicleResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysVehicle;
@@ -45,7 +46,7 @@ public class SysVehicleServiceImpl implements SysVehicleService{
 	 criteria2 = new BaseCodeCriteria();
 	 cri2 = criteria2.createCriteria();
 	 cri2.andStatusEqualTo(1);// 只查询状态为1的
-	 cri2.andCodeTypeEqualTo("VEHICETYPE");	  
+	 cri2.andCodeTypeEqualTo("VEHICLETYPE");	  
 	 List<BaseCode> vehicleTypeList =baseCodeDao.selectByExample(criteria2);
 	 for (BaseCode source : applyTypeList) {
 		    BaseCodeDTO dest = new BaseCodeDTO();
@@ -90,19 +91,19 @@ public class SysVehicleServiceImpl implements SysVehicleService{
 	
 	
 	@Override
-	public ResDataDTO<List<SysVehicle>> selectApplyTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
-		List<SysVehicle> sysVehicleList=null;
+	public ResDataDTO<List<VehicleResDTO>> selectApplyTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
+		List<VehicleResDTO> sysVehicleList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysVehicleList=sysVehicleDao.selectByExample(criteria);
+			sysVehicleList=sysVehicleDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysVehicleDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysVehicleList=sysVehicleDao.selectByExample(criteria);
+			sysVehicleList=sysVehicleDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysVehicle>> listRes=new ResDataDTO<List<SysVehicle>>();
+		ResDataDTO<List<VehicleResDTO>> listRes=new ResDataDTO<List<VehicleResDTO>>();
 		listRes.setData(sysVehicleList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
@@ -111,19 +112,19 @@ public class SysVehicleServiceImpl implements SysVehicleService{
 	
 	
 	@Override
-	public ResDataDTO<List<SysVehicle>> selectVehicleTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
-		List<SysVehicle> sysVehicleList=null;
+	public ResDataDTO<List<VehicleResDTO>> selectVehicleTypeListPage(SysVehicleCriteria criteria, PageInfo pageInfo) {
+		List<VehicleResDTO> sysVehicleList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysVehicleList=sysVehicleDao.selectByExample(criteria);
+			sysVehicleList=sysVehicleDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysVehicleDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysVehicleList=sysVehicleDao.selectByExample(criteria);
+			sysVehicleList=sysVehicleDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysVehicle>> listRes=new ResDataDTO<List<SysVehicle>>();
+		ResDataDTO<List<VehicleResDTO>> listRes=new ResDataDTO<List<VehicleResDTO>>();
 		listRes.setData(sysVehicleList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;

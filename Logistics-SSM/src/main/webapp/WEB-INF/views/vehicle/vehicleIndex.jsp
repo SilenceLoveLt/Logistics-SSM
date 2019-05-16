@@ -250,11 +250,12 @@
 			    <thead>
 					<tr class="text-c">
 						<th></th> 
+						<th>车牌号</th>
 						<th>车辆编码</th>
+						<th></th>
 						<th>车辆类型</th>
-						<th>车辆名称</th>
-						<th>承重量</th>
-						<th>承重体积</th>
+						<th>承重量(g)</th>
+						<th>承重体积(cm³)</th>
 						<th>操作</th>
 						<th></th>
 						<th></th>
@@ -289,8 +290,6 @@
                         <div class="col-sm-4">
 						      	<select name="vehicleType" id="vehicleType" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
-									<option value="1">是</option>
-									<option value="0">否</option>
 								</select>
 						 </div>
                     </div>
@@ -303,6 +302,7 @@
                         <label class="control-label col-sm-2">承重量:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="weight" id="weight"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
+                            <span class="form-control-feedback">(g)</span>
                         </div>
                     </div>
                    
@@ -310,13 +310,12 @@
                         <label class="control-label col-sm-2 ">承重体积:</label>
                         <div class="col-sm-4">
                              <input type="text" class="form-control" name="volume" id="volume" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
+                             <span class="form-control-feedback">(cm³)</span>
                         </div>
 						 <label class="control-label col-sm-2">适用类别:</label>
                          <div class="col-sm-4">
-						      	<select name="applyType" id="applyType"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
+						      	<select name="applyType" id="applyType" class="form-control"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
-									<option value="A">是</option>
-									<option value="B">否</option>
 								</select>
 						 </div>
                     </div>
@@ -357,6 +356,10 @@ var weight=null;
 var volume=null;
 var applyType=null;
 var remark=null;
+var applyTypeList = ${applyTypeList};     //使用类别
+var vehicleTypeList = ${vehicleTypeList};     //车辆类别
+
+
 
    $(document).ready(function() {
 	   //默认加载表格
@@ -384,8 +387,23 @@ var remark=null;
 	 				  });
 	            }
         });
+       
+       initSelectOptions(applyTypeList, "code", "dataName", "applyType");
+	   initSelectOptions(vehicleTypeList, "code", "dataName", "vehicleType");
 	   
    });
+   
+   
+
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
+   
    
 	//跳转到题目新增页面
 	function addFun(){
@@ -525,9 +543,11 @@ var remark=null;
 					     "mData": "vehicleId",
 					     "visible": false
 					  },
+					  { "mData": "vehicleName"},
                       { "mData": "vehicleCode"},
-                      { "mData": "vehicleType"},
-   					  { "mData": "vehicleName"},
+                      { "mData": "vehicleType",
+	   					"visible": false},
+   					  { "mData": "vehicleType"},
                       { "mData": "weight"},
                       { "mData": "volume"},
 					  {"mData":null,

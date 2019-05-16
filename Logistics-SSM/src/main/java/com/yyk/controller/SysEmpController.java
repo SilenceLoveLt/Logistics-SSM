@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,15 +22,19 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.UserDTO.SysUserListReqDTO;
+import com.yyk.entity.BaseCode;
+import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
 import com.yyk.entity.SysInvoice;
 import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
+import com.yyk.service.BaseCodeService;
 import com.yyk.service.SysEmpService;
 import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysUserService;
+import com.yyk.util.JsonChangeUtil;
 
 
 /**
@@ -53,6 +58,9 @@ public class SysEmpController {
 	@Qualifier("sysInvoiceService")
 	private  SysInvoiceService sysInvoiceService;
 	
+	@Autowired
+	@Qualifier("baseCodeService")
+	private BaseCodeService baseCodeService;
 	
 	/**
 	 * 
@@ -66,10 +74,22 @@ public class SysEmpController {
 	* @throws 
 	 */
 	 @RequestMapping("/")
-	 public String get(){
-		 System.out.println("员工");
+	 public String get(final ModelMap model){
+	    List<BaseCode> roleIdList = selectCode("ROLEID");
+	    List<BaseCode> sexList = selectCode("SEX");
+		model.put("roleIdList", JsonChangeUtil.list2json(roleIdList));
+		model.put("sexList", JsonChangeUtil.list2json(sexList));
 	   return Views.EMP_VIEW;
 	 }
+	 
+	 public List<BaseCode> selectCode(String codeType){
+			BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1); 
+			cri.andCodeTypeEqualTo(codeType);
+			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
+		    return topicTypeList;
+	}
 
 	 /**
 	  * 

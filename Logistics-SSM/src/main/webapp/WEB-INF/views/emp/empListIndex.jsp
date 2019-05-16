@@ -156,12 +156,10 @@
                             <input type="text" class="form-control" name="phone" id="phone" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
                         </div>
                         
-                        <label  class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>管理角色:</label>
+                        <label  class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>所属角色:</label>
 						<div class="col-sm-4">
 							<select name="roleid" id="roleid"  class="form-control"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
-								<option value="">请选择</option>
-								<option value="1">普通管理员</option>
-								<option value="0">超级管理员</option>
+							 	<option>请选择</option>
 							</select>
 						</div>
                     </div>
@@ -173,10 +171,8 @@
                         <label class="control-label col-sm-2 "><span>*</span>性别:</label>
                         <div class="col-sm-4">
                         <select name="sex" id="sex"  class="form-control"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
-								<option value="">请选择</option>
-								<option value="1">男</option>
-								<option value="0">女</option>
-							</select>
+							<option>请选择</option>
+						</select>
                         </div>
 				    </div>
                     <div class="form-group form-group-sm">
@@ -264,7 +260,7 @@
 			<div class="modal-dialog  modal-lg" role="document">
 				<div class="modal-content">
 				<div class="modal-header " style="color: #333; background-color: #f5f5f5; border-color: #ddd;">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<button type="button" class="close" onclick="downModel()" data-dismiss="modal" aria-hidden="true">×</button>
 				</div>
 					<div class="modal-body">
 							<input type="hidden" name="empId" id="empIdJobset" />
@@ -321,7 +317,8 @@ var roleid=null;
 var createTime=null;
 var updateTime=null;
 var remark=null;
-
+var roleIdList = ${roleIdList};     //所属职位
+var sexList = ${sexList};     //性别
 
    $(document).ready(function() {
 	   //默认加载dataTable
@@ -333,7 +330,22 @@ var remark=null;
 	   
 	   //表单验证
 	   formValidator();
+	   
+	   initSelectOptions(roleIdList, "code", "dataName", "roleid");
+	   initSelectOptions(sexList, "code", "dataName", "sex");
    });
+   
+   
+   
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
+   
    
    $("#ok").attr("disabled","true");
    $("#ok").attr("style","background-color:grey;border-color:grey");
@@ -1017,6 +1029,7 @@ var remark=null;
 	   table.draw(true);
     }
    
+   
    /**重置查询条件*/
 	function resetSearchConditions() {
 		$("#searchEmpForm")[0].reset();
@@ -1032,6 +1045,12 @@ var remark=null;
         $('#empForm').data('bootstrapValidator', null);
         formValidator();
     });
+	
+	/* 关闭模态框*/
+	$('#createInfoDivRoleset').on('hidden.bs.modal', function() {
+		//刷新表格
+		resetSearchConditions();
+	    });
 	
    /* 按钮关闭模态框*/
    function closeModel(){

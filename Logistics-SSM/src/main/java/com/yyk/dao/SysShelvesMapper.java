@@ -1,5 +1,6 @@
 package com.yyk.dao;
 
+import com.yyk.dto.ShelvesDTO.ShelvesResDTO;
 import com.yyk.entity.SysShelves;
 import com.yyk.entity.SysShelvesCriteria;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface SysShelvesMapper {
     int updateByPrimaryKeySelective(SysShelves record);
 
     int updateByPrimaryKey(SysShelves record);
+    
+    List<ShelvesResDTO> selectByExampleNew(SysShelvesCriteria example);
 }

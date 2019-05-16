@@ -34,13 +34,13 @@ public class SysEmpServiceImpl implements SysEmpService{
 		List<SysEmp> sysEmpList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysEmpList=SysEmpDao.selectByExample(criteria);
+			sysEmpList=SysEmpDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysEmpDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysEmpList=SysEmpDao.selectByExample(criteria);
+			sysEmpList=SysEmpDao.selectByExampleNew(criteria);
 		}
 		ResDataDTO<List<SysEmp>> listRes=new ResDataDTO<List<SysEmp>>();
 		listRes.setData(sysEmpList);
@@ -62,7 +62,7 @@ public class SysEmpServiceImpl implements SysEmpService{
 
 	@Override
 	public List<SysEmp> selectInfoEmp(SysEmpCriteria criteria) {
-		return SysEmpDao.selectByExample(criteria);
+		return SysEmpDao.selectByExampleNew(criteria);
 	}
 
 	

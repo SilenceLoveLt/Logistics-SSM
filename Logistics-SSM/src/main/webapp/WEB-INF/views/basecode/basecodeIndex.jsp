@@ -209,7 +209,7 @@
 						      	<select name="enable" id="enable" class="form-control" oninput="check2()" onmouseleave="checkInputing2()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<option value="">请选择</option>
 									<option value="1">是</option>
-									<option value="0">否</option>
+									<option value="2">否</option>
 								</select>
 						 </div>
                     </div>

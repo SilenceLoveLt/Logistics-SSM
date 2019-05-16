@@ -329,6 +329,7 @@
 					style="color: red; font-weight: bold;">*</span>线路缴费：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="linePrice" id="linePrice" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<span class="form-control-feedback">(元)</span>
 				</div>
 		</div>
 		</div>
@@ -354,6 +355,7 @@
 				<label for="lineLength" class="col-sm-2 control-label">线路长度：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="lineLength" id="lineLength" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<span class="form-control-feedback">(km)</span>
 				</div>
 			</div>
 		</div>

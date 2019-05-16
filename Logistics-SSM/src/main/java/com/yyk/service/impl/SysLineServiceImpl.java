@@ -14,6 +14,7 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.dao.BaseCodeMapper;
 import com.yyk.dao.SysLineMapper;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.LineDTO.LineResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysLine;
@@ -90,19 +91,19 @@ public class SysLineServiceImpl implements SysLineService{
 	
 	
 	@Override
-	public ResDataDTO<List<SysLine>> selectApplyTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
-		List<SysLine> sysLineList=null;
+	public ResDataDTO<List<LineResDTO>> selectApplyTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
+		List<LineResDTO> sysLineList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysLineList=sysLineDao.selectByExample(criteria);
+			sysLineList=sysLineDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysLineDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysLineList=sysLineDao.selectByExample(criteria);
+			sysLineList=sysLineDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysLine>> listRes=new ResDataDTO<List<SysLine>>();
+		ResDataDTO<List<LineResDTO>> listRes=new ResDataDTO<List<LineResDTO>>();
 		listRes.setData(sysLineList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
@@ -111,19 +112,19 @@ public class SysLineServiceImpl implements SysLineService{
 	
 	
 	@Override
-	public ResDataDTO<List<SysLine>> selectLineTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
-		List<SysLine> sysLineList=null;
+	public ResDataDTO<List<LineResDTO>> selectLineTypeListPage(SysLineCriteria criteria, PageInfo pageInfo) {
+		List<LineResDTO> sysLineList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysLineList=sysLineDao.selectByExample(criteria);
+			sysLineList=sysLineDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(sysLineDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysLineList=sysLineDao.selectByExample(criteria);
+			sysLineList=sysLineDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysLine>> listRes=new ResDataDTO<List<SysLine>>();
+		ResDataDTO<List<LineResDTO>> listRes=new ResDataDTO<List<LineResDTO>>();
 		listRes.setData(sysLineList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;

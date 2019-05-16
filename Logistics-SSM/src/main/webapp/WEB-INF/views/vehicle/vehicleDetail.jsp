@@ -345,11 +345,13 @@
 				<label for="lineTime" class="col-sm-2 control-label">承重量：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="weight" id="weight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<span class="form-control-feedback">(g)</span>
 				</div>
 				
 				<label for="lineLength" class="col-sm-2 control-label">承重体积：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="volume" id="volume" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<span class="form-control-feedback">(cm³)</span>
 				</div>
 			</div>
 		</div>

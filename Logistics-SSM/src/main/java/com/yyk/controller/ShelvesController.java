@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,10 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
+import com.yyk.dto.ShelvesDTO.ShelvesResDTO;
 import com.yyk.dto.UserDTO.SysUserListReqDTO;
+import com.yyk.entity.BaseCode;
+import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysGoods;
 import com.yyk.entity.SysGoodsShelves;
 import com.yyk.entity.SysGoodsShelvesCriteria;
@@ -29,10 +33,12 @@ import com.yyk.entity.SysShelves;
 import com.yyk.entity.SysShelvesCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
+import com.yyk.service.BaseCodeService;
 import com.yyk.service.GoodsService;
 import com.yyk.service.GoodsShelvesService;
 import com.yyk.service.ShelvesService;
 import com.yyk.service.SysUserService;
+import com.yyk.util.JsonChangeUtil;
 import com.yyk.util.UUIDGenerator;
 
 
@@ -60,6 +66,9 @@ public class ShelvesController {
 	@Qualifier("goodsShelvesService")
 	private GoodsShelvesService goodsShelvesService;
 	
+	@Autowired
+	@Qualifier("baseCodeService")
+	private BaseCodeService baseCodeService;
 	/**
 	 * 
 	* @author yyk  
@@ -72,10 +81,20 @@ public class ShelvesController {
 	* @throws 
 	 */
 	 @RequestMapping("/")
-	 public String get(){
+	 public String get(final ModelMap model){
+		List<BaseCode> shelvesTypeList = selectCode("SHELVESTYPE");
+		model.put("shelvesTypeList", JsonChangeUtil.list2json(shelvesTypeList));
 	   return Views.SHELVES_VIEW;
 	 }
 	
+	 public List<BaseCode> selectCode(String codeType){
+			BaseCodeCriteria criteria = new BaseCodeCriteria();
+			BaseCodeCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1); 
+			cri.andCodeTypeEqualTo(codeType);
+			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
+		    return topicTypeList;
+	}
 	 /**
 	  * 
 	 * @author yyk  
@@ -132,7 +151,7 @@ public class ShelvesController {
 					
 				}
 			}
-			ResDataDTO<List<SysShelves>> list=shelvesService.selectSysShelvesByPage(criteria, pageInfo);
+			ResDataDTO<List<ShelvesResDTO>> list=shelvesService.selectSysShelvesByPage(criteria, pageInfo);
 			PageInfo page=list.getPageInfo();
 			JSONObject getObj = new JSONObject();
 		    getObj.put("sEcho", sEcho);// DataTable前台必须要的
@@ -344,7 +363,9 @@ public class ShelvesController {
 				List<String> goodsIds=new ArrayList<String>();
 				SysGoodsShelvesCriteria criteria = new SysGoodsShelvesCriteria();
 		    	SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
-		    	cri.andShelvesIdEqualTo(sysShelves.getShelvesId());
+		    	if (StringUtils.isNotBlank(sysShelves.getShelvesId())){
+		    		cri.andShelvesIdEqualTo(sysShelves.getShelvesId());
+		    	}
 				List<SysGoodsShelves> outGoods=goodsShelvesService.selectInfoGoodsShelves(criteria);
 				if(!outGoods.isEmpty() && outGoods.size()>0){
 					for(SysGoodsShelves goodsId:outGoods){

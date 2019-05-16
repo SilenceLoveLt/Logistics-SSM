@@ -21,6 +21,7 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.LineDTO.LineResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysInvoice;
@@ -69,7 +70,11 @@ public class SysLineController {
 	* @throws 
 	 */
 	 @RequestMapping("/")
-	 public String get(){
+	 public String get(final ModelMap model){
+		List<BaseCode> applyTypeList = selectCode("APPLYTYPE");
+		List<BaseCode> lineTypeList = selectCode("LINETYPE");
+	    model.put("applyTypeList", JsonChangeUtil.list2json(applyTypeList));
+		model.put("lineTypeList", JsonChangeUtil.list2json(lineTypeList));
 	   return Views.LINE_VIEW;
 	 }
 	 
@@ -81,6 +86,8 @@ public class SysLineController {
 			List<BaseCode> topicTypeList = this.baseCodeService.selectInfoCode(criteria);
 		    return topicTypeList;
 	}
+	 
+	 
 	
 	 /**
 	  * 
@@ -117,7 +124,7 @@ public class SysLineController {
 	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
 	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
-		 ResDataDTO<List<SysLine>>  list =new ResDataDTO<List<SysLine>>();
+		 ResDataDTO<List<LineResDTO>>  list =new ResDataDTO<List<LineResDTO>>();
 		 SysLine sysLine=new SysLine();
 		 String sEcho = null;
 		 PageInfo pageInfo=new PageInfo();

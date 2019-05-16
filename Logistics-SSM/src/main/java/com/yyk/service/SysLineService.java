@@ -5,6 +5,7 @@ import java.util.List;
 import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.LineDTO.LineResDTO;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
 
@@ -22,8 +23,8 @@ public interface SysLineService {
 	 
 	 int insertLine (SysLine sysLine);
 	 
-	 ResDataDTO<List<SysLine>>  selectApplyTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
+	 ResDataDTO<List<LineResDTO>>  selectApplyTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
 	 
-	 ResDataDTO<List<SysLine>>  selectLineTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
+	 ResDataDTO<List<LineResDTO>>  selectLineTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
 	 
 }

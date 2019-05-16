@@ -148,9 +148,7 @@
                         <label class="control-label col-sm-2 "><span>*</span>货架类型:</label>
                          <div class="col-sm-4">
 	                        <select name="shelvesType" id="shelvesType" class="form-control" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
-										<option value="">请选择</option>
-										<option value="1">是</option>
-										<option value="0">否</option>
+								<option>请选择</option>
 							</select>
 						</div>
                     </div>
@@ -271,7 +269,7 @@ var shelvesCode=null;
 var shelvesName=null;
 var shelvesType=null;
 var remark=null;
-
+var shelvesTypeList = ${shelvesTypeList};     //货架类型
 
    $(document).ready(function() {
 	   //默认加载dataTable
@@ -285,7 +283,18 @@ var remark=null;
 	   
 	   //表单验证
 	   formValidator();
+	   
+	   initSelectOptions(shelvesTypeList, "code", "dataName", "shelvesType");
    });
+   
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
    
    $("#ok").attr("disabled","true");
    $("#ok").attr("style","background-color:grey;border-color:grey");
@@ -394,7 +403,7 @@ var remark=null;
 					  },
                       { "mData": "shelvesName"},
                       { "mData": "shelvesCode"},
-                      { "mData": "shelvesType"},
+                      { "mData": "shelvesTypeName"},
 					  {"mData":null,
 				            render: function (data, type, row, meta){
 				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+

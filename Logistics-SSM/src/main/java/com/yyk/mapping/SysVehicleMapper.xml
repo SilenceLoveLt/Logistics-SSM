@@ -15,6 +15,10 @@
     <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapNew" type="com.yyk.dto.VehicleDTO.VehicleResDTO" extends="BaseResultMap">
+    <result column="VEHICLE_TYPE_NAME" jdbcType="VARCHAR" property="vehicleTypeName" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -321,8 +325,29 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
   </update>
+  
+  
   <select id="countByBaseCode" parameterType="com.yyk.dto.BaseCodeDTO.BaseCodeDTO" resultType="java.lang.Integer">
-  select  count(v.vehicle_type) from vehicle_table v INNER JOIN base_code b on v.vehicle_type=b.`CODE`
+  select  count(v.vehicle_type) from vehicle_table v 
+  INNER JOIN base_code b on v.vehicle_type=b.`CODE`
   where APPLY_TYPE=#{applyType,jdbcType=VARCHAR}   AND  VEHICLE_TYPE=#{vehicleType,jdbcType=VARCHAR}   AND CODE_TYPE=#{codeType,jdbcType=VARCHAR}  AND b.`STATUS`='1'
+  </select>
+  
+  
+   <select id="selectByExampleNew" parameterType="com.yyk.entity.SysVehicleCriteria" resultMap="BaseResultMapNew">
+   select v.VEHICLE_ID,v.VEHICLE_CODE,v.VEHICLE_NAME,b.DATA_NAME VEHICLE_TYPE_NAME,v.VEHICLE_TYPE,v.WEIGHT,v.APPLY_TYPE,v.VOLUME,v.REMARK ,v.APPLY_TYPE from (select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from vehicle_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>)v
+    LEFT JOIN base_code b on v.VEHICLE_TYPE=b.`CODE` and b.CODE_TYPE='VEHICLETYPE' and b.`STATUS`=1
   </select>
 </mapper>

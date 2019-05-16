@@ -21,6 +21,7 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.BaseCodeDTO.BaseCodeDTO;
+import com.yyk.dto.VehicleDTO.VehicleResDTO;
 import com.yyk.entity.BaseCode;
 import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysInvoice;
@@ -69,8 +70,11 @@ public class SysVehicleController {
 	* @throws 
 	 */
 	 @RequestMapping("/")
-	 public String indexPage(){
-		
+	 public String indexPage(final ModelMap model){
+		List<BaseCode> applyTypeList = selectCode("APPLYTYPE");
+		List<BaseCode> vehicleTypeList = selectCode("VEHICLETYPE");
+		model.put("applyTypeList", JsonChangeUtil.list2json(applyTypeList));
+		model.put("vehicleTypeList", JsonChangeUtil.list2json(vehicleTypeList));
 	    return Views.VEHICLE_VIEW;
 	 }
 	 
@@ -116,7 +120,7 @@ public class SysVehicleController {
 	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
 	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
-		 ResDataDTO<List<SysVehicle>>  list =new ResDataDTO<List<SysVehicle>>();
+		 ResDataDTO<List<VehicleResDTO>>  list =new ResDataDTO<List<VehicleResDTO>>();
 		 SysVehicle sysVehicle=new SysVehicle();
 		 String sEcho = null;
 		 PageInfo pageInfo=new PageInfo();
@@ -278,7 +282,7 @@ public class SysVehicleController {
 	     */
 	    @RequestMapping(value = Url.ADD_VEHICLE_PAGE, method = RequestMethod.POST)
 		 public String addVehiclePage(final ModelMap model){
-	    	List<BaseCode> vehicleTypeList = selectCode("VEHICETYPE");
+	    	List<BaseCode> vehicleTypeList = selectCode("VEHICLETYPE");
 			List<BaseCode> applyTypeList = selectCode("APPLYTYPE");
 			model.put("vehicleTypeList", JsonChangeUtil.list2json(vehicleTypeList));
 			model.put("applyTypeList", JsonChangeUtil.list2json(applyTypeList));

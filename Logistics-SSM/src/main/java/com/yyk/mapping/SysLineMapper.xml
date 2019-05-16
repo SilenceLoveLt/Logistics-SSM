@@ -15,6 +15,10 @@
     <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  
+   <resultMap id="BaseResultMapNew" type="com.yyk.dto.LineDTO.LineResDTO" extends="BaseResultMap">
+    <result column="LINE_TYPE_NAME" jdbcType="VARCHAR" property="lineTypeName" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -264,4 +268,22 @@
   where APPLY_TYPE=#{applyType,jdbcType=VARCHAR}   AND  LINE_TYPE=#{lineType,jdbcType=VARCHAR}   AND CODE_TYPE=#{codeType,jdbcType=VARCHAR}  AND b.`STATUS`='1'
   </select>
   
+  
+   <select id="selectByExampleNew" parameterType="com.yyk.entity.SysLineCriteria" resultMap="BaseResultMapNew">
+    select  l.LINE_CODE ,l.LINE_ID,l.LINE_LENGTH,l.LINE_PRICE,l.LINE_TIME,b.DATA_NAME LINE_TYPE_NAME, l.LINE_TYPE ,l.REMARK ,l.APPLY_TYPE  from
+    (select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from line_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>)l
+    LEFT JOIN base_code b on l.LINE_TYPE=b.`CODE` and b.CODE_TYPE='LINETYPE' and b.`STATUS`=1
+  </select>
 </mapper>

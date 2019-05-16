@@ -27,4 +27,6 @@ public interface SysEmpMapper {
     int updateByPrimaryKeySelective(SysEmp record);
 
     int updateByPrimaryKey(SysEmp record);
+    
+    List<SysEmp> selectByExampleNew(SysEmpCriteria example);
 }
