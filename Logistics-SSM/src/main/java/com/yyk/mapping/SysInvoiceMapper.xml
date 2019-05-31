@@ -19,16 +19,22 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
-  <resultMap id="BaseResultMapNew" type="com.yyk.dto.OrderDTO.OrderResDTO">
+  <resultMap id="BaseResultMapNew" type="com.yyk.dto.OrderDTO.OrderResDTO" extends="BaseResultMap">
     <result column="ORDER_ID" jdbcType="VARCHAR" property="orderId" />
     <result column="EMP_NAME" jdbcType="VARCHAR" property="empName" />
-    <result column="VEHICLE_ID" jdbcType="VARCHAR" property="vehicleId" />
+    <result column="VEHICLE_NAME" jdbcType="VARCHAR" property="vehicleName" />
+    <result column="LINE_TIME" jdbcType="TIME" property="lineTime" />
     <result column="PHONE" jdbcType="VARCHAR" property="phone" />
     <result column="ADDR_NOW" jdbcType="VARCHAR" property="addrNow" />
-    <result column="INVOICE_STATUS" jdbcType="INTEGER" property="invoiceStatus" />
+    <result column="CONSIGNEE_NAME" jdbcType="VARCHAR" property="consigneeName" />
+    <result column="RECE_PHONE" jdbcType="VARCHAR" property="recePhone" />
+    <result column="INVOICE_STATUS_NAME" jdbcType="INTEGER" property="invoiceStatusName" />
     <result column="START_TIME" jdbcType="DATE" property="startTime" />
     <result column="END_TIME" jdbcType="DATE" property="endTime" />
   </resultMap>
+  
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -382,7 +388,7 @@
   
   
  <select id="selectOrderByExample" parameterType="com.yyk.entity.SysInvoiceCriteria" resultMap="BaseResultMapNew">
-    select  i.order_id ORDER_ID,e.EMP_NAME EMP_NAME,e.PHONE PHONE,i.addr_now ADDR_NOW,i.start_time START_TIME,i.end_time END_TIME,b.data_name INVOICE_STATUS from 
+    select  i.order_id ORDER_ID,o.CONSIGNEE_NAME CONSIGNEE_NAME,o.RECE_PHONE  RECE_PHONE,e.EMP_NAME EMP_NAME,e.PHONE PHONE,i.addr_now ADDR_NOW,i.start_time START_TIME,i.end_time END_TIME,b.data_name INVOICE_STATUS_NAME from 
     (select
     <if test="distinct">
       distinct
@@ -397,6 +403,29 @@
       order by ${orderByClause}
     </if>)i
     left join emp_table e on i.emp_id=e.EMP_ID and  e.`STATUS`&gt;= 1
+    left join order_table o on i.order_id=o.order_id and  o.`STATUS`&gt;= 1
     LEFT JOIN base_code b on i.invoice_status=b.code and b.CODE_TYPE='INVOICETYPE' and b.`STATUS`&gt;= 1
+  </select>
+  
+  
+  <select id="selectByExampleNew" parameterType="com.yyk.entity.SysInvoiceCriteria" resultMap="BaseResultMapNew">
+   select i.INVOICE_ID INVOICE_ID,o.CONSIGNEE_NAME CONSIGNEE_NAME,o.RECE_PHONE  RECE_PHONE,i.ORDER_ID,e.EMP_NAME EMP_NAME,i.INVOICE_STATUS,l.LINE_TIME LINE_TIME,v.VEHICLE_NAME VEHICLE_NAME,i.ADDR_NOW,b.DATA_NAME INVOICE_STATUS_NAME from
+    (select <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from invoice_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>)i
+    LEFT JOIN emp_table e on i.EMP_ID=e.EMP_ID and e.`STATUS` &gt;=1
+    left join order_table o on i.order_id=o.order_id and  o.`STATUS`&gt;= 1
+	LEFT JOIN line_table l on i.LINE_ID=l.LINE_ID and l.`STATUS` &gt;=1
+	LEFT JOIN vehicle_table v on i.VEHICLE_ID=v.VEHICLE_ID and v.`STATUS` &gt;=1
+	LEFT JOIN base_code b on i.INVOICE_STATUS=b.`CODE` and b.CODE_TYPE='INVOICETYPE' and b.`STATUS`&gt;= 1
   </select>
 </mapper>

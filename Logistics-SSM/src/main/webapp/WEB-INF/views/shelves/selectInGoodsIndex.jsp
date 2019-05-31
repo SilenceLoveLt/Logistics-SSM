@@ -181,8 +181,13 @@ var remark=null;
                       { "mData" : "inTime",render : function(obj) {  
 				       return (getMyDate(obj));
 					  }  },
-					  { "mData" : "outTime",render : function(obj) {  
-					       return (getMyDate(obj));
+					  { "mData" : "outTime",render : function(obj) { 
+						  console.info("obj"+obj);
+						  if(undefined==obj){
+							  var outTime="一";
+							  console.info("outTime"+outTime);
+						  }
+					       return (outTime);
 					  }  } ,
 					  {"mData":null,
 				            render: function (data, type, row, meta){

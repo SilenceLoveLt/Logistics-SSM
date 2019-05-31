@@ -216,28 +216,6 @@
 </div>
 
 
-<!-- 导航栏开始 -->
-<!-- 车辆管理和新增车辆 -->
-	<div class="container-fluid" style="background-color: lightgrey;margin-bottom: 20px;">
-		<div class="row" >
-		    <div class="lk-header">
-		    <form method="post" id="addForm">
-				<div class="col-sm-2" style="background-color:lightgrey;">
-				   <div class="btn-style" onclick="changeColor(this)" >
-				    <input type="button" id="btnstyle" style="background-color:darkgrey;line-height:50px;border-radius: 15px;" role="button" class="btn  btn-link" onclick="returnFun()" value="车辆管理">
-				   </div> 
-				</div>
-				<div class="col-sm-2" style="background-color:lightgrey ;" >	
-				   <div	 class="btn-style1" onclick="changeColor2(this)">
-					 <input type="button"  role="button" class="btn  btn-link" onclick="addFun()"  style="background-color:darkgrey; line-height:50px;border-radius: 15px;"  value="新增车辆">
-				   </div> 
-				</div>
-
-			</form>
-			</div>
-		</div>
-	</div>
-<!-- 导航栏结束 -->
 
      <!--下面展示的题目两颗树  -->  
 <div class="container-fluid">
@@ -264,7 +242,7 @@
 				<tbody>
 				</tbody>
           </table>
-			</div>
+		  </div>
 		</div>
 </div>
     

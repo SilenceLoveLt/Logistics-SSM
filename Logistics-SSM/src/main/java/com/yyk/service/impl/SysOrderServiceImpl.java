@@ -13,6 +13,7 @@ import com.yyk.dao.SysEmpMapper;
 import com.yyk.dao.SysInvoiceMapper;
 import com.yyk.dao.SysOrderMapper;
 import com.yyk.dao.SysUserMapper;
+import com.yyk.dto.OrderDTO.CheckOrderResDTO;
 import com.yyk.dto.OrderDTO.OrderResDTO;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
@@ -41,19 +42,19 @@ public class SysOrderServiceImpl implements SysOrderService{
 	private SysInvoiceMapper SysInvoiceDao;
 
 	@Override
-	public ResDataDTO<List<SysOrder>> selectSysOrderByPage(SysOrderCriteria criteria, PageInfo pageInfo) {
-		List<SysOrder> sysOrderList=null;
+	public ResDataDTO<List<CheckOrderResDTO>> selectSysOrderByPage(SysOrderCriteria criteria, PageInfo pageInfo) {
+		List<CheckOrderResDTO> sysOrderList=null;
 		if(pageInfo!=null){
 			PageHelper.startPage((pageInfo.getPageNum()/pageInfo.getPageSize()+1), pageInfo.getPageSize());
-			sysOrderList=SysOrderDao.selectByExample(criteria);
+			sysOrderList=SysOrderDao.selectByExampleNew(criteria);
 			PageHelper.clearPage();
 			pageInfo.setTotal(SysOrderDao.countByExample(criteria));
 			int pageTotal=(int)Math.ceil(pageInfo.getTotal()/(pageInfo.getPageSize()*1.0));
 			pageInfo.setPageTotal(pageTotal);
 		}else{
-			sysOrderList=SysOrderDao.selectByExample(criteria);
+			sysOrderList=SysOrderDao.selectByExampleNew(criteria);
 		}
-		ResDataDTO<List<SysOrder>> listRes=new ResDataDTO<List<SysOrder>>();
+		ResDataDTO<List<CheckOrderResDTO>> listRes=new ResDataDTO<List<CheckOrderResDTO>>();
 		listRes.setData(sysOrderList);
 		listRes.setPageInfo(pageInfo);
 		return listRes;
@@ -71,7 +72,6 @@ public class SysOrderServiceImpl implements SysOrderService{
 		sysOrder.setOrderStatus(1);  
 		sysOrder.setCreateTime(new Date());
 		sysOrder.setUpdateTime(new Date());
-		sysOrder.setOrderId(UUIDGenerator.create32Key());
 		return SysOrderDao.insertSelective(sysOrder);
 	}
 

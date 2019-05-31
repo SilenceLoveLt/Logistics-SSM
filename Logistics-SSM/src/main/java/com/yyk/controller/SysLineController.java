@@ -29,7 +29,7 @@ import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
 import com.yyk.service.BaseCodeService;
-import com.yyk.service.SysInvoiceService;
+import com.yyk.service.InvoiceService;
 import com.yyk.service.SysLineService;
 import com.yyk.util.JsonChangeUtil;
 
@@ -51,8 +51,8 @@ public class SysLineController {
 	private  SysLineService sysLineService;
 	
 	@Autowired
-	@Qualifier("sysInvoiceService")
-	private  SysInvoiceService sysInvoiceService;
+	@Qualifier("invoiceService")
+	private  InvoiceService invoiceService;
 	
 	@Autowired
 	@Qualifier("baseCodeService")
@@ -102,7 +102,7 @@ public class SysLineController {
 	 * @date 2019年4月13日 下午4:42:19     
 	 * @throws 
 	  */
-	 @RequestMapping(value = Url.SELECT_LEFT_TREE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LEFT_TREE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectLeftTrees() {
 		    List<BaseCodeDTO> baselistdto=sysLineService.selectLeftTrees();
 			return JsonChangeUtil.list2json(baselistdto);
@@ -121,7 +121,7 @@ public class SysLineController {
 	* @throws 
 	 */
 	 
-	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 ResDataDTO<List<LineResDTO>>  list =new ResDataDTO<List<LineResDTO>>();
@@ -244,8 +244,9 @@ public class SysLineController {
 	    	SysInvoiceCriteria criteria = new SysInvoiceCriteria();
 	    	SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);
+			cri.andInvoiceStatusNotEqualTo(4);//不考虑配送状态为 “已签收”
  			cri.andLineIdEqualTo(lineId);
-	    	List<SysInvoice> list=sysInvoiceService.selectSysInvoice(criteria);
+	    	List<SysInvoice> list=invoiceService.selectInfoInvoice(criteria);
 	    	if(list.isEmpty() || list.size()==0){
 	    		SysLineCriteria criteria2 = new SysLineCriteria();
 				SysLineCriteria.Criteria cri2 = criteria2.createCriteria();

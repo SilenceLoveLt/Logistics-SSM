@@ -65,7 +65,7 @@ public class BaseCodeController {
 	  * @param aoData
 	  * @return
 	  */
-	@RequestMapping(value = Url.BASECODETYPE_LIST_BY_PAGE, method = RequestMethod.POST)
+	@RequestMapping(value = Url.BASECODETYPE_LIST_BY_PAGE, produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	 public @ResponseBody String codeTypePages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 BaseCodeType baseCodeType=new BaseCodeType();
@@ -121,7 +121,7 @@ public class BaseCodeController {
 	 * @param aoData
 	 * @return
 	 */
-	@RequestMapping(value = Url.BASECODE_LIST_BY_PAGE, method = RequestMethod.POST)
+	@RequestMapping(value = Url.BASECODE_LIST_BY_PAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	 public @ResponseBody String codePages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 BaseCode baseCode=new BaseCode();

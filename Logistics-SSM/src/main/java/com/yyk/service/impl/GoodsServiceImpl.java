@@ -71,6 +71,7 @@ public class GoodsServiceImpl implements GoodsService{
 
 	@Override
 	public int insertGoods(SysGoods sysGoods) {
+		sysGoods.setStatus(1);
 		sysGoods.setCreateTime(new Date());
 		sysGoods.setUpdateTime(new Date());
 		sysGoods.setGoodsId(UUIDGenerator.create32Key());
@@ -121,6 +122,18 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public List<SysGoods> selectGoods(String shelvesId) {
 		return sysGoodsDao.selectOutGoods(shelvesId);
+	}
+
+
+	@Override
+	public int updateExample(SysGoodsCriteria criteria, SysGoods sysGoods) {
+		return sysGoodsDao.updateByExampleSelective(sysGoods, criteria);
+	}
+
+
+	@Override
+	public String selectGoodsCodeByOrderId(String type) {
+		return sysGoodsDao.selectGoodsCodeByOrderId(type);
 	}
 	
 	

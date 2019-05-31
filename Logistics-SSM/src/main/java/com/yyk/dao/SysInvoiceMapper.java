@@ -30,4 +30,6 @@ public interface SysInvoiceMapper {
     int updateByPrimaryKey(SysInvoice record);
     
     List<OrderResDTO> selectOrderByExample(SysInvoiceCriteria example);
+    
+    List<OrderResDTO>selectByExampleNew(SysInvoiceCriteria example);
 }

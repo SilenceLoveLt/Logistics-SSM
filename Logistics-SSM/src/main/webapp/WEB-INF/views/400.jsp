@@ -1,8 +1,4 @@
-<%--
-  User: liting
-  Date: 2019/3/26
-  Time: 9:36 PM
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -55,4 +51,9 @@
 
 
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+});
+</script>
 </html>

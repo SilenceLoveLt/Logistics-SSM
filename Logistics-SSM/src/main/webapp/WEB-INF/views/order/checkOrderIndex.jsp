@@ -122,8 +122,9 @@
 		<tr class="text-c">
 			<th>订单编号</th>
 			<th>付款方式</th>
-			<th>订单费用</th>
+			<th>订单费用(元)</th>
 			<th>订单状态</th>
+			<th></th>
 			<th>审核操作</th>
 		</tr>
 	</thead>
@@ -167,12 +168,20 @@
 					  {
 					     "mData": "orderId"
 					  },
-                      { "mData": "payMethod"},
+                      { "mData": "payMethodName"},
                       { "mData": "freight"},
-                      { "mData": "orderStatus"},
+                      { "mData": "orderStatusName"},
+   					  { "mData": "orderStatus",
+	   					"visible": false
+	   					},
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">审核</button>"
+				             if(row.orderStatus==2){
+				            	 var html="<button type='button' id='checkBut' style='background-color:grey;border-color:grey' disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">审核</button>" 
+				             }
+				             else{
+				            	 var html="<button type='button' id='checkBut' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">审核</button>"
+				             }
 				               return html;  
 				            }
 				      }
@@ -286,7 +295,11 @@
 	                        text: '确认',
 	                        btnClass: 'btn-primary',
 	                        action: function(){ //这里写点击按钮回调函数
-						         searchDatas(); //刷新列表
+	                        	if(data.orderStatus==2){
+	                      		     $("#checkBut").attr("disabled","true");
+	           			        	 $("#checkBut").attr("style","background-color:grey;border-color:grey");
+	                      	     }
+	                        	searchDatas(); //刷新列表
 	                        }
 	                    }
 	                }

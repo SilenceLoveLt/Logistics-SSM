@@ -71,6 +71,8 @@ public class GoodsShelvesController {
 		    	List<SysGoodsShelves> list=new ArrayList<SysGoodsShelves>();
 		    	List<String> goodsIds=Arrays.asList(idListStr.split(","));
 		    	for(String goodsId:goodsIds) {
+		    		SysGoodsCriteria criteria = new SysGoodsCriteria();
+		 		    SysGoodsCriteria.Criteria cri = criteria.createCriteria();
 		    		SysGoodsShelves sysGoodsShelves=new SysGoodsShelves();
 		    		sysGoodsShelves.setGoodsShelvesId(UUIDGenerator.create32Key());
 		    		sysGoodsShelves.setCreateTime(new Date());
@@ -79,13 +81,15 @@ public class GoodsShelvesController {
 		    		sysGoodsShelves.setShelvesId(shelvesId);
 		    		sysGoodsShelves.setStatus(1);
 		    		sysGoodsShelves.setInTime(new Date());
-		    		SysGoodsCriteria criteria = new SysGoodsCriteria();
-		 		    SysGoodsCriteria.Criteria cri = criteria.createCriteria();
 		 		    cri.andStatusNotEqualTo(0);// 只查询状态为1的。
 		 		    cri.andGoodsIdEqualTo(goodsId);
 		 		    List<SysGoods> goodslist=goodsService.selectInfoGoods(criteria);
 		    		sysGoodsShelves.setGoodsCode(goodslist.get(0).getGoodsCode());
 		    		list.add(sysGoodsShelves);
+		    		//修改货物状态为已入库
+		    		SysGoods sysGoods=new SysGoods();
+		    		sysGoods.setStatus(2);
+		    		goodsService.updateExample(criteria, sysGoods);
 		    	}
 		    	int i=goodsShelvesService.insertByBatch(list);
 		    	if(i<=0){
@@ -96,6 +100,9 @@ public class GoodsShelvesController {
 		    	return map;
 			}
 	 
+	  
+	  
+	  
 	    @RequestMapping(value = Url.OUT_GOODS_SHELVES, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> outGoodsShelves(@RequestParam(required=false,value = "shelvesId") String shelvesId,
 				@RequestParam(required=false,value = "idListStr") String idListStr) {
@@ -114,6 +121,12 @@ public class GoodsShelvesController {
 	    		map.put("result", false);
 	    		return map;
 	    	}
+	    	SysGoodsCriteria sysGoodsCriteria = new SysGoodsCriteria();
+ 		    SysGoodsCriteria.Criteria sysGoodsCri = sysGoodsCriteria.createCriteria();
+ 		    sysGoodsCri.andGoodsIdIn(goodsIds);
+	    	SysGoods sysGoods=new SysGoods();
+    		sysGoods.setStatus(3);
+    		goodsService.updateExample(sysGoodsCriteria, sysGoods);
 	 		map.put("result", true);
 	    	return map;
 		}
@@ -124,7 +137,7 @@ public class GoodsShelvesController {
 		   return Views.IN_SHELVES_VIEW;
 		 }
 	    
-	    @RequestMapping(value = Url.SELECT_IN_GOODS_LIST, method = RequestMethod.POST)
+	    @RequestMapping(value = Url.SELECT_IN_GOODS_LIST,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectInGoodsPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysShelves sysShelves=new SysShelves();
@@ -216,7 +229,7 @@ public class GoodsShelvesController {
 	    
 	    
 	    
-	    @RequestMapping(value = Url.SELECT_OUT_GOODS_LIST, method = RequestMethod.POST)
+	    @RequestMapping(value = Url.SELECT_OUT_GOODS_LIST,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectOutGoodsPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysShelves sysShelves=new SysShelves();

@@ -2,12 +2,14 @@ package com.yyk.dto.OrderDTO;
 
 import java.util.Date;
 
+import com.yyk.entity.SysInvoice;
+
 /**
 * @author 作者 E-mail:
 * @version 创建时间：2019年5月4日 下午10:06:16
 * 类说明
 */
-public class OrderResDTO {
+public class OrderResDTO  extends SysInvoice{
       private String orderId;
       
       private String empName;
@@ -20,10 +22,61 @@ public class OrderResDTO {
       
       private Date endTime;
       
-      private String invoiceStatus;
+      private String vehicleName;
+      
+      private String invoiceStatusName;
+      
+      private Date  lineTime;
+      
+      private String consigneeName;
+      
+      private String recePhone;
       
       
-      public String getEmpName() {
+      
+      
+      
+      public String getConsigneeName() {
+		return consigneeName;
+	}
+
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+
+	public String getRecePhone() {
+		return recePhone;
+	}
+
+	public void setRecePhone(String recePhone) {
+		this.recePhone = recePhone;
+	}
+
+	public String getInvoiceStatusName() {
+		return invoiceStatusName;
+	}
+
+	public void setInvoiceStatusName(String invoiceStatusName) {
+		this.invoiceStatusName = invoiceStatusName;
+	}
+
+	public String getVehicleName() {
+		return vehicleName;
+	}
+
+	public void setVehicleName(String vehicleName) {
+		this.vehicleName = vehicleName;
+	}
+
+	public Date getLineTime() {
+		return lineTime;
+	}
+
+	public void setLineTime(Date lineTime) {
+		this.lineTime = lineTime;
+	}
+
+	public String getEmpName() {
   		return empName;
   	}
 
@@ -71,13 +124,6 @@ public class OrderResDTO {
 		this.endTime = endTime;
 	}
 
-	public String getInvoiceStatus() {
-		return invoiceStatus;
-	}
-
-	public void setInvoiceStatus(String invoiceStatus) {
-		this.invoiceStatus = invoiceStatus;
-	}
       
       
 }

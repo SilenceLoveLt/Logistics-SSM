@@ -72,7 +72,7 @@ public class SysUserController {
 	 * @date 2019年4月13日 下午4:42:19     
 	 * @throws 
 	  */
-	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 		public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysUserListReqDTO sysUserListReqDTO=new SysUserListReqDTO();

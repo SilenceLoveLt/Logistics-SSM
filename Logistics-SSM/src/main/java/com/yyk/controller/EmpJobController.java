@@ -35,9 +35,9 @@ import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
+import com.yyk.service.InvoiceService;
 import com.yyk.service.SysEmpJobService;
 import com.yyk.service.SysEmpService;
-import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysJobService;
 import com.yyk.service.SysUserService;
 import com.yyk.util.UUIDGenerator;
@@ -70,13 +70,13 @@ public class EmpJobController {
 	
 	
 	@Autowired
-	@Qualifier("sysInvoiceService")
-	private  SysInvoiceService sysInvoiceService;
+	@Qualifier("invoiceService")
+	private  InvoiceService invoiceService;
 	
 	
 	 
 
-	    @RequestMapping(value = Url.ON_JOB_MANAGE, method = RequestMethod.POST)
+	    @RequestMapping(value = Url.ON_JOB_MANAGE, produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 		public @ResponseBody String selectOnJobList(@RequestParam(required=false,value = "aoData") String aoData) {
 	    	JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 	    	SysEmpJob sysEmpJob=new SysEmpJob();
@@ -138,7 +138,7 @@ public class EmpJobController {
 		}
 	 
 	 
-	    @RequestMapping(value = Url.OFF_JOB_MANAGE, method = RequestMethod.POST)
+	    @RequestMapping(value = Url.OFF_JOB_MANAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectOffJobList(@RequestParam(required=false,value = "aoData") String aoData) {
 	    	JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 	    	SysEmpJob sysEmpJob=new SysEmpJob();

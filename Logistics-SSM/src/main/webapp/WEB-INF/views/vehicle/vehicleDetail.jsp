@@ -264,28 +264,6 @@
 </div>
 
 
-<!-- 导航栏开始 -->
-<!-- 线路管理和新增线路 -->
-	<div class="container-fluid" style="background-color: lightgrey;margin-bottom: 20px;">
-		<div class="row" >
-		    <div class="lk-header">
-		    <form method="post" id="returnForm">
-				<div class="col-sm-2" style="background-color:lightgrey;">
-				   <div class="btn-style" onclick="changeColor(this)" >
-				    <input type="button" id="btnstyle" style="background-color:darkgrey;line-height:50px;border-radius: 15px;" role="button" class="btn  btn-link" onclick="returnFun()" value="车辆管理">
-				   </div> 
-				</div>
-				<div class="col-sm-2" style="background-color:lightgrey ;" >	
-				   <div	 class="btn-style1" onclick="changeColor2(this)">
-					 <input type="button"  role="button" class="btn  btn-link" onclick="addFun()"  style="background-color:darkgrey; line-height:50px;border-radius: 15px;"  value="新增车辆">
-				   </div> 
-				</div>
-
-			</form>
-			</div>
-		</div>
-	</div>
-<!-- 导航栏结束 -->
 <form class="form-horizontal" role="form" id="infoFormVehicle" name="infoFormVehicle" method="POST">
 		<div class="container-fluid form-group">
 			<div class="row">
@@ -342,13 +320,13 @@
 		</div>
 		<div class="container-fluid form-group">
 			<div class="row">
-				<label for="lineTime" class="col-sm-2 control-label">承重量：</label>
+				<label for="lineTime" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>承重量：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="weight" id="weight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 					<span class="form-control-feedback">(g)</span>
 				</div>
 				
-				<label for="lineLength" class="col-sm-2 control-label">承重体积：</label>
+				<label for="lineLength" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>承重体积：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="volume" id="volume" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 					<span class="form-control-feedback">(cm³)</span>

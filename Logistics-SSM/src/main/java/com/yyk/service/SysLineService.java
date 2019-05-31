@@ -26,5 +26,7 @@ public interface SysLineService {
 	 ResDataDTO<List<LineResDTO>>  selectApplyTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
 	 
 	 ResDataDTO<List<LineResDTO>>  selectLineTypeListPage(SysLineCriteria criteria,PageInfo pageInfo);
+
+	  List<SysLine> selectInfoLine(SysLineCriteria criteria);
 	 
 }

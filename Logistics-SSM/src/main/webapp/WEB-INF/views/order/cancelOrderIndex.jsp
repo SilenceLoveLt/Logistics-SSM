@@ -158,12 +158,17 @@
 					  {
 					     "mData": "orderId"
 					  },
-                      { "mData": "payMethod"},
+                      { "mData": "payMethodName"},
                       { "mData": "freight"},
-                      { "mData": "orderStatus"},
+                      { "mData": "orderStatusName"},
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">取消</button>"
+				            	 if(row.orderStatus!=1){
+					            	 var html="<button type='button' style='background-color:grey;border-color:grey' disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">不可取消</button>" 
+					             }
+					             else{
+					            	 var html="<button type='button'  class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.orderId+"')\">取消</button>"
+					             }
 				               return html;  
 				            }
 				      }

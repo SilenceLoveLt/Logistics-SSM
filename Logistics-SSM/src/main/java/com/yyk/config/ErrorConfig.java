@@ -17,7 +17,7 @@ public class ErrorConfig implements ErrorPageRegistrar {
 
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
-        ErrorPage error400Page = new ErrorPage(HttpStatus.BAD_REQUEST, "/error400Page");
+        ErrorPage error400Page = new ErrorPage(HttpStatus.BAD_REQUEST,"/error400Page");
         ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/error401Page");
         ErrorPage error403Page = new ErrorPage(HttpStatus.FORBIDDEN, "/error403Page");
         ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/error404Page");

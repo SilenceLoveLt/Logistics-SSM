@@ -117,7 +117,7 @@
 </div>
 <!--查询框 end-->
 <!--模态框 start-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <form class="form-horizontal" role="form" id="userForm" name="userForm" method="post">
             <div class="modal-content">
@@ -129,19 +129,19 @@
                 <div class="modal-body" style="margin-right: 30px">
                 <input type="hidden" name="userId" id="userId" />
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">客户姓名:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>客户姓名:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="userName" id="userName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
-                        <label class="control-label col-sm-2">电话号码:</label>
+                        <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>电话号码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="userPhone" id="userPhone" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2">居住地址:</label>
+                        <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>居住地址:</label>
                     </div>
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12">

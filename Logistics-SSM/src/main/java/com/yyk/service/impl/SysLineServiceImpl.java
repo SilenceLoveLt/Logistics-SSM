@@ -156,6 +156,13 @@ public class SysLineServiceImpl implements SysLineService{
 		return sysLineDao.selectByExample(criteria);
 	}
 
+
+
+	@Override
+	public List<SysLine> selectInfoLine(SysLineCriteria criteria) {
+		return sysLineDao.selectByExample(criteria);
+	}
+
 	
 	
 

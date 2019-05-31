@@ -117,7 +117,7 @@
 		<tr class="text-c">
 			<th>所属订单</th>
 			<th>货物编码</th>
-			<th>货物名称</th>
+			<th>货物描述</th>
 			<th></th>
 			<th>货物类型</th>
 			<th>货物体积(cm³)</th>

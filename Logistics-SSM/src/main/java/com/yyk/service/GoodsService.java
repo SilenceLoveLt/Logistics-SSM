@@ -33,5 +33,9 @@ public interface GoodsService {
 	ResDataDTO<List<SysGoods>> selectOutGoods(String shelvesId,PageInfo pageInfo);
 
 	List<SysGoods> selectGoods(String shelvesId);
+	
+	int updateExample(SysGoodsCriteria criteria,SysGoods sysGoods);
+	
+	 String selectGoodsCodeByOrderId(String type);
 
 }

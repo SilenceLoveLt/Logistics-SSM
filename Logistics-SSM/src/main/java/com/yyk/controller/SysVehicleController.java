@@ -29,7 +29,7 @@ import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysVehicle;
 import com.yyk.entity.SysVehicleCriteria;
 import com.yyk.service.BaseCodeService;
-import com.yyk.service.SysInvoiceService;
+import com.yyk.service.InvoiceService;
 import com.yyk.service.SysVehicleService;
 import com.yyk.util.JsonChangeUtil;
 
@@ -51,8 +51,8 @@ public class SysVehicleController {
 	private  SysVehicleService sysVehicleService;
 	
 	@Autowired
-	@Qualifier("sysInvoiceService")
-	private  SysInvoiceService sysInvoiceService;
+	@Qualifier("invoiceService")
+	private  InvoiceService invoiceService;
 	
 	@Autowired
 	@Qualifier("baseCodeService")
@@ -98,7 +98,7 @@ public class SysVehicleController {
 	* @date 2019年5月2日 下午8:52:27     
 	* @throws 
 	 */
-	 @RequestMapping(value = Url.SELECT_LEFT_TREE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LEFT_TREE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectLeftTrees() {
 		    List<BaseCodeDTO> baselistdto=sysVehicleService.selectLeftTrees();
 			return JsonChangeUtil.list2json(baselistdto);
@@ -117,7 +117,7 @@ public class SysVehicleController {
 	 * @date 2019年5月2日 下午8:52:32     
 	 * @throws 
 	  */
-	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	 public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 ResDataDTO<List<VehicleResDTO>>  list =new ResDataDTO<List<VehicleResDTO>>();
@@ -241,7 +241,8 @@ public class SysVehicleController {
 	    	SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);
  			cri.andVehicleIdEqualTo(vehicleId);
-	    	List<SysInvoice> list=sysInvoiceService.selectSysInvoice(criteria);
+ 			cri.andInvoiceStatusNotEqualTo(4);//不考虑配送状态为 “已签收”
+	    	List<SysInvoice> list=invoiceService.selectInfoInvoice(criteria);
 	    	if(list.isEmpty() || list.size()==0){
 	    		SysVehicleCriteria criteria2 = new SysVehicleCriteria();
 				SysVehicleCriteria.Criteria cri2 = criteria2.createCriteria();

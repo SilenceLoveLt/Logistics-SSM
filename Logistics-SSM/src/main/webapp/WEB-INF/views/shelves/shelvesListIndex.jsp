@@ -133,19 +133,19 @@
                 <div class="modal-body" style="margin-right: 30px">
                 <input type="hidden" name="shelvesId" id="shelvesId" />
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">货架名称:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>货架名称:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="shelvesName" id="shelvesName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
-                        <label class="control-label col-sm-2">货架编码:</label>
+                        <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>货架编码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="shelvesCode" id="shelvesCode" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 "><span>*</span>货架类型:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>货架类型:</label>
                          <div class="col-sm-4">
 	                        <select name="shelvesType" id="shelvesType" class="form-control" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 								<option>请选择</option>
@@ -242,8 +242,8 @@
 
 <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
-   <button class="btn btn-default" onclick="inFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物入库</button>
-   <button class="btn btn-default" onclick="outFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;货物出库</button>
+   <button class="btn btn-default" onclick="inFun()" ><i class="fa fa-angle-double-down fa-lg"></i>&nbsp;货物入库</button>
+   <button class="btn btn-default" onclick="outFun()" ><i class="fa  fa-angle-double-up fa-lg"></i>&nbsp;货物出库</button>
 </div>
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>

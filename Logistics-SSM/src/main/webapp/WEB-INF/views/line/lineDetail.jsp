@@ -264,28 +264,6 @@
 </div>
 
 
-<!-- 导航栏开始 -->
-<!-- 线路管理和新增线路 -->
-	<div class="container-fluid" style="background-color: lightgrey;margin-bottom: 20px;">
-		<div class="row" >
-		    <div class="lk-header">
-		    <form method="post" id="returnForm">
-				<div class="col-sm-2" style="background-color:lightgrey;">
-				   <div class="btn-style" onclick="changeColor(this)" >
-				    <input type="button" id="btnstyle" style="background-color:darkgrey;line-height:50px;border-radius: 15px;" role="button" class="btn  btn-link" onclick="returnFun()" value="线路管理">
-				   </div> 
-				</div>
-				<div class="col-sm-2" style="background-color:lightgrey ;" >	
-				   <div	 class="btn-style1" onclick="changeColor2(this)">
-					 <input type="button"  role="button" class="btn  btn-link" onclick="addFun()"  style="background-color:darkgrey; line-height:50px;border-radius: 15px;"  value="新增线路">
-				   </div> 
-				</div>
-
-			</form>
-			</div>
-		</div>
-	</div>
-<!-- 导航栏结束 -->
 <form class="form-horizontal" role="form" id="infoFormLine" name="infoFormLine" method="POST">
 		<div class="container-fluid form-group">
 			<div class="row">
@@ -345,14 +323,14 @@
 		</div>
 		<div class="container-fluid form-group">
 			<div class="row">
-				<label for="lineTime" class="col-sm-2 control-label">线路用时：</label>
+				<label for="lineTime" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>线路用时：</label>
 				<div class="col-sm-4">
 					<input  name="lineTime" id="lineTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
 							onclick="WdatePicker({ dateFmt: 'HH:mm:ss ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" oninput="check()" onmouseleave="checkInputings()" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 				</div>
 				
-				<label for="lineLength" class="col-sm-2 control-label">线路长度：</label>
+				<label for="lineLength" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>线路长度：</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="lineLength" id="lineLength" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 					<span class="form-control-feedback">(km)</span>

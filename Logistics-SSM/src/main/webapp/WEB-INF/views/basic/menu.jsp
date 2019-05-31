@@ -55,6 +55,11 @@
 	<input type="hidden" id="shelvesList" value="<%=basePath%>shelvesManageList/" />
 	<input type="hidden" id="inShelvesList" value="<%=basePath%>goodsShelvesManageList/selectInShelvesManage" />
 	<input type="hidden" id="outShelvesList" value="<%=basePath%>goodsShelvesManageList/selectOutShelvesManage" />
+	<input type="hidden" id="insertInvoice" value="<%=basePath%>invoiceManageList/addInvoicePage"/>
+	<input type="hidden" id="invoiceList" value="<%=basePath%>invoiceManageList/"/>
+	<input type="hidden" id="addVehicle" value="<%=basePath%>vehicleManageList/addVehiclePage"/>
+	<input type="hidden" id="addLine" value="<%=basePath%>lineManageList/addLinePage"/>
+	
 
     	<ul class="nav" >
     		<li><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
@@ -66,7 +71,6 @@
     		<li><i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="userList">客户列表</li>
-    				<li class="updatePassword">修改密码</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
@@ -90,21 +94,22 @@
     			</ul>
     		</li>
     	
-    		<li><i class="fa fa-truck fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa  fa-taxi  fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;车辆管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="vehicleList">车辆列表</li>
+    				<li class="addVehicle">新增车辆</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-random fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="lineList">线路列表</li>
+    				<li class="addLine">新增线路</li>
     			</ul>
     		</li>
-    		<li><i class="fa fa-taxi fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li><i class="fa fa-truck fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li>配送单管理</li>
-    				<li>货物跟踪</li>
-    				<li>确认签收</li>
+    				<li class="insertInvoice">生成配送单</li>
+    				<li class="invoiceList">货物签收</li>
     			</ul>
     		</li>
     		<li><i class="fa fa-table fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>

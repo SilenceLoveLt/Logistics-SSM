@@ -21,8 +21,19 @@ public interface Url {
     String DELETE_INFO = "/deleteInfo";
     /*批量删除*/
     String DELETE_LIST = "/deleteList";
+    
+    
+   
+    /*登录注册*/
+	String LOGIN_MANAGE = "/loginManage";
 	/*登录请求地址*/
 	String BACK_LOGIN_URL = "/login/user";
+	/*注册*/
+	String REGIS_URL = "/regisUrl";
+	/*登录*/
+	String LOGIN_URL = "/loginUrl";
+	 /*初始化页面*/
+   	String WELCOME_URL = "/welcomeUrl";
 	
 	/*员工管理*/
 	String EMP_MANAGE = "/empManageList";
@@ -52,6 +63,8 @@ public interface Url {
 	
 	 /*货物管理*/
 	String GOODS_MANAGE = "/goodsManageList";
+	String SELECT_GOODS_BY_ORDER = "/selectGoodsByOrder";
+	
 	
 	/*货架管理*/
 	String SHELVES_MANAGE = "/shelvesManageList";
@@ -72,9 +85,15 @@ public interface Url {
     String LINE_MANAGE = "/lineManageList";
     String ADD_LINE_PAGE="/addLinePage";
     
-    /*线路管理*/
+    
+    /*车辆管理*/
     String VHEICLE_MANAGE = "/vehicleManageList";
     String ADD_VEHICLE_PAGE="/addVehiclePage";
+    
+    /*配送单管理*/
+    String INVOICE_MANAGE = "/invoiceManageList";
+    String ADD_INVOICE_PAGE = "/addInvoicePage";
+    
     
     /*数据字典管理*/
     String BASECODE_MANAGE = "/basecodeManageList";

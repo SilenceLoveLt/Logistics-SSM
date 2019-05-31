@@ -31,8 +31,8 @@ import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.BaseCodeService;
+import com.yyk.service.InvoiceService;
 import com.yyk.service.SysEmpService;
-import com.yyk.service.SysInvoiceService;
 import com.yyk.service.SysUserService;
 import com.yyk.util.JsonChangeUtil;
 
@@ -55,8 +55,8 @@ public class SysEmpController {
 	private SysEmpService sysEmpService;
 	
 	@Autowired
-	@Qualifier("sysInvoiceService")
-	private  SysInvoiceService sysInvoiceService;
+	@Qualifier("invoiceService")
+	private  InvoiceService invoiceService;
 	
 	@Autowired
 	@Qualifier("baseCodeService")
@@ -103,7 +103,7 @@ public class SysEmpController {
 	 * @date 2019年5月3日 上午9:49:58     
 	 * @throws 
 	  */
-	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysEmp sysEmp=new SysEmp();
@@ -241,7 +241,7 @@ public class SysEmpController {
 	    	SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);
  			cri.andEmpIdEqualTo(empId);
-	    	List<SysInvoice> list=sysInvoiceService.selectSysInvoice(criteria);
+	    	List<SysInvoice> list=invoiceService.selectInfoInvoice(criteria);
 	    	if(list.isEmpty() || list.size()==0){
 	    		SysEmpCriteria criteria2 = new SysEmpCriteria();
 			    SysEmpCriteria.Criteria cri2 = criteria2.createCriteria();

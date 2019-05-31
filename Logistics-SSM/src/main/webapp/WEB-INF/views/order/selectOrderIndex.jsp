@@ -86,7 +86,10 @@
                             <div class="col-md-3 ">
                              <input type="text" class="form-control" name="search_orderId" id="search_orderId"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                             </div>
-                            
+                             <label class="control-label col-md-1 ">客户姓名:</label>
+                            <div class="col-md-3 ">
+                             <input type="text" class="form-control" name="search_userName" id="search_userName"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            </div>
                                                       
 		                   <span class="input-group-btn ">
 							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
@@ -112,6 +115,8 @@
 	<thead>
 		<tr class="text-c">
 			<th>订单编号</th>
+			<th>收货人姓名</th>
+			<th>收货人电话</th>
 			<th>派送人姓名</th>
 			<th>派送人电话</th>
 			<th>当前地点</th>
@@ -158,12 +163,18 @@
      fnServerData: retrieveData, //执行函数
      aoColumns:[//列表元素  支持多种属性 
 					  { "mData": "orderId"},
+					  { "mData": "consigneeName"},
+					  { "mData": "recePhone"},
 					  { "mData": "empName"},
                       { "mData": "phone"},
                       { "mData": "addrNow"},
-                      { "mData": "startTime"},
-   					  { "mData": "endTime"},
-                      { "mData": "invoiceStatus"}
+					  { "mData" : "startTime",render : function(obj) {  
+					       return (getMyDate(obj));
+					  }  },
+					  { "mData" : "endTime",render : function(obj) {  
+					       return (getMyDate(obj));
+					  }  },                 
+                      { "mData": "invoiceStatusName"}
 
                   ],
      oLanguage: {  
@@ -195,7 +206,13 @@
 	   "name":"orderIdSearch",
 	   "value":$("#search_orderId").val()
 	 }
-	 aoData.push(orderIdSearch);
+	
+	var userNameSearch = {
+			   "name":"userNameSearch",
+			   "value":$("#search_userName").val()
+			 }
+	aoData.push(orderIdSearch);
+	aoData.push(userNameSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
 	     data : {"aoData":JSON.stringify(aoData)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数

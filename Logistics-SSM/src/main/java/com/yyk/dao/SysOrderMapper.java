@@ -1,5 +1,6 @@
 package com.yyk.dao;
 
+import com.yyk.dto.OrderDTO.CheckOrderResDTO;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import java.util.List;
@@ -27,4 +28,7 @@ public interface SysOrderMapper {
     int updateByPrimaryKeySelective(SysOrder record);
 
     int updateByPrimaryKey(SysOrder record);
+    
+    List<CheckOrderResDTO> selectByExampleNew(SysOrderCriteria example);
+
 }

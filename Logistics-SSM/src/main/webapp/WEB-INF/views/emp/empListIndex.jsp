@@ -139,12 +139,12 @@
                 <div class="modal-body" style="margin-right: 30px">
                 <input type="hidden" name="empId" id="empId" />
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">员工姓名:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>员工姓名:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="empName" id="empName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
-                        <label class="control-label col-sm-2">员工编码:</label>
+                        <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>员工编码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="empCode" id="empCode" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
                         </div>
@@ -164,11 +164,11 @@
 						</div>
                     </div>
                     <div class="form-group form-group-sm" >
-					    <label class="control-label col-sm-2 "><span>*</span>员工薪资:</label>
+					    <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>员工薪资:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="sal" id="sal"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
                         </div>
-                        <label class="control-label col-sm-2 "><span>*</span>性别:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>性别:</label>
                         <div class="col-sm-4">
                         <select name="sex" id="sex"  class="form-control"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
 							<option>请选择</option>
@@ -176,7 +176,7 @@
                         </div>
 				    </div>
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2">居住地址:</label>
+                        <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>居住地址:</label>
                     </div>  
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12">
@@ -308,7 +308,6 @@ var empId=null;
 var empCode=null;
 var phone=null;
 var empName=null;
-var password=null;
 var addr=null;
 var sal=null;
 var sex=null;
@@ -317,7 +316,7 @@ var roleid=null;
 var createTime=null;
 var updateTime=null;
 var remark=null;
-var roleIdList = ${roleIdList};     //所属职位
+var roleIdList = ${roleIdList};     //所属角色
 var sexList = ${sexList};     //性别
 
    $(document).ready(function() {
@@ -1121,7 +1120,6 @@ var sexList = ${sexList};     //性别
    
    /* 查看信息*/
    function oemp_editsr(Row){
-	   $("#pwd").attr("style","display:none;");
 	   $('#myModal').modal('show');
 	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
 	   $("#empId").val(data.empId);	//主键

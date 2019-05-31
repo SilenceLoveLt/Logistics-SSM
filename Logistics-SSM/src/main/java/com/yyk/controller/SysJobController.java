@@ -63,7 +63,7 @@ public class SysJobController {
 		 * @date 2019年5月3日 上午9:49:58     
 		 * @throws 
 		  */
-		 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+		 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 			public @ResponseBody String queryPages(@RequestParam(required=false,value = "aoData") String aoData) {
 			 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 			 SysJob sysJob=new SysJob();

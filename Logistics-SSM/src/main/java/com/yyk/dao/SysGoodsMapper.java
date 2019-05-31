@@ -38,4 +38,6 @@ public interface SysGoodsMapper {
     long countOutGoods(@Param("shelvesId")String shelvesId);
     
     List<GoodsResDTO> selectByExampleNew(SysGoodsCriteria example);
+    
+    String selectGoodsCodeByOrderId(String type);
 }

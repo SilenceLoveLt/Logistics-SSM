@@ -5,7 +5,7 @@
 <tiles-definitions>
  
     <!--  后台登录页面	-->
-	<definition name="user.Login.View"  template="/WEB-INF/views/login.jsp">
+	<definition name="user.login.view"  template="/WEB-INF/views/login.jsp">
 	</definition>
 
 </tiles-definitions>

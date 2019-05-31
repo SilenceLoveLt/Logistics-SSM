@@ -9,7 +9,13 @@ public interface Views {
 	/**
 	 * 后台用户登录页面
 	 */
-	public static final String USER_LOGIN_VIEW = "user.Login.View";
+	public static final String USER_LOGIN_VIEW = "user.login.view";
+	
+	
+	/**
+	 * 后台用户初始化页面
+	 */
+	public static final String WELCOME_VIEW = "welcome.view";
 	
 	/**
 	 * 员工页面
@@ -65,6 +71,13 @@ public interface Views {
 	 */
 	public static final String VEHICLE_VIEW = "vehicle.view";
 	public static final String ADD_VEHICLE_VIEW = "add.vehicle.view";
+	
+	/**
+	 * 配送管理页面
+	 */
+	public static final String INVOICE_VIEW = "invoice.view";
+	public static final String ADD_INVOICE_VIEW = "add.invoice.view";
+	
 	
 	/**
 	 * 数据字典

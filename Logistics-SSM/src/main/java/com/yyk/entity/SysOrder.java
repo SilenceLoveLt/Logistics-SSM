@@ -15,19 +15,7 @@ public class SysOrder {
 
     private String payMethod;
 
-    private String goodsCood;
-
-    private String goodsName;
-
-    private String goodsType;
-
     private Integer freight;
-
-    private Integer goodsWeight;
-
-    private Integer goodsVolume;
-
-    private Integer goodsNum;
 
     private String consigneeName;
 
@@ -93,60 +81,12 @@ public class SysOrder {
         this.payMethod = payMethod == null ? null : payMethod.trim();
     }
 
-    public String getGoodsCood() {
-        return goodsCood;
-    }
-
-    public void setGoodsCood(String goodsCood) {
-        this.goodsCood = goodsCood == null ? null : goodsCood.trim();
-    }
-
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
-    }
-
-    public String getGoodsType() {
-        return goodsType;
-    }
-
-    public void setGoodsType(String goodsType) {
-        this.goodsType = goodsType == null ? null : goodsType.trim();
-    }
-
     public Integer getFreight() {
         return freight;
     }
 
     public void setFreight(Integer freight) {
         this.freight = freight;
-    }
-
-    public Integer getGoodsWeight() {
-        return goodsWeight;
-    }
-
-    public void setGoodsWeight(Integer goodsWeight) {
-        this.goodsWeight = goodsWeight;
-    }
-
-    public Integer getGoodsVolume() {
-        return goodsVolume;
-    }
-
-    public void setGoodsVolume(Integer goodsVolume) {
-        this.goodsVolume = goodsVolume;
-    }
-
-    public Integer getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Integer goodsNum) {
-        this.goodsNum = goodsNum;
     }
 
     public String getConsigneeName() {

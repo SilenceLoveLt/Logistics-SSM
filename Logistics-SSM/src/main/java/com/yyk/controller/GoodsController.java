@@ -1,7 +1,9 @@
 package com.yyk.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +36,10 @@ import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.service.GoodsService;
-import com.yyk.service.SysInvoiceService;
+import com.yyk.service.InvoiceService;
 import com.yyk.service.SysOrderService;
 import com.yyk.service.SysUserService;
+import com.yyk.util.UUIDGenerator;
 
 
 /**
@@ -66,8 +69,9 @@ public class GoodsController {
 	
 	
 	@Autowired
-	@Qualifier("sysInvoiceService")
-	private  SysInvoiceService sysInvoiceService;
+	@Qualifier("invoiceService")
+	private  InvoiceService invoiceService;
+
 	
 	
 	/**
@@ -87,7 +91,7 @@ public class GoodsController {
 	   return Views.GOODS_VIEW;
 	 }
 
-	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE, method = RequestMethod.POST)
+	 @RequestMapping(value = Url.SELECT_LIST_BY_PAGE,  produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 		public @ResponseBody String selectGoodsByOrderId(@RequestParam(required=false,value = "aoData") String aoData) {
 		 JSONArray jsonarray=(JSONArray) JSONArray.parseArray(aoData);//json格式化用的是fastjson
 		 SysGoods sysGoods=new SysGoods();
@@ -136,6 +140,88 @@ public class GoodsController {
 		    getObj.put("aaData", list.getData());//把查到数据装入aaData,要以JSON格式返回
 		    return getObj.toString();
 		}
+	 
+	 
+	    @RequestMapping(value = Url.INSERT_INFO, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> insertGoods(@RequestParam(required=false,value = "str") String str) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	String flag=null;
+	    	String strs[] = str.split(";");
+			String orderId=null;
+			for (int i = 0; i < strs.length; i++) {
+				SysGoodsCriteria criteria = new SysGoodsCriteria();
+			    SysGoodsCriteria.Criteria cri = criteria.createCriteria();
+				SysGoods sysGoods=new SysGoods();
+				String s[] = strs[i].split(",");
+				List<SysGoods> list=new ArrayList<SysGoods>();
+				orderId=s[0].substring(s[0].indexOf(":") + 1);
+				if(StringUtils.isNotBlank(s[1].substring(s[1].indexOf(":") + 1)))
+				{
+					cri.andStatusNotEqualTo(0);// 只查询状态为1的。
+					cri.andGoodsCodeEqualTo(s[1].substring(s[1].indexOf(":") + 1));
+					list=goodsService.selectInfoGoods(criteria);
+				}
+				if(list.size()>0)
+				{
+					//删除该订单所有货物
+					cri.andOrderIdEqualTo(orderId);
+					sysGoods=new SysGoods();
+					sysGoods.setStatus(0);
+					goodsService.updateExample(criteria, sysGoods);
+					flag = "repeat";
+					map.put("result", flag);
+					return map;
+				}
+				sysGoods.setOrderId(s[0].substring(s[0].indexOf(":") + 1));
+				if(StringUtils.isNotBlank(s[1].substring(s[1].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsCode(s[1].substring(s[1].indexOf(":") + 1));
+				}
+				if(StringUtils.isNotBlank(s[2].substring(s[2].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsName(s[2].substring(s[2].indexOf(":") + 1));
+				}
+				if(StringUtils.isNotBlank(s[3].substring(s[3].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsType(s[3].substring(s[3].indexOf(":") + 1));
+				}
+				if(StringUtils.isNotBlank(s[4].substring(s[4].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsWeight(new Integer(s[4].substring(s[4].indexOf(":") + 1)));
+				}
+				if(StringUtils.isNotBlank(s[4].substring(s[4].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsVolume(new Integer(s[4].substring(s[4].indexOf(":") + 1)));
+				}
+				if(StringUtils.isNotBlank(s[5].substring(s[5].indexOf(":") + 1)))
+				{
+					sysGoods.setGoodsNum(new Integer(s[5].substring(s[5].indexOf(":") + 1)));
+				}
+				sysGoods.setRemark(s[6].substring(s[6].indexOf(":") + 1));
+				int count=goodsService.insertGoods(sysGoods);
+				if (count>0){
+					flag = "true";
+					map.put("result", flag);
+					return map;
+				}
+				else{
+					flag = "false";
+					map.put("result", flag);
+					return map;
+				}
+			}
+	 		
+	    	return map;
+		}
 	
+	    
+	    @RequestMapping(value = Url.SELECT_GOODS_BY_ORDER, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> selectGoodsByOrder(@RequestParam(required=false,value = "orderId") String orderId) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	String goodsCode=goodsService.selectGoodsCodeByOrderId(orderId);
+	    	map.put("goodsCode", goodsCode);
+	    	map.put("result", true);
+	    	return map;
+		}
 	 
 }

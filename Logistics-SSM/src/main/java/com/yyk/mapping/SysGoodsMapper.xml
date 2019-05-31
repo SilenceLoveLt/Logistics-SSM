@@ -360,7 +360,7 @@
       and shelves_id=#{shelvesId,jdbcType=VARCHAR}
     </if>
     )s
-    inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS`='1'
+    inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS` &gt;='1'
     LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE`  and b.CODE_TYPE='GOODSTYPE' and b.`STATUS`='1' 
   </select>
   
@@ -370,12 +370,12 @@
      select
     <include refid="Goods_Shelves_List" />
     from goods_shelves_table 
-    where `STATUS`='1'
+   where out_time is null
     <if test="shelvesId != null" >
       and shelves_id=#{shelvesId,jdbcType=VARCHAR}
     </if>
     )s
-	inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS`='1'
+	inner JOIN goods_table g on g.GOODS_ID=s.GOODS_ID and g.`STATUS` &gt;='1'
 	LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and b.`STATUS`='1' 
   </select>
   
@@ -384,7 +384,7 @@
    <select id="selectInGoods" resultMap="BaseResultMap" parameterType="java.util.List" >
    select  g.ORDER_ID,g.GOODS_ID,g.GOODS_NAME,g.GOODS_CODE,b.DATA_NAME GOODS_TYPE
    from goods_table  g
-   LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS`='1'
+   LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS` &gt;='1'
    where b.`STATUS`='1' 
    <if test="list != null and  list.size()>0">
 			and g.GOODS_ID not in
@@ -398,7 +398,7 @@
    <select id="countInGoods" parameterType="java.util.List"  resultType="java.lang.Long" >
 	  select count(g.GOODS_ID)
 	 from goods_table  g
-	 LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS`='1'
+	 LEFT JOIN base_code b on g.GOODS_TYPE=b.`CODE` and b.CODE_TYPE='GOODSTYPE' and g.`STATUS` &gt;='1'
 	 where b.`STATUS`='1'  
 	 <if test="list != null and  list.size()>0">
 				and g.GOODS_ID not in
@@ -427,5 +427,11 @@
     </if>) t
     left join base_code b on t.GOODS_TYPE=b.code and b.code_type='GOODSTYPE' and b.status=1
     left join base_code b1 on t.STATUS=b1.code and b1.code_type='GOODSSTATUS' and b1.status=1
+  </select>
+  
+  <!-- 通过订单id查询货物编号  -->
+  <select id="selectGoodsCodeByOrderId" resultType="java.lang.String" parameterType="java.lang.String" >
+   select GROUP_CONCAT(GOODS_CODE) from goods_table 
+   where ORDER_ID=#{item,jdbcType=VARCHAR} GROUP BY ORDER_ID
   </select>
 </mapper>

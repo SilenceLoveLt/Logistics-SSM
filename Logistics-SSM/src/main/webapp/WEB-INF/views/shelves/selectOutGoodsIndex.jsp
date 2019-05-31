@@ -191,8 +191,14 @@ var remark=null;
 				            }
 				      },
 				      { "mData": "remark",
-				    	  "visible": false
-				      }
+				    	  "visible": false,
+				    	   render : function(obj) { 
+							  console.info("obj"+obj);
+							  if(undefined==obj){
+								  var remark="无";
+							  }
+						       return (remark);
+				      }}
 
                   ],
      oLanguage: {  

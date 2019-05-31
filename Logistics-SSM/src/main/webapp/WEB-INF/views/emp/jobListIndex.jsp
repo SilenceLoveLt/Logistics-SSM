@@ -129,11 +129,11 @@
                 <div class="modal-body" style="margin-right: 30px">
                 <input type="hidden" name="jobId" id="jobId" />
                     <div class="form-group form-group-sm">
-                        <label class="control-label col-sm-2 ">职位姓名:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>职位姓名:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="jobName" id="jobName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
-                        <label class="control-label col-sm-2 "><span>*</span>职位编码:</label>
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>职位编码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="jobCode" id="jobCode"oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
                         </div>
