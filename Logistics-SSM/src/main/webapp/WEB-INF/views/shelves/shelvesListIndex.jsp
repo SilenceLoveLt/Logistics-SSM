@@ -90,22 +90,33 @@
                         <div class="row">
                             <label class="control-label col-md-1 ">货架名称:</label>
                             <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_shelvesName" id="search_shelvesName"
+                                <input type="text" class="form-control  input-sm " oninput="checkInput()"  name="search_shelvesName" id="search_shelvesName"
                                        placeholder="请输入货架名称">
                             </div>
 
                             <label class="control-label col-md-1 ">货架编码:</label>
                              <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_shelvesCode" id="search_shelvesCode"
+                                <input type="text" class="form-control  input-sm " oninput="checkInput()"  name="search_shelvesCode" id="search_shelvesCode"
                                        placeholder="请输入货架编码">
                             </div>
                           
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
+		                   <div class="col-md-3">
+									<button class="btn btn-primary" style="margin-left:100px"
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-3">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
+
 				          
 			           </div>
                     </div>
@@ -287,6 +298,35 @@ var shelvesTypeList = ${shelvesTypeList};     //货架类型
 	   initSelectOptions(shelvesTypeList, "code", "dataName", "shelvesType");
    });
    
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
+
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchShelvesForm = $('#searchShelvesForm').serializeArray();
+		$.each(searchShelvesForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
+	
+	
    /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
 	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
 		var opt = '';
@@ -921,6 +961,7 @@ var shelvesTypeList = ${shelvesTypeList};     //货架类型
 		$("#searchShelvesForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 	/* 关闭模态框*/

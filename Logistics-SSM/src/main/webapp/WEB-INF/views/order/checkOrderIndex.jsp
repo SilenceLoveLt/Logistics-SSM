@@ -84,24 +84,34 @@
                         <div class="row">
                             <label class="control-label col-md-1 ">开始时间:</label>
                             <div class="col-md-3 ">
-                                <input  name="search_createTime" id="search_createTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
+                                <input  name="search_createTime"  oninput="checkInput()"  id="search_createTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
 							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback" style="padding-right: 20px;"></span>
                             </div>
 
                             <label class="control-label col-md-1 ">至:</label>
                              <div class="col-md-3 ">
-                                <input  name="search_updateTime" id="search_updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
+                                <input  name="search_updateTime" oninput="checkInput()" id="search_updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
 							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback" style="padding-right: 20px;"></span>
                             </div>
                           
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
+		                    <div class="col-md-2 ">
+									<button class="btn btn-primary" 
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-2">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
 				          
 			           </div>
                     </div>
@@ -140,6 +150,34 @@
 	   dataTableDraw();
 	   
    });
+   
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
+
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchOrderForm = $('#searchOrderForm').serializeArray();
+		$.each(searchOrderForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
    
    var urlStr = $("#orderPageList").val();
    function dataTableDraw(){
@@ -279,6 +317,7 @@
 		$("#searchOrderForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 	/*审核操作  */

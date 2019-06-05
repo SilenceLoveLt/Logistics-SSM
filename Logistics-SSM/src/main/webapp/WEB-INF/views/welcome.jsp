@@ -12,19 +12,12 @@
 <head>
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>welcome</title>
-    <%--js--%>
-    <script src="<%=basePath%>static/js/jquery.js"></script> 
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/jquery-confirm/css/jquery-confirm.css">
-    <script src="<%=basePath%>static/bootstrap/jquery-confirm/js/jquery-confirm.js"></script>
+     <script src="<%=basePath%>static/assets/js/jquery-1.11.1.min.js"></script>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap-theme.min.css">
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=basePath%>static/My97DatePicker/WdatePicker.js"></script>
-    <script src="<%=basePath%>static/js/jquery.serializejson.min.js"></script>
-    <%--css--%>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>welcome</title>
     <style>
         * {
             margin: 0;

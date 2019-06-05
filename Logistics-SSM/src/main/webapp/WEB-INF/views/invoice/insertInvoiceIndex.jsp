@@ -297,7 +297,7 @@
 			    <label for="goodsId" class="col-sm-2 control-label"><span
 					style="color: red; font-weight: bold;">*</span>货物编码：</label>
 				<div class="col-sm-4">
-					 <input type="text" class="form-control" name="goodsId" id="goodsId" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					 <input type="text" class="form-control" readonly= "true "  name="goodsId" id="goodsId" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 				</div>
 			</div>
 		</div>
@@ -348,7 +348,7 @@
 				<label for="startTime" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>开始时间：</label>
 				<div class="col-md-4  has-feedback"  >
 							<input  name="startTime" id="startTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 				</div>
 				
@@ -356,7 +356,7 @@
 					style="color: red; font-weight: bold;">*</span>结束时间：</label>
 				<div class="col-sm-4  has-feedback">
 					<input  name="endTime" id="endTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" oninput="check()" onmouseleave="checkInputings()" /> 
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" oninput="check()" onmouseleave="checkInputings()" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 				</div>
 		     </div>
@@ -559,6 +559,7 @@ var vehicleList =${vehicleList};     //车辆类型
 		var validateResult = bootstrapValidator.validate().isValid();
 		if(validateResult){
 			var createUrl = $("#insertInvoice").val();
+			console.info("createUrl"+createUrl);
 			$.post(createUrl, $("#infoFormInvoice").serialize(), function(data) {
 				if (data.result=='true') {
 					$.alert({

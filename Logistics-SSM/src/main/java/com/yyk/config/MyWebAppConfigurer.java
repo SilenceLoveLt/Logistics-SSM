@@ -27,8 +27,8 @@ public class MyWebAppConfigurer  extends WebMvcConfigurationSupport{
 	 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-    	 InterceptorRegistration registration=registry.addInterceptor(myInterceptor);
-    	 registration.addPathPatterns("/**").excludePathPatterns("/error404Page","/error400Page","/error401Page","/error403Page","/error500Page","/loginManage/login/user","/loginManage/loginUrl","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+    	 //InterceptorRegistration registration=registry.addInterceptor(myInterceptor);
+    	 //registration.addPathPatterns("/**").excludePathPatterns("/error404Page","/error400Page","/error401Page","/error403Page","/error500Page","/loginManage/login/user","/loginManage/loginUrl","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
     }
     
     

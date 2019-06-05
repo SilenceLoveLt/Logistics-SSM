@@ -19,6 +19,9 @@ spring:
     poolPreparedStatement: true
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
+    jackson:
+       date-format: yyyy-MM-dd 
+       time-zone: GMT+8
 mybatis:
   config-location: classpath:sqlMapconfig.xml
   mapper-locations: classpath*:com/yyk/mapping/*.xml

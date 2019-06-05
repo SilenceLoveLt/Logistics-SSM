@@ -1,8 +1,5 @@
-<%--
-  User: YYK
-  Date: 2019/3/26
-  Time: 9:48 PM
---%>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -13,27 +10,26 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-    <script src="<%=basePath%>static/js/jquery.js"></script> 
-    <script src="<%=basePath%>static/js/jquery.min.js"></script> 
-   <%--  <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script> --%>
-    <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+   <%--   <script src="<%=basePath%>static/js/jquery.js"></script> --%>
+    <script src="<%=basePath%>static/bootstrap/jquery-confirm/js/jquery-confirm.js"></script>
+    <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script> 
+     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
+     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap-theme.min.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href=" http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.css">
-    <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
-    <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrapValidator/css/bootstrapValidator.min.css">
+      <link rel="stylesheet" href="<%=basePath%>static/bootstrap/bootstrapValidator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/jquery-confirm/css/jquery-confirm.css">
     <script src="<%=basePath%>static/My97DatePicker/WdatePicker.js"></script>
-    <script src="<%=basePath%>static/bootstrap/js/bootstrap.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrap-table/bootstrap-table.js"></script>
-    <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
     <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=basePath%>static/bootstrap/jquery-confirm/js/jquery-confirm.js"></script>
-   <%--  <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script> --%>
+   <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script> 
+  <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="<%=basePath%>static/js/jquery.dataTables.min.js"></script>
     <script src="<%=basePath%>static/js/jquery.dataTables.js"></script> 
-    <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script> 
+    
     <style>
         * {
             margin: 0;
@@ -85,23 +81,33 @@
                 <div class="form-group">
                         <div class="row">
                             <label class="control-label col-md-1 ">客户姓名:</label>
-                            <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_userName" id="search_userName"
+                            <div class="col-md-3 ">
+                                <input type="text" class="form-control  input-sm "  oninput="checkInput()" name="search_userName" id="search_userName"
                                        placeholder="请输入客户名称">
                             </div>
 
                             <label class="control-label col-md-1 ">客户电话:</label>
-                             <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_userPhone" id="search_userPhone"
+                             <div class="col-md-3 ">
+                                <input type="text" class="form-control  input-sm " oninput="checkInput()" name="search_userPhone" id="search_userPhone"
                                        placeholder="请输入客户电话">
                             </div>
                           
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
+		                   <div class="col-md-2 ">
+									<button class="btn btn-primary" 
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-2">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
 				          
 			           </div>
                     </div>
@@ -188,10 +194,10 @@
     </div>
 </div>
     <!--模态框 end-->
-<div class="btn-group" style="margin-top:10px; " >
+<!-- <div class="btn-group" style="margin-top:10px; " >
    <button type="button" class="btn btn-default" onclick="addFun()" style="margin-left:16px"> <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;增</button>
 	<button class="btn btn-default" onclick="deleteFun()" ><i class="fa fa-trash-o fa-lg"></i>&nbsp;批量删除</button>
-</div>
+</div> -->
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
 		<tr class="text-c">
@@ -230,15 +236,45 @@ var remark=null;
 	   formValidator();
    });
    
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
+
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchUserForm = $('#searchUserForm').serializeArray();
+		$.each(searchUserForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
+	
+	
+	
    $("#ok").attr("disabled","true");
-   $("#ok").attr("style","background-color:grey;border-color:grey");
+   $("#ok").attr("style","background-color:grey;border-color:grey;color:white;");
    
    function check()
    {
      $("#ok").removeAttr("disabled");
      $("#reseted").removeAttr("disabled");
-     $("#reseted").removeAttr("style","border-color:grey;background-color:grey");
-     $("#ok").removeAttr("style","border-color:grey;background-color:grey");
+     $("#reseted").removeAttr("style","border-color:grey;background-color:grey;color:white;");
+     $("#ok").removeAttr("style","border-color:grey;background-color:grey;color:white;");
    }
    function checkInputing(){
 		var  userCode=$("#userForm #userCode").val();
@@ -253,8 +289,8 @@ var remark=null;
 		{
 			$("#ok").attr("disabled","true");
 			$("#reseted").attr("disabled","true");	
-			$("#ok").attr("style","background-color:grey;border-color:grey");
-			$("#reseted").attr("style","background-color:grey;border-color:grey");
+			$("#ok").attr("style","background-color:grey;border-color:grey;color:white;");
+			$("#reseted").attr("style","background-color:grey;border-color:grey;color:white;");
 	    }else{
 	    	check();
 	    }
@@ -351,10 +387,14 @@ var remark=null;
 					  }  } ,
 					  {"mData":null,
 				            render: function (data, type, row, meta){
-				              var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
+				             /*  var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
 				            	       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editmn('"+meta.row+"')\">修改</button>"+
+				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.userId+"')\">删除</button>" */
+				                       var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">查看</button>"+
 				                       "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editzt('"+row.userId+"')\">删除</button>"
-				               return html;  
+				                       
+				                       
+				                       return html;  
 				            }
 				      },
 				      { "mData": "remark",
@@ -385,7 +425,7 @@ var remark=null;
  
 	
    
-   //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
+    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
 	 var userNameSearch = {
 	   "name":"userNameSearch",
@@ -395,6 +435,8 @@ var remark=null;
 	   "name":"userPhoneSearch",
 	   "value":$("#search_userPhone").val()
 	 }
+	
+	
 	 //我这里按照请求数据的格式增加了自己的查询条件 请求数据格式固定为 name-value的格式 可以使用
 	 aoData.push(userNameSearch);
 	 aoData.push(userPhoneSearch);
@@ -471,6 +513,7 @@ var remark=null;
 		$("#searchUserForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 	/* 关闭模态框*/
@@ -486,8 +529,8 @@ var remark=null;
    function closeModel(){
 	   $("#reseted").attr("disabled","true");	
 	   $("#ok").attr("disabled","true");
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
+	   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white;");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white;");
 	   $("#userId").val("");
 	   $("#userForm")[0].reset();//使用dom的reset
    }
@@ -500,8 +543,8 @@ var remark=null;
 		   $("#userForm").data('bootstrapValidator').resetForm();
 		   $("#reseted").attr("disabled","true");	
 		   $("#ok").attr("disabled","true");
-		   $("#reseted").attr("style","background-color:grey;border-color:grey");
-		   $("#ok").attr("style","background-color:grey;border-color:grey");
+		   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white;");
+		   $("#ok").attr("style","background-color:grey;border-color:grey;color:white;");
 		   userForm.reset();
 	   }
 	   if($("#userId").val()!=null && $("#userId").val()!=""){
@@ -559,9 +602,9 @@ var remark=null;
 	   $("#remark").val(data.remark);
 	   $('#remark').attr("disabled",true);
 	   $('#ok').attr("disabled",true);
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white;");
 	   $('#reseted').attr("disabled",true);
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
+	   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white;");
 	   $('#closeModel').removeAttr("disabled");
 	   
    }

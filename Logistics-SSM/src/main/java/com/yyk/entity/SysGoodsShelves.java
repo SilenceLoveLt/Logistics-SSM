@@ -2,6 +2,10 @@ package com.yyk.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysGoodsShelves {
     private String goodsShelvesId;
 
@@ -13,14 +17,22 @@ public class SysGoodsShelves {
 
     private String goodsCode;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date inTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date outTime;
 
     private Integer status;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private String remark;

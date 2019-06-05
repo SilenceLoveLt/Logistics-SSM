@@ -207,6 +207,9 @@ public class EmpJobController {
 	    	//批量新增
 	    	List<SysEmpJob> list=new ArrayList<SysEmpJob>();
 	    	List<String> jobIds=Arrays.asList(idListStr.split(","));
+	    	String jobNameNew = "";
+	    	String jobNameOld = "";
+	    	String jobNames = "";
 	    	for(String jobId:jobIds){
 	    		SysEmpJob sysEmpJob=new SysEmpJob();
 	    		sysEmpJob.setCreateTime(new Date());
@@ -218,7 +221,9 @@ public class EmpJobController {
 	    		SysJobCriteria criteria = new SysJobCriteria();
 				SysJobCriteria.Criteria cri = criteria.createCriteria();
 				cri.andStatusEqualTo(1);// 只查询状态为1的
+				cri.andJobIdEqualTo(jobId);
 				List<SysJob> jodlist=sysJobService.selectInfoJob(criteria);
+				jobNameNew=jobNameNew+jodlist.get(0).getJobName()+",";
 				sysEmpJob.setJobCode(jodlist.get(0).getJobCode());
 	    		list.add(sysEmpJob);
 	    	}
@@ -227,6 +232,19 @@ public class EmpJobController {
 	    		map.put("result", false);
 	    		return map;
 	    	}
+	    	//修改员工表里管理职位
+	    	SysEmpCriteria criteria = new SysEmpCriteria();
+		    SysEmpCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusEqualTo(1);// 只查询状态为1的
+			cri.andEmpIdEqualTo(empId);
+			List<SysEmp> empList=sysEmpService.selectInfoEmp(criteria);
+			if(empList.size()>0 && !empList.isEmpty()){
+				jobNameOld=empList.get(0).getJobName()+",";
+			}
+			SysEmp sysEmp=new SysEmp();
+			jobNames=jobNameOld.substring(0,jobNameOld.length()-1);
+			sysEmp.setJobName(jobNames);
+			sysEmpService.updateEmp(criteria, sysEmp);
 	 		map.put("result", true);
 	    	return map;
 		}
@@ -240,6 +258,45 @@ public class EmpJobController {
 	    	SysEmpJobCriteria criteria = new SysEmpJobCriteria();
 	    	SysEmpJobCriteria.Criteria cri = criteria.createCriteria();
 	    	List<String> jobIds=Arrays.asList(idListStr.split(","));
+	    	
+	    	String jobNameNew = "";
+	    	String jobNameOld = "";
+	    	String jobNames = "";
+	    	for(String jobId:jobIds){
+	    		SysJobCriteria criteria1 = new SysJobCriteria();
+				SysJobCriteria.Criteria cri1 = criteria1.createCriteria();
+				cri1.andStatusEqualTo(1);// 只查询状态为1的
+				cri1.andJobIdEqualTo(jobId);
+				List<SysJob> jodlist=sysJobService.selectInfoJob(criteria1);
+				jobNameNew=jobNameNew+jodlist.get(0).getJobName()+",";
+	    	}
+	    	//修改员工表里管理职位
+	    	SysEmpCriteria criteria2 = new SysEmpCriteria();
+		    SysEmpCriteria.Criteria cri2 = criteria2.createCriteria();
+			cri2.andStatusEqualTo(1);// 只查询状态为1的
+			cri2.andEmpIdEqualTo(empId);
+			List<SysEmp> empList=sysEmpService.selectInfoEmp(criteria2);
+			if(empList.size()>0 && !empList.isEmpty()){
+				jobNameOld=empList.get(0).getJobName()+",";
+			}
+	    	//从已经存储的去掉取消的
+			String[] str = jobNameOld.split(",");
+	        
+	        for (int j = 0; j < str.length; j++) {
+	            if (jobNameNew.indexOf(str[j]) > -1) { //删除多个时用 ，删除一个时用 if(jobNameNew.equals(str[i])) 
+	                str[j] = "";
+	            }
+	        }
+	        jobNameOld = "";
+	        for (int j = 0; j < str.length; j++) {
+	            if (str[j] != "") {
+	            	jobNameOld += str[j] + ",";
+	            }
+	        }
+	        SysEmp sysEmp=new SysEmp();
+			jobNames=jobNameOld.substring(0,jobNameOld.length()-1);
+			sysEmp.setJobName(jobNames);
+			int x=sysEmpService.updateEmp(criteria2, sysEmp);
 	    	cri.andEmpIdEqualTo(empId);
 	    	cri.andJobIdIn(jobIds);
 	    	SysEmpJob sysEmpJob=new SysEmpJob();

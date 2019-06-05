@@ -390,3 +390,11 @@
     LEFT JOIN job_table j on ej.JOB_ID=j.JOB_ID and j.`STATUS`=1 GROUP BY e.EMP_ID
   </select>
 </mapper>
+
+
+
+
+
+
+
+

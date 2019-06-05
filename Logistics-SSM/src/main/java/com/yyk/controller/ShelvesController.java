@@ -343,7 +343,7 @@ public class ShelvesController {
 		            	pageInfo.setPageSize(Integer.parseInt(obj.get("value").toString()));
 		            }
 		            
-		            if (obj.get("name").equals("shelvesIdSearch")){
+		            /*if (obj.get("name").equals("shelvesIdSearch")){
 		            	if(StringUtils.isNotBlank(obj.get("value").toString())){
 		            		sysShelves.setShelvesId( obj.get("value").toString());
 		            	}
@@ -351,7 +351,7 @@ public class ShelvesController {
 		            		sysShelves.setShelvesId(null);
 		            	}
 		            	
-		            }
+		            }*/
 		            
 		        }
 				if(pageInfo!=null)
@@ -363,10 +363,12 @@ public class ShelvesController {
 				List<String> goodsIds=new ArrayList<String>();
 				SysGoodsShelvesCriteria criteria = new SysGoodsShelvesCriteria();
 		    	SysGoodsShelvesCriteria.Criteria cri = criteria.createCriteria();
-		    	if (StringUtils.isNotBlank(sysShelves.getShelvesId())){
+		    	/*if (StringUtils.isNotBlank(sysShelves.getShelvesId())){
 		    		cri.andShelvesIdEqualTo(sysShelves.getShelvesId());
 		    	}
-				List<SysGoodsShelves> outGoods=goodsShelvesService.selectInfoGoodsShelves(criteria);
+*/			    //入库时间不为空
+		    	cri.andInTimeIsNotNull();
+		    	List<SysGoodsShelves> outGoods=goodsShelvesService.selectInfoGoodsShelves(criteria);
 				if(!outGoods.isEmpty() && outGoods.size()>0){
 					for(SysGoodsShelves goodsId:outGoods){
 						goodsIds.add(goodsId.getGoodsId());

@@ -13,10 +13,12 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>header</title>
-    <script src="<%=basePath%>static/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="<%=basePath%>static/assets/js/jquery-1.11.1.min.js"></script> 
+    <script src="<%=basePath%>static/js/jquery.js"></script>
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap-theme.min.css">
+    <script src="<%=basePath%>static/bootstrap/bootstrapValidator/js/bootstrapValidator.min.js"></script>
     <style>
         .lee-h2{
            padding: 0;
@@ -45,6 +47,11 @@
         color: white;
         line-height: 50px;
         }
+       .btn:focus,.btn:active:focus,.btn.active:focus,.btn.focus,.btn:active.focus,.btn.active.focus {
+            outline: none;   
+            border-color: transparent;  
+            box-shadow:none;
+        }
     </style>
 </head>
 <body>
@@ -52,13 +59,13 @@
 
 <div class="lee-h2">
     <div class="row">
-        <div class="col-md-8 "><span class="lee-h3">Fast物 流 管 理 平 台</span></div>
+        <div class="col-md-8 "><span class="lee-h3">Fast  物 流 管 理 平 台</span></div>
         <div class="col-md-2 lee-h4">&nbsp;<i class="fa fa-bullhorn fa-lg"></i>&nbsp;&nbsp;&nbsp;
 	        <span class="lee-h4" id="role">
-	                                欢迎   <%=session.getAttribute("loginName") %>  <%=session.getAttribute("roleName") %>
+	                                欢迎   <%=session.getAttribute("loginName") %>  <%=session.getAttribute("roleName") %>  :
 	         </span>
          </div>
-        <div class="col-md-2">
+       <%--  <div class="col-md-2">
             <span class="dropdown ">
                 <a  role="button" class="dropdown-toggle lee-h1"   data-toggle="dropdown">
                     <i class="glyphicon glyphicon-user"></i> &nbsp;<%=session.getAttribute("loginName") %>
@@ -69,8 +76,11 @@
                     <li class="divider "></li>
                     <li><a class="btn btn-link-1 launch-modal" tabindex="-1" href="<%=basePath%>loginManage/login/user">退出</a></li>
                 </ul>
-                
           </span>
+        </div> --%>
+        <div class="col-md-2">
+        <a class="btn btn-link-1 launch-modal" tabindex="-1" data-modal-id="myModal" onclick="updatePassword()" style="color:white;outline:none;border: 0px solid #696969;padding-top: 15px;">修改密码</a>
+        <a class="btn btn-link-1 launch-modal" tabindex="-1" href="<%=basePath%>loginManage/login/user" style="color:white;outline:none;border: 0px solid #696969;font-size: 13px;padding-top: 15px;">退出</a>
         </div>
     </div>
 </div>
@@ -106,7 +116,7 @@
 	                    </form>
         			</div>
         			<div class="modal-footer">
-        				<button type="submit" class="btn"  style="margin-right: 250px;"   onclick="updateFun()">保存</button>
+        				<button type="submit" class="btn"  style="margin-right: 303px;"   onclick="updateFun()">保存</button>
         			</div>
         		</div>
         	</div>

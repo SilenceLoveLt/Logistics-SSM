@@ -273,5 +273,6 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+  
  
   </mapper>

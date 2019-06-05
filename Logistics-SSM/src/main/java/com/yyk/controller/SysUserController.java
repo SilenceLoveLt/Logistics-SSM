@@ -21,6 +21,7 @@ import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
 import com.yyk.dto.UserDTO.SysUserListReqDTO;
+import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
 import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.SysUserService;
@@ -139,10 +140,11 @@ public class SysUserController {
 	 			cri.andUserIdEqualTo(sysUser.getUserId());	    		
 	 			int i=sysUserService.updateUser(criteria, sysUser);
 		    	if(i==1){
-		    			map.put("result", true);
+		 			
+		    		map.put("result", true);
 		    	}
 		    	else{
-		    			map.put("result", false);
+		    		map.put("result", false);
 		    	}
 	    	}
 	    	else //新增

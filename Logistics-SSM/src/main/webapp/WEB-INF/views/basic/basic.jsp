@@ -13,9 +13,11 @@
     <head>
            <title><tiles:getAsString name="title" /></title>
            <meta name="viewport" content="width=device-width, initial-scale=1">
+           <script src="<%=basePath%>static/assets/js/jquery-1.11.1.min.js"></script>
+           
            <style>
             .lee-ba{
-	            background-color:#9C9C9C;
+	            background-color:#4F4F4F;
 	            margin-left: 0px;
 	            margin-bottom: 0px;
 	            height:726px;
@@ -26,10 +28,10 @@
 			    margin-bottom: 0px;
 			    margin-top:-19px;
 			    border: 0px solid transparent; 
-			    background-color:#696969;
+			    background-color:#000000;
 			}
 			.navbar2 {
-			    background-color:#696969;
+			    background-color:#000000;
 			    position: relative; 
 			    height: 50px; 
 			    margin-top:-10px;

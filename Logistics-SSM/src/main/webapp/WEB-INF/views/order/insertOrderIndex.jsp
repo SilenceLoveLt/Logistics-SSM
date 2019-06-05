@@ -350,6 +350,7 @@
 					style="color: red; font-weight: bold;">*</span>合计运费：</label>
 				<div class="col-sm-2">
 					 <input type="text" class="form-control" name="freight" id="freight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+				     <span class="form-control-feedback" style="padding-left: 30px;">(元)</span>
 				</div>
 			</div>
 		</div>
@@ -459,7 +460,7 @@
 						class="btn btn-primary col-xs-offset-4 col-sm-2" onclick="resetOrderForm()">重置</button>
 				<button type="button" id="saveForm" style="background-color: grey; border-color: grey;"
 						class="btn btn-primary col-xs-offset-1 col-sm-2"
-					    onclick="saveOrderForm();">保存</button>
+					    onclick="saveOrderForm();">确认订单</button>
 			</div>	
 			</div>
 		</div>
@@ -489,6 +490,30 @@ var payMethodList = ${payMethodList};     //付款方式
 		}
 		$("#" + domid).append(opt);
 	} 
+   
+   
+   
+   /* 计算运费 */ 
+   var infoFormOrder=document.forms['infoFormOrder'],
+     goodsWeight=infoFormOrder.elements['goodsWeight'];
+     goodsVolume=infoFormOrder.elements['goodsVolume'];
+     goodsNum=infoFormOrder.elements['goodsNum'];
+     //无需设置input的id属性，只设置name即可
+     var weight="";
+     var volume="";
+     var num=""; 
+     goodsWeight.onchange=function(){
+    	 weight+=goodsWeight.value;
+    	 console.log(weight);
+     }
+    /*  goodsVolume.onchange=function(){
+    	 goodsVolume+=goodsVolume.value;
+     }
+     goodsNum.onchange=function(){
+    	 goodsNum+=goodsNum.value;
+     }  */
+    
+     
    
    
    //表单验证配置
@@ -558,21 +583,33 @@ var payMethodList = ${payMethodList};     //付款方式
               validators: {
             	  notEmpty: {
                       message: '货物重量不能为空'
-                  }
+                  },
+                	 regexp: {
+                         regexp: "^[0-9]*[1-9][0-9]*$",
+                         message: '只能录入非零正整数'
+                     }
               }
           },
           goodsVolume: {
               validators: {
             	  notEmpty: {
                       message: '货物体积不能为空'
-                  }
+                  },
+                	 regexp: {
+                         regexp: "^[0-9]*[1-9][0-9]*$",
+                         message: '只能录入非零正整数'
+                     }
               }
           },
           goodsNum: {
               validators: {
             	  notEmpty: {
                       message: '货物数量不能为空'
-                  }
+                  },
+                	 regexp: {
+                         regexp: "^[0-9]*[1-9][0-9]*$",
+                         message: '只能录入非零正整数'
+                     }
               }
           },
           consigneeName: {

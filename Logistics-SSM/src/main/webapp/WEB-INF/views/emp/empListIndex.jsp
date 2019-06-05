@@ -13,9 +13,8 @@
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-    <script src="<%=basePath%>static/js/jquery.js"></script> 
-    <%-- <script src="<%=basePath%>static/js/jquery.min.js"></script>  --%>
-   <%--  <script src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script> --%>
+     <script src="<%=basePath%>static/js/jquery.js"></script> 
+    <script src="<%=basePath%>static/js/jquery.min.js"></script> 
     <script src="<%=basePath%>static/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<%=basePath%>static/bootstrap/css/bootstrap.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -92,27 +91,36 @@
                             <label class="control-label col-md-1 ">员工姓名:</label>
                             <div class="col-md-2 ">
                                 <input type="text" class="form-control  input-sm " name="search_empName" id="search_empName"
-                                       placeholder="请输入员工名称">
+                                       placeholder="请输入员工名称" oninput="checkInput()">
                             </div>
 
                             <label class="control-label col-md-1 ">员工编码:</label>
                              <div class="col-md-2 ">
                                 <input type="text" class="form-control  input-sm " name="search_empCode" id="search_empCode"
-                                       placeholder="请输入员工编码">
+                                       placeholder="请输入员工编码" oninput="checkInput()">
                             </div>
                           
-                            <label class="control-label col-md-1 ">所属职位:</label>
+                            <label class="control-label col-md-1 ">管理职位:</label>
                              <div class="col-md-2 ">
                                 <input type="text" class="form-control  input-sm " name="search_jobName" id="search_jobName"
-                                       placeholder="请输入员工编码">
+                                       placeholder="请输入员工编码" oninput="checkInput()">
                             </div>
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
-				          
+                            <div class="col-md-1 ">
+									<button class="btn btn-primary" 
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-1">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
 			           </div>
                     </div>
                    
@@ -141,24 +149,24 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>员工姓名:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="empName" id="empName" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                            <input type="text" class="form-control" oninput="check()" onmouseleave="checkInputing()" name="empName" id="empName"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                         </div>
                         
                         <label class="control-label col-sm-2"><span style="color:red; font-weight:bold;">*</span>员工编码:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="empCode" id="empCode" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
+                            <input type="text" class="form-control" oninput="check()" onmouseleave="checkInputing()" name="empCode" id="empCode" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>员工电话:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="phone" id="phone" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
+                            <input type="text" class="form-control" oninput="check()" onmouseleave="checkInputing()" name="phone" id="phone" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
                         </div>
                         
                         <label  class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>所属角色:</label>
 						<div class="col-sm-4">
-							<select name="roleid" id="roleid"  class="form-control"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<select name="roleid" id="roleid" oninput="check()" onmouseleave="checkInputing()" class="form-control"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
 							 	<option>请选择</option>
 							</select>
 						</div>
@@ -166,11 +174,11 @@
                     <div class="form-group form-group-sm" >
 					    <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>员工薪资:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="sal" id="sal"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
+                            <input type="text" class="form-control"  oninput="check()" onmouseleave="checkInputing()"name="sal" id="sal"   onkeyup="this.value=this.value.replace(/\s+/g,'')"  placeholder="请输入..."/>
                         </div>
                         <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>性别:</label>
                         <div class="col-sm-4">
-                        <select name="sex" id="sex"  class="form-control"  oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+                        <select name="sex" id="sex" oninput="check()" onmouseleave="checkInputing()" class="form-control"  onkeyup="this.value=this.value.replace(/\s+/g,'')">
 							<option>请选择</option>
 						</select>
                         </div>
@@ -180,8 +188,8 @@
                     </div>  
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12">
-                            <textarea class="form-control" name="addr" id="addr"
-                                      style="resize:none; height: 50px;" rows="3" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                            <textarea class="form-control" name="addr" id="addr" oninput="check()" onmouseleave="checkInputing()"
+                                      style="resize:none; height: 50px;" rows="3"  onkeyup="this.value=this.value.replace(/\s+/g,'')"
                                       placeholder="请输入..."
                                       ></textarea>
                         </div>
@@ -190,15 +198,15 @@
                     <div class="form-group form-group-sm">
                         <label class="control-label col-sm-2 ">存档时间:</label>
                        <div class="col-md-4  has-feedback"  >
-							<input  name="createTime" id="createTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
+							<input  name="createTime" id="createTime" type="text" oninput="check()" onmouseleave="checkInputing()"  placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
 
                         <label class="control-label col-sm-2 ">修改时间:</label>
                         <div class="col-md-4  has-feedback"  >
-							<input  name="updateTime" id="updateTime" type="text" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
-							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })" oninput="check()" onmouseleave="checkInputing()" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
+							<input  name="updateTime" id="updateTime" type="text" oninput="check()" onmouseleave="checkInputing()" placeholder="精确到年月日时分秒"  class="form-control Wdate input-sm "  
+							onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd ' })"  onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						</div>
                     </div>
@@ -208,7 +216,7 @@
                     <div class="form-group form-group-sm" style="padding-left: 10px">
                         <div class="col-sm-12 ">
                             <textarea class="form-control" name="remark" id="remark" style="resize:none; height: 70px"
-                                      rows="3" placeholder="请输入..."
+                                      rows="3" placeholder="请输入..."   oninput="check()" onmouseleave="checkInputing()"
                                       onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
                         </div>
                     </div>
@@ -238,7 +246,7 @@
 			<th></th> 
 			<th>员工姓名</th>
 			<th>员工编码</th>
-			<th>所属职位</th>
+			<th>管理职位</th>
 			<th>员工电话</th>
 			<th>员工地址</th>
 			<th>员工薪资</th>
@@ -334,7 +342,65 @@ var sexList = ${sexList};     //性别
 	   initSelectOptions(sexList, "code", "dataName", "sex");
    });
    
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
+
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchEmpForm = $('#searchEmpForm').serializeArray();
+		$.each(searchEmpForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
    
+	 $("#ok").attr("disabled","true");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white");
+	   
+	   function check()
+	   {
+	     $("#ok").removeAttr("disabled");
+	     $("#reseted").removeAttr("disabled");
+	     $("#reseted").removeAttr("style","border-color:grey;background-color:grey;color:white");
+	     $("#ok").removeAttr("style","border-color:grey;background-color:grey;color:white");
+	   }
+	   function checkInputing(){
+			var  empName=$("#empForm #empName").val();
+			var  empCode=$("#empForm #empCode").val();
+			var  phone=$("#empForm #phone").val();
+			var  roleid=$("#empForm #roleid").val();
+			var  createTime=$("#empForm #createTime").val();
+			var  updateTime=$("#empForm #updateTime").val();
+			var  remark=$("#empForm #remark").val();
+			var  sal=$("#empForm #sal").val();
+			var  sex=$("#empForm #sex").val();
+			var  addr=$("#empForm #addr").val();
+			if((empName=='')&& (empCode=='' )&&(phone=='')&&(roleid=='') &&(createTime=='')&&(updateTime=='')&&(remark=='')&&(sal=='')&&(sex=='')&&(addr==''))
+			{
+				$("#ok").attr("disabled","true");
+				$("#reseted").attr("disabled","true");	
+				$("#ok").attr("style","background-color:grey;border-color:grey;color:white");
+				$("#reseted").attr("style","background-color:grey;border-color:grey;color:white");
+		    }else{
+		    	check();
+		    }
+		}
    
    /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
 	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
@@ -345,38 +411,7 @@ var sexList = ${sexList};     //性别
 		$("#" + domid).append(opt);
 	} 
    
-   
-   $("#ok").attr("disabled","true");
-   $("#ok").attr("style","background-color:grey;border-color:grey");
-   
-   function check()
-   {
-     $("#ok").removeAttr("disabled");
-     $("#reseted").removeAttr("disabled");
-     $("#reseted").removeAttr("style","border-color:grey;background-color:grey");
-     $("#ok").removeAttr("style","border-color:grey;background-color:grey");
-   }
-   function checkInputing(){
-		var  empCode=$("#empForm #empCode").val();
-		var  empName=$("#empForm #empName").val();
-		var  phone=$("#empForm #phone").val();
-		var  addr=$("#empForm #addr").val();
-		var  createTime=$("#empForm #createTime").val();
-		var  updateTime=$("#empForm #updateTime").val();
-		var  remark=$("#empForm #remark").val();
-		var  roleid=$("#empForm #roleid").val();
-		var  sal=$("#empForm #sal").val();
-		var  sex=$("#empForm #sex").val();
-		if((sex=='')&&(empCode=='')&& (empName=='' )&&(phone=='')&&(addr=='') &&(createTime=='')&&(updateTime=='')&&(remark=='')&&(roleid=='')&&(sal==''))
-		{
-			$("#ok").attr("disabled","true");
-			$("#reseted").attr("disabled","true");	
-			$("#ok").attr("style","background-color:grey;border-color:grey");
-			$("#reseted").attr("style","background-color:grey;border-color:grey");
-	    }else{
-	    	check();
-	    }
-	}
+  
    //表单验证配置
    function formValidator(){
    $('#empForm').bootstrapValidator({
@@ -1034,6 +1069,7 @@ var sexList = ${sexList};     //性别
 		$("#searchEmpForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 	/* 关闭模态框*/
@@ -1066,11 +1102,13 @@ var sexList = ${sexList};     //性别
    function resetHandler(){
 	   if($("#empId").val()==null || $("#empId").val()==""){
 		   $("#empForm").data('bootstrapValidator').resetForm();
-		   $("#reseted").attr("disabled","true");	
-		   $("#ok").attr("disabled","true");
-		   $("#reseted").attr("style","background-color:grey;border-color:grey");
-		   $("#ok").attr("style","background-color:grey;border-color:grey");
-		   empForm.reset();
+			$("#reseted").attr("disabled", "true");
+			$("#ok").attr("disabled", "true");
+			$("#reseted").attr("style",
+					"background-color:grey;border-color:grey");
+			$("#ok").attr("style",
+					"background-color:grey;border-color:grey");
+			empForm.reset();
 	   }
 	   if($("#empId").val()!=null && $("#empId").val()!=""){
 		   $("#empId").val(empId);
@@ -1088,19 +1126,23 @@ var sexList = ${sexList};     //性别
 	       $('#empForm').data('bootstrapValidator', null);
 	       formValidator(); 
 	   }
-	   
    }
    
    
    /**新增信息*/
 	function addFun() {
-		$('#ok').removeAttr("disabled");
+		//移除上一次的校验结果，重新添加表单校验。
+		$("#empForm").data('bootstrapValidator').destroy();
+		$('#empForm').data('bootstrapValidator',null);
+		formValidator();
+		
+		 $('#ok').removeAttr("disabled");
 		$("#ok").removeAttr("style");
 		$('#reseted').removeAttr("disabled");
 		$("#reseted").removeAttr("style");
 		$("#ok").attr("style","display: block;");
 		$("#reseted").attr("style","display: block;");
-		$('#closeModel').removeAttr("disabled");
+		$('#closeModel').removeAttr("disabled"); 
 		$("#empForm")[0].reset();//使用dom的reset
 		$("#empId").val("");	//避免hidden出现不能reset的情况
 		$('#empCode').removeAttr("readonly");
@@ -1110,6 +1152,8 @@ var sexList = ${sexList};     //性别
 	    $('#addr').attr("disabled",false);
 	    $('#sal').attr("disabled",false);
 	    $('#sal').removeAttr("readonly");
+	    $('#sex').attr("disabled",false);
+	    $('#sex').removeAttr("readonly");
 	    $('#roleid').removeAttr("disabled");
 	    $('#createTime').attr("disabled",false);
 	    $('#updateTime').attr("disabled",false);
@@ -1144,9 +1188,9 @@ var sexList = ${sexList};     //性别
 	   $("#remark").val(data.remark);
 	   $('#remark').attr("disabled",true);
 	   $('#ok').attr("disabled",true);
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
 	   $('#reseted').attr("disabled",true);
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
+	   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white");
 	   $('#closeModel').removeAttr("disabled");
 	   
    }

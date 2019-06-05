@@ -85,23 +85,33 @@
                 <div class="form-group">
                         <div class="row">
                             <label class="control-label col-md-1 ">职位名称:</label>
-                            <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_jobName" id="search_jobName"
+                            <div class="col-md-3 ">
+                                <input type="text" class="form-control  input-sm "  oninput="checkInput()" name="search_jobName" id="search_jobName"
                                        placeholder="请输入职位名称">
                             </div>
 
                             <label class="control-label col-md-1 ">职位编码:</label>
-                             <div class="col-md-2 ">
-                                <input type="text" class="form-control  input-sm " name="search_jobCode" id="search_jobCode"
+                             <div class="col-md-3 ">
+                                <input type="text" class="form-control  input-sm " oninput="checkInput()" name="search_jobCode" id="search_jobCode"
                                        placeholder="请输入职位编码">
                             </div>
                           
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
+		                    <div class="col-md-2 ">
+									<button class="btn btn-primary" 
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-2">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
 				          
 			           </div>
                     </div>
@@ -219,6 +229,36 @@ var remark=null;
 	   formValidator();
    });
    
+   
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
+
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchJobForm = $('#searchJobForm').serializeArray();
+		$.each(searchJobForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
+	
+	
    $("#ok").attr("disabled","true");
    $("#ok").attr("style","background-color:grey;border-color:grey");
    
@@ -446,6 +486,7 @@ var remark=null;
 		$("#searchJobForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 	/* 关闭模态框*/
@@ -461,8 +502,8 @@ var remark=null;
    function closeModel(){
 	   $("#reseted").attr("disabled","true");	
 	   $("#ok").attr("disabled","true");
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
+	   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white");
 	   $("#jobId").val("");
 	   $("#jobForm")[0].reset();//使用dom的reset
    }
@@ -474,8 +515,8 @@ var remark=null;
 		   $("#jobForm").data('bootstrapValidator').resetForm();
 		   $("#reseted").attr("disabled","true");	
 		   $("#ok").attr("disabled","true");
-		   $("#reseted").attr("style","background-color:grey;border-color:grey");
-		   $("#ok").attr("style","background-color:grey;border-color:grey");
+		   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white");
+		   $("#ok").attr("style","background-color:grey;border-color:grey;color:white");
 		   jobForm.reset();
 	   }
 	   if($("#jobId").val()!=null && $("#jobId").val()!=""){
@@ -529,9 +570,9 @@ var remark=null;
 	   $("#remark").val(data.remark);
 	   $('#remark').attr("disabled",true);
 	   $('#ok').attr("disabled",true);
-	   $("#ok").attr("style","background-color:grey;border-color:grey");
+	   $("#ok").attr("style","background-color:grey;border-color:grey;color:white");
 	   $('#reseted').attr("disabled",true);
-	   $("#reseted").attr("style","background-color:grey;border-color:grey");
+	   $("#reseted").attr("style","background-color:grey;border-color:grey;color:white");
 	   $('#closeModel').removeAttr("disabled");
 	   
    }

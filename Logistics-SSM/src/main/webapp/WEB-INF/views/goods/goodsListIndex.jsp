@@ -86,15 +86,32 @@
                         <div class="row">
                             <label class="control-label col-md-1 ">订单编号:</label>
                             <div class="col-md-3 ">
-                             <input type="text" class="form-control" name="search_orderId" id="search_orderId"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                             <input type="text" class="form-control" oninput="checkInput()" name="search_orderId" id="search_orderId"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
                             </div>
-                          
-		                   <span class="input-group-btn ">
-							<button style="margin-left: 50px" class="btn btn-primary" type="button" id="searchBtn" onclick="searchDatas();" style="margin-right: 10px; margin-left: 10px"><span class="glyphicon glyphicon-zoom-in">
-							</span>查&nbsp;&nbsp;&nbsp;询</button>
-							<button style="margin-left: 70px" class="btn btn-primary" type="button"  id="resetSearchBtn" onclick="resetSearchConditions();"><span class="glyphicon glyphicon-remove">
-						   </span>重&nbsp;&nbsp;&nbsp;置</button>
-				          </span>
+                            
+                            <label  class="control-label col-sm-1 ">货物状态:</label>
+							<div class="col-sm-3">
+								<select name="search_goodsStatus" id="search_goodsStatus" oninput="checkInput()"  class="form-control"   onkeyup="this.value=this.value.replace(/\s+/g,'')">
+								 	<option value="">请选择</option>
+								</select>
+							</div>
+                            
+                            <div class="col-md-2">
+									<button class="btn btn-primary" 
+										type="button" id="searchBtn" onclick="searchDatas();"
+										>
+										<span class="glyphicon glyphicon-zoom-in"> </span>查&nbsp;&nbsp;&nbsp;询
+									</button>
+							</div>
+
+							<div class="col-md-2">
+									<button disabled
+										style="background-color: grey; border-color: grey;"
+										class="btn btn-primary" type="button" id="resetSearchBtn"
+										onclick="resetSearchConditions();">
+										<span class="glyphicon glyphicon-remove"> </span>重&nbsp;&nbsp;&nbsp;置
+									</button>
+							</div>
 				          
 			           </div>
                     </div>
@@ -131,14 +148,55 @@
 </table>
 </body>
 <script type="text/javascript">
-
+ var goodsStatusList=${goodsStatusList};
    $(document).ready(function() {
 	   //默认加载dataTable
 	   dataTableDraw();
+	   
+	   initSelectOptions(goodsStatusList, "code", "dataName", "search_goodsStatus");
 
    });
    
+   
+   /**初始化下拉框, 参数：json数据，value用到的属性名，text用到的显示值，select的id*/
+	 function initSelectOptions(jsonArr, valPro, textPro, domid) {
+		var opt = '';
+		for(var i=0; i<jsonArr.length; i++) {
+			opt += '<option value="' + jsonArr[i][valPro] + '">' + jsonArr[i][textPro] + '</option>';
+		}
+		$("#" + domid).append(opt);
+	} 
+ 
+   
+   function changeBtnable() {
+		$("#resetSearchBtn").removeAttr("disabled");
+		$("#resetSearchBtn").removeAttr("style", "background-color:grey");
+		$("#resetSearchBtn").removeAttr("style", "border-color:grey");
+	}
 
+	function changeBtndisable() {
+		$("#resetSearchBtn").attr("disabled", "true");
+		$("#resetSearchBtn").attr("style",
+				"background-color:grey;border-color:grey");
+	}
+
+	var values = "";//判断按钮状态全局变量
+	function checkInput() {
+		var searchGoodsForm = $('#searchGoodsForm').serializeArray();
+		$.each(searchGoodsForm, function() {
+			if (this.value != "") {
+				values += this.value;
+			}
+		});
+		if (values.length > 0) {
+			changeBtnable();
+		} else {
+			changeBtndisable();
+		}
+		values = "";
+	}
+	
+	
 
    var urlStr = $("#goodsPageList").val();
    function dataTableDraw(){
@@ -206,10 +264,15 @@
    //对应上边的回调函数 参数个数不变 名字可改 第一个为请求url  第二个为上送数据 第三个为回调函数
 	function retrieveData(sSource,aoData,fnCallback) {
 	var orderIdSearch = {
-	"name":"orderIdSearch",
-	"value":$("#search_orderId").val()
-	}
+			"name":"orderIdSearch",
+			"value":$("#search_orderId").val()
+			}
+	var goodsStatusSearch = {
+			"name":"goodsStatusSearch",
+			"value":$("#search_goodsStatus").val()
+			}
 	aoData.push(orderIdSearch);
+	aoData.push(goodsStatusSearch);
 	 $.ajax({
 	     url : sSource,//这个就是请求地址对应sAjaxSource
 	     data : {"aoData":JSON.stringify(aoData)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
@@ -241,6 +304,7 @@
 		$("#searchGoodsForm")[0].reset();
 		var table = $('#dutyListTable').DataTable();
 		table.draw(true);
+		changeBtndisable();
 	}
    
 
