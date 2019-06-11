@@ -232,7 +232,7 @@
 						<th>车辆编码</th>
 						<th></th>
 						<th>车辆类型</th>
-						<th>承重量(g)</th>
+						<th>承重量(kg)</th>
 						<th>承重体积(cm³)</th>
 						<th>操作</th>
 						<th></th>
@@ -280,7 +280,7 @@
                         <label class="control-label col-sm-2">承重量:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="weight" id="weight"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..."/>
-                            <span class="form-control-feedback">(g)</span>
+                            <span class="form-control-feedback">(kg)</span>
                         </div>
                     </div>
                    
@@ -525,7 +525,7 @@ var vehicleTypeList = ${vehicleTypeList};     //车辆类别
                       { "mData": "vehicleCode"},
                       { "mData": "vehicleType",
 	   					"visible": false},
-   					  { "mData": "vehicleType"},
+   					  { "mData": "vehicleTypeName"},
                       { "mData": "weight"},
                       { "mData": "volume"},
 					  {"mData":null,

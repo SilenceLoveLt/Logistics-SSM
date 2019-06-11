@@ -342,7 +342,7 @@
 			</div>
 		</div>
 		
-		
+		<!-- 
 		<div class="container-fluid form-group">
 		    <div class="row">
 				<label for="startTime" class="col-sm-2 control-label"><span style="color:red; font-weight:bold;">*</span>开始时间：</label>
@@ -360,7 +360,7 @@
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 				</div>
 		     </div>
-		</div>
+		</div> -->
 		
 		
 		<div class="container-fluid form-group"  style="margin-bottom: -5px">
@@ -381,7 +381,7 @@
 						class="btn btn-primary col-xs-offset-4 col-sm-2" onclick="resetInvoiceForm()">重置</button>
 				<button type="button" id="saveForm" style="background-color: grey; border-color: grey;"
 						class="btn btn-primary col-xs-offset-1 col-sm-2"
-					    onclick="saveInvoiceForm();">保存</button>
+					    onclick="saveInvoiceForm();">生成配送单</button>
 			</div>	
 			</div>
 		</div>
@@ -467,7 +467,7 @@ var vehicleList =${vehicleList};     //车辆类型
                     message: '当前地址不能为空'
                 }
             }
-        },
+        }/* ,
         startTime: {
             validators: {
           	  notEmpty: {
@@ -481,7 +481,7 @@ var vehicleList =${vehicleList};     //车辆类型
                     message: '结束时间不能为空'
                 }
             }
-        },
+        }, */
     }
   });
  }  
@@ -511,11 +511,11 @@ var vehicleList =${vehicleList};     //车辆类型
 		var empId=$("#empId").val();
 		var vehicleId= $("#vehicleId").val();
 		var addrNow=$("#addrNow").val();
-		var startTime=$("#startTime").val();
-		var endTime=$("#endTime").val();
+		/* var startTime=$("#startTime").val();
+		var endTime=$("#endTime").val(); */
 		var remark=$('#remark').val();
 		
-  	if((orderId=='')&& (goodsId=='' )&&(lineId=='')&&(empId=='') &&(vehicleId=='')&&(addrNow=='')&&(startTime=='')&&(endTime=='')&&(remark==''))
+  	if((orderId=='')&& (goodsId=='' )&&(lineId=='')&&(empId=='') &&(vehicleId=='')&&(addrNow=='')&&(remark==''))
   	{
   		$("#saveForm").attr("disabled","true");
   	    $("#resetForm").attr("disabled","true");
@@ -536,8 +536,8 @@ var vehicleList =${vehicleList};     //车辆类型
 			$("#empId").val("");
 			$("#vehicleId").val("");
 			$("#addrNow").val("");
-			$("#startTime").val("");
-			$("#endTime").val(""); 
+			/* $("#startTime").val("");
+			$("#endTime").val("");  */
 			$("#remark").val("");
 			$("#saveForm").attr("disabled","true");
 	 	    $("#resetForm").attr("disabled","true");
@@ -583,6 +583,21 @@ var vehicleList =${vehicleList};     //车辆类型
 					$.alert({
 		                title: '提示',
 		                content: '配送单生成失败！',
+		                type:'red',             //一般危险操作用red,保存成功操作green
+		                buttons: {              //定义按钮
+		                    confirm: {
+		                        text: '确认',
+		                        btnClass: 'btn-primary',
+		                        action: function(){ //这里写点击按钮回调函数 
+		                        }
+		                    }
+		                }
+		            });
+				}
+				if (data.result=='repeat') {
+					$.alert({
+		                title: '提示',
+		                content: '该订单已发货，清重新输入！',
 		                type:'red',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {

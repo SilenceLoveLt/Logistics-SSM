@@ -283,7 +283,7 @@
 	</div>
 <!-- 导航栏结束 -->
 
-<div class="container-fluid form-group">
+<div class="container-fluid form-group" style=" margin-top: -30px;">
 	<div class="row pre-scrollable">
 		<form class="form-horizontal" role="form" id="infoFormOrder" name="infoFormOrder" method="POST">
 		
@@ -349,7 +349,7 @@
 				<label for="freight" class="col-sm-2 control-label"><span
 					style="color: red; font-weight: bold;">*</span>合计运费：</label>
 				<div class="col-sm-2">
-					 <input type="text" class="form-control" name="freight" id="freight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					 <input type="text" class="form-control"  readonly="readonly"  name="freight" id="freight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 				     <span class="form-control-feedback" style="padding-left: 30px;">(元)</span>
 				</div>
 			</div>
@@ -413,22 +413,22 @@
 	  <div class="container-fluid form-group">
 		  <div class="row">
 				<label for="goodsWeight" class="col-sm-2 control-label"><span
-					style="color: red; font-weight: bold;">*</span>货物重量：</label>
+					style="color: red; font-weight: bold;">*</span>总货物重量：</label>
 				<div class="col-sm-2">
-					 <input type="text" class="form-control goodsWeight" name="goodsWeight" id="goodsWeight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
-					 <span class="form-control-feedback">(g)</span>
+					 <input type="text" class="form-control goodsWeight" onchange="money()" name="goodsWeight" id="goodsWeight" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					 <span class="form-control-feedback">(kg)</span>
 				
 				</div>
 				<label for="goodsVolume" class="col-sm-2 control-label" style=" margin-left: -32px;"><span
-					style="color: red; font-weight: bold;">*</span>货物体积：</label>
+					style="color: red; font-weight: bold;">*</span>总货物体积：</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control goodsVolume" name="goodsVolume" id="goodsVolume" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<input type="text" class="form-control goodsVolume" onchange="money()" name="goodsVolume" id="goodsVolume" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 					 <span class="form-control-feedback">(cm³)</span>
 				</div>
 				<label for="goodsNum" class="col-sm-2 control-label" style=" margin-left: -32px;"><span
 					style="color: red; font-weight: bold;">*</span>货物数量：</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control goodsNum" name="goodsNum" id="goodsNum" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+					<input type="text" class="form-control goodsNum" onchange="money()" name="goodsNum" id="goodsNum" oninput="check()" onmouseleave="checkInputings()" onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
 				</div>
 		     </div>
 		</div>
@@ -493,27 +493,43 @@ var payMethodList = ${payMethodList};     //付款方式
    
    
    
-   /* 计算运费 */ 
-   var infoFormOrder=document.forms['infoFormOrder'],
-     goodsWeight=infoFormOrder.elements['goodsWeight'];
-     goodsVolume=infoFormOrder.elements['goodsVolume'];
-     goodsNum=infoFormOrder.elements['goodsNum'];
-     //无需设置input的id属性，只设置name即可
-     var weight="";
-     var volume="";
-     var num=""; 
-     goodsWeight.onchange=function(){
-    	 weight+=goodsWeight.value;
-    	 console.log(weight);
-     }
-    /*  goodsVolume.onchange=function(){
-    	 goodsVolume+=goodsVolume.value;
-     }
-     goodsNum.onchange=function(){
-    	 goodsNum+=goodsNum.value;
-     }  */
+   /* 计算运费 
+      体积<60000cm  除以6000*数量
+      重量*数量 
+      重量<1kg 从1kg开始  首重8元  续重每公斤3元
+   */ 
     
      
+    function money(){
+    	 var weight="";
+    	 var volume="";
+         var sum=0;
+    	//重量
+    	 var goodsWeight =document.getElementsByName("goodsWeight");
+         for (var i = 0, j = goodsWeight.length; i < j; i++){
+        	 weight=Number(weight)+Number(goodsWeight[i].value);
+         }
+         
+        //体积
+         var goodsVolume =document.getElementsByName("goodsVolume");
+         for (var i = 0, j = goodsVolume.length; i < j; i++){
+        	 volume=Number(volume)+Number(goodsVolume[i].value);
+         }
+         if(volume<60000){
+        	 if(1>weight){
+            	 weight=1;
+            	 sum=weight*12;
+             }
+        	 else{
+        		 sum=(Number(weight)+1)*5
+             }
+         }else{
+        	 sum=((volume%60000)+1)*5
+         }
+         $('#freight').val(sum);
+         
+     }
+    
    
    
    //表单验证配置
@@ -722,7 +738,7 @@ var payMethodList = ${payMethodList};     //付款方式
 				if (data.result=='true') {
 					$.alert({
 		                title: '提示',
-		                content: '下单成功！',
+		                content: '下单成功！订单编号为'+data.orderId ,
 		                type:'green',             //一般危险操作用red,保存成功操作green
 		                buttons: {              //定义按钮
 		                    confirm: {
@@ -889,19 +905,19 @@ var payMethodList = ${payMethodList};     //付款方式
    	
     "     <div class=\" container-fluid form-group\">\n" +
    	"        <div class=\"row\">\n" +
-   	"            <label for=\"goodsWeight\" class=\"col-sm-2 control-label\" style=\" margin-left: -9px;\">货物重量:</label>\n" +
+   	"            <label for=\"goodsWeight\" class=\"col-sm-2 control-label\" style=\" margin-left: -9px;\">总货物重量:</label>\n" +
    	"            <div class=\"col-sm-2\">\n" +
-   	"\t\t\t\t        <input type=\"text\" class=\"form-control goodsWeight \" name=\"goodsWeight\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
+   	"\t\t\t\t        <input type=\"text\" class=\"form-control goodsWeight \" onchange=\"money()\" name=\"goodsWeight\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
 	"\t\t\t\t       <span class=\"form-control-feedback\">(g)</span>\n" +
    	"\t\t\t      </div>\n" +
-   	"            <label for=\"goodsVolume\" class=\"col-sm-2 control-label\" style=\" margin-left: -32px;\">货物体积:</label>\n" +
+   	"            <label for=\"goodsVolume\" class=\"col-sm-2 control-label\" style=\" margin-left: -32px;\">总货物体积:</label>\n" +
    	"            <div class=\"col-sm-2\">\n" +
-   	"\t\t\t\t       <input type=\"text\" class=\"form-control goodsVolume \" name=\"goodsVolume\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
+   	"\t\t\t\t       <input type=\"text\" class=\"form-control goodsVolume \" onchange=\"money()\"  name=\"goodsVolume\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
    	"\t\t\t\t       <span class=\"form-control-feedback\">(cm³)</span>\n" +
    	"\t\t\t      </div>\n" +
    	"            <label for=\"goodsNum\" class=\"col-sm-2 control-label\" style=\" margin-left: -32px;\">货物数量:</label>\n" +
    	"            <div class=\"col-sm-2\">\n" +
-   	"\t\t\t\t        <input type=\"text\" class=\"form-control goodsNum \" name=\"goodsNum\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
+   	"\t\t\t\t        <input type=\"text\" class=\"form-control goodsNum \"  onchange=\"money()\"  name=\"goodsNum\" oninput=\"check()\" onmouseleave=\"checkInputings()\" placeholder=\"请输入...\" aria-describedby=\"sizing-addon2\" onkeyup=\"this.value=this.value.replace(/\s+/g,'')\">\n" +
    	"\t\t\t      </div>\n" +
    	"        </div>\n" +
    	"    </div>\n" +

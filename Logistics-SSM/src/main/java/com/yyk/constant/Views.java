@@ -77,7 +77,7 @@ public interface Views {
 	 */
 	public static final String INVOICE_VIEW = "invoice.view";
 	public static final String ADD_INVOICE_VIEW = "add.invoice.view";
-	
+	public static final String UPDATE_INVOICE_VIEW = "update.invoice.view";
 	
 	/**
 	 * 数据字典

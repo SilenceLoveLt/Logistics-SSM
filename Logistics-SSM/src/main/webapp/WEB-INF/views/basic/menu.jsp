@@ -58,13 +58,14 @@
 	<input type="hidden" id="inShelvesList" value="<%=basePath%>goodsShelvesManageList/selectInShelvesManage" />
 	<input type="hidden" id="outShelvesList" value="<%=basePath%>goodsShelvesManageList/selectOutShelvesManage" />
 	<input type="hidden" id="insertInvoicePage" value="<%=basePath%>invoiceManageList/addInvoicePage"/>
+	<input type="hidden" id="updateInvoicePage" value="<%=basePath%>invoiceManageList/updateInvoicePage"/>
 	<input type="hidden" id="invoiceList" value="<%=basePath%>invoiceManageList/"/>
 	<input type="hidden" id="addVehicle" value="<%=basePath%>vehicleManageList/addVehiclePage"/>
 	<input type="hidden" id="addLine" value="<%=basePath%>lineManageList/addLinePage"/>
 	
 
     	<ul class="nav" >
-    		<li id="system"><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="system"><i class="fa fa-gear fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="empList">员工列表</li>
     				<li class="jobList">职位列表</li>
@@ -75,7 +76,7 @@
     				<li class="userList">客户列表</li>
     			</ul>
     		</li>
-    		<li id="order"><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
+    		<li id="order"><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="addOrder">新增订单</li>
     				<li class="checkOrder">审核订单</li>
@@ -83,12 +84,12 @@
     				<li class="selectOrder">查询订单</li>
     			</ul>
     		</li>
-    		<li id="goods"><i class="fa fa-envelope-open fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="goods"><i class="fa fa-envelope-open fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货物管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="goodsList">货物列表</li>
     			</ul>
     		</li>
-    		<li id="shelves"><i class="fa fa-server fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="shelves"><i class="fa fa-server fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货架管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="shelvesList">货架列表</li>
     				<li class="inShelvesList">入库记录</li>
@@ -102,19 +103,20 @@
     				<li class="addVehicle">新增车辆</li>
     			</ul>
     		</li>
-    		<li id="line"><i class="fa fa-random fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="line"><i class="fa fa-random fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线路管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="lineList">线路列表</li>
     				<li class="addLine">新增线路</li>
     			</ul>
     		</li>
-    		<li id="invoice"><i class="fa fa-truck fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="invoice"><i class="fa fa-truck fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="insertInvoicePage">生成配送单</li>
+    				<li class="updateInvoicePage">更新配送单</li>
     				<li class="invoiceList">货物签收</li>
     			</ul>
     		</li>
-    		<li id="basecode"><i class="fa fa-table fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
+    		<li id="basecode"><i class="fa fa-table fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典管理<span class="right glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
     				<li class="basecodeList">数据字典</li>
     			</ul>
@@ -151,8 +153,6 @@
                 $("#basecode").attr("style", "display:none");
                 
 			}
-            
-            
             //监听一级菜单点击事件
             $(".nav>li").click(function() {
                 //找到二级菜单，让二级菜单展开
@@ -161,8 +161,6 @@
                 $(this).children(".right").toggleClass("glyphicon glyphicon-chevron-right").toggleClass("glyphicon glyphicon-chevron-down");
             });
 
-            
-            
             $(".sub>li").click(function(event) {
                 //监听二级阻止事件冒泡
                 event.stopPropagation();

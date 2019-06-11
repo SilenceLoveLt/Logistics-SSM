@@ -81,18 +81,25 @@ public class LoginController   {
 	      	        }
 	      	        List<LoginResDTO> sysLoginList = sysLoginService.selectInfoLogin(criteria);
 	      	        if(sysLoginList.size()==1){
-	      	            flag="true";
-	      	            map.put("result", flag);
-	      	            session=request.getSession();
-	      	            session.setAttribute("sysLogin",sysLoginList.get(0));
-	      	            session.setAttribute("loginName", sysLoginList.get(0).getLoginName());
-	      	            session.setAttribute("roleName", sysLoginList.get(0).getRoleName());
-	      	            //request.getSession().setMaxInactiveInterval(60);//以秒为单位，即在没有活动120分钟后，session将失效
+	      	        	if(loginReqDTO.getRoleid().equals(sysLoginList.get(0).getRoleid())){
+	      	        		flag="true";
+	 	      	            map.put("result", flag);
+	 	      	            session=request.getSession();
+	 	      	            session.setAttribute("sysLogin",sysLoginList.get(0));
+	 	      	            session.setAttribute("loginName", sysLoginList.get(0).getLoginName());
+	 	      	            session.setAttribute("roleName", sysLoginList.get(0).getRoleName());
+	 	      	            //request.getSession().setMaxInactiveInterval(60);//以秒为单位，即在没有活动120分钟后，session将失效
+	      	        	}
+	      	        	else{
+		      	        	 flag="roleIdFalse";
+		      	        	map.put("result", flag);
+		      	        }
 	      	        }
 	      	        else{
-	      	        	 flag="false";
+	      	        	flag="false";
 	      	        	map.put("result", flag);
 	      	        }
+	      	        
 	        	}
 	        	else{
 	        		flag="repeat";

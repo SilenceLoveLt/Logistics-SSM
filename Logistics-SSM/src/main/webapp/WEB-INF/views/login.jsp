@@ -333,6 +333,7 @@ function loginFun(){
     		                        text: '确认',
     		                        btnClass: 'btn-primary',
     		                        action: function(){ //这里写点击按钮回调函数 
+    		                        	changeImg();
     		                        }
     		                    }
     		                }
@@ -342,6 +343,22 @@ function loginFun(){
     					$.alert({
     		                title: '提示',
     		                content: '验证码信息有误，登录失败！',
+    		                type:'red',             //一般危险操作用red,保存成功操作green
+    		                buttons: {              //定义按钮
+    		                    confirm: {
+    		                        text: '确认',
+    		                        btnClass: 'btn-primary',
+    		                        action: function(){ //这里写点击按钮回调函数 
+    		                        	changeImg();
+    		                        }
+    		                    }
+    		                }
+    		            });
+    				}
+    				if (data.result=='roleIdFalse') {
+    					$.alert({
+    		                title: '提示',
+    		                content: '管理身份错误，登录失败！',
     		                type:'red',             //一般危险操作用red,保存成功操作green
     		                buttons: {              //定义按钮
     		                    confirm: {

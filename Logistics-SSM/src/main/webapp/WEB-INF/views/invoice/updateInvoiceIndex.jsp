@@ -64,13 +64,13 @@
 </head>
 <body>
 <input type="hidden" id="invoicePageList" value="<%=basePath%>invoiceManageList/selectListByPage" />
-<input type="hidden" id="updateInvoice" value="<%=basePath%>invoiceManageList/updateInfo" />
+<input type="hidden" id="updateInvoice" value="<%=basePath%>invoiceManageList/updateAddrNow" />
 
 <div class="container-fluid">
 	<ol class="breadcrumb">
 	    <li><a>Home</a></li>
 	    <li><a>配送管理</a></li>
-	    <li class="active">货物签收</li>
+	    <li class="active">配送单管理</li>
 	</ol>
 </div>
 <!-- 查询框 start -->
@@ -119,7 +119,51 @@
 	</div>
 </div>
 <!--查询框 end-->
+<!--模态框 start-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="form-horizontal" role="form" id="invoiceForm" name="invoiceForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body" style="margin-right: 30px">
+                <input type="hidden" name="invoiceId" id="invoiceId" />
+                	<div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>派送员:</label>
+                         <div class="col-sm-4">
+	                         <input type="text" class="form-control" style=" width: 250px;" name="empId" id="empId"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />						</div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2 "><span style="color:red; font-weight:bold;">*</span>订单编号:</label>
+                        <div class="col-sm-4">
+                            <input type="text"  style=" width: 250px;" class="form-control" name="orderId" id="orderId"  onkeyup="this.value=this.value.replace(/\s+/g,'')" placeholder="请输入..." />
+                        </div>
+                    </div>
 
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-2">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</label>
+                    </div>  
+                    <div class="form-group form-group-sm" style="padding-left: 10px">
+                        <div class="col-sm-12 ">
+                            <textarea class="form-control" name="addrNow" id="addrNow" style="resize:none; height: 70px"
+                                      rows="3" placeholder="请输入..." 
+                                      onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <button id="ok" class="btn btn-default  col-sm-1 col-sm-offset-2  "  onclick="submitHandler()" style="width: 80px">保存</button>
+                    <button id="reseted" class="btn btn-default  col-sm-1  col-sm-offset-2 " onclick="resetHandler()" style="width: 80px">重置</button>
+                    <button id="closeModel" type="button" class="btn btn-default col-sm-1  col-sm-offset-2 "  data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--模态框 end-->
 <table class="display table table-striped table-bordered table-hover table-checkable text-center" id="dutyListTable" style="white-space:nowrap">
 	<thead>
 		<tr class="text-c">
@@ -141,12 +185,17 @@
 </table>
 </body>
 <script type="text/javascript">
-
+var invoiceId=null;
+var orderId=null;
+var empName=null;
+var addrNow=null;
 
    $(document).ready(function() {
 	   //默认加载dataTable
 	   dataTableDraw();
 	   
+	 //表单验证
+	   formValidator();
    });
    
    function changeBtnable() {
@@ -177,6 +226,27 @@
 		values = "";
 	}
 	
+	
+	   //表单验证配置
+	   function formValidator(){
+	   $('#invoiceForm').bootstrapValidator({
+		   message: '不可用的值',
+	       feedbackIcons: {
+		   valid: 'glyphicon glyphicon-ok',
+		   invalid: 'glyphicon glyphicon-remove',
+		   validating: 'glyphicon glyphicon-refresh'
+	            }, 
+	      fields: {
+	    	  addrNow: {
+	              validators: {
+	                  notEmpty: {
+	                      message: '收货地址不能为空'
+	                  }
+	              }
+	          }
+	      }
+	    });
+	   }  
 	
    var urlStr = $("#invoicePageList").val();
    function dataTableDraw(){
@@ -228,16 +298,16 @@
 						    	 *  
 						    	 */
 					    	   if(row.invoiceStatus==1){
-					    		   var html="<button type='button' style='background-color:grey;border-color:grey' disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.invoiceId+"')\">确认签收</button>"
+					    		   var html="<button type='button'   class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">更新地址</button>"
 					    	   }
 					    	   if(row.invoiceStatus==2){
-					    		   var html="<button type='button' style='background-color:grey;border-color:grey' disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.invoiceId+"')\">确认签收</button>"
+					    		   var html="<button type='button'   class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">更新地址</button>"
 					    	   }
 					    	   if(row.invoiceStatus==3){
-					    		   var html="<button type='button' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.invoiceId+"')\">确认签收</button>"
+					    		   var html="<button type='button'    class='btn btn-primary btn-sm oemp-privbtn'  onclick=\"oemp_editsr('"+meta.row+"')\">更新地址</button>"
 					    	   }
 					    	   if(row.invoiceStatus==4){
-					    		   var html="<button type='button' style='background-color:grey;border-color:grey' disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+row.invoiceId+"')\">确认签收</button>"
+					    		   var html="<button type='button' style='background-color:grey;border-color:grey'  disabled='true' class='btn btn-primary btn-sm oemp-privbtn' onclick=\"oemp_editsr('"+meta.row+"')\">更新地址</button>"
 					    	   }
 					        
 					          return html;  
@@ -317,44 +387,6 @@
 	        return num;  
 	    }
    
-	    /*取消操作  */
-		function oemp_editsr(invoiceId){
-			var createUrl = $("#updateInvoice").val();
-			$.post(createUrl, {"invoiceId": invoiceId}, function(data) {
-				if (data.result=='true') {
-					$.alert({
-		                title: '提示',
-		                content: '签收成功！',
-		                type:'green',             //一般危险操作用red,保存成功操作green
-		                buttons: {              //定义按钮
-		                    confirm: {
-		                        text: '确认',
-		                        btnClass: 'btn-primary',
-		                        action: function(){ //这里写点击按钮回调函数
-		                        	searchDatas(); //刷新列表
-		                        }
-		                    }
-		                }
-		            });
-				}
-				if (data.result=='false') {
-					$.alert({
-		                title: '提示',
-		                content: '签收失败！',
-		                type:'red',             //一般危险操作用red,保存成功操作green
-		                buttons: {              //定义按钮
-		                    confirm: {
-		                        text: '确认',
-		                        btnClass: 'btn-primary',
-		                        action: function(){ //这里写点击按钮回调函数 
-		                        }
-		                    }
-		                }
-		            });
-				}
-				}, 'json' );
-		}
-   
    
    /* 查询查询条件 */
    function searchDatas(){
@@ -369,6 +401,109 @@
 		table.draw(true);
 		changeBtndisable();
 	}
+   
+   
+	 /* 按钮重置模态框 */
+	   function resetHandler(){
+		   $("#invoiceId").val(invoiceId);
+		   $("#orderId").val(orderId);
+		   $("#empId").val(empName);
+		   $("#addrNow").val(addrNow);
+		   $("#invoiceForm").data('bootstrapValidator').destroy();
+		   $('#invoiceForm').data('bootstrapValidator', null);
+		   formValidator(); 
+		   
+	   }
+   
+   /* 更新地址 */
+	 function oemp_editsr(Row){
+	   $('#ok').removeAttr("disabled");
+	   $("#ok").removeAttr("style");
+	   $('#reseted').removeAttr("disabled");
+	   $("#reseted").removeAttr("style");
+	   $("#ok").attr("style","display: block;");
+	   $("#reseted").attr("style","display: block;");
+	   $('#closeModel').removeAttr("disabled");
+	   $('#orderId').attr("readonly",true);
+	   $('#empId').attr("readonly",true);
+	   $('#myModal').modal('show');
+	   var data= $('#dutyListTable').DataTable().rows(Row).data()[0];
+	   $("#invoiceId").val(data.invoiceId);
+	   $("#orderId").val(data.orderId);
+	   console.info("data.empName"+data.empName);
+	   $("#empId").val(data.empName);
+	   $("#addrNow").val(data.addrNow);
+	   invoiceId=$("#invoiceId").val();
+	   orderId=data.orderId;
+	   empName=data.empName;
+	   addrNow=data.addrNow;
+	 }
+   
+   
+	 
+		/**表单提交事件*/
+		function submitHandler() {
+			var bootstrapValidator = $("#invoiceForm").data('bootstrapValidator');
+			//获取表单验证结果
+			var validateResult = bootstrapValidator.validate().isValid();
+			if(validateResult){
+				var createUrl = $("#updateInvoice").val();
+				$.post(createUrl, $("#invoiceForm").serialize(), function(data) {
+					if (data.result=='true') {
+						$.alert({
+			                title: '提示',
+			                content: '地址更新成功！',
+			                type:'green',             //一般危险操作用red,保存成功操作green
+			                buttons: {              //定义按钮
+			                    confirm: {
+			                        text: '确认',
+			                        btnClass: 'btn-primary',
+			                        action: function(){ //这里写点击按钮回调函数
+			                        	 $("#invoiceForm").data('bootstrapValidator').resetForm();
+								         $('#invoiceForm')[0].reset();
+								         searchDatas(); //刷新列表
+			                      	     $('#myModal').modal('hide');
+						        		 $('#ok').removeAttr("disabled");
+			                        }
+			                    }
+			                }
+			            });
+					}
+					if (data.result=='false'){
+						$.alert({
+			                title: '提示',
+			                content: '地址更新失败！',
+			                type:'red',             //一般危险操作用red,保存成功操作green
+			                buttons: {              //定义按钮
+			                    confirm: {
+			                        text: '确认',
+			                        btnClass: 'btn-primary',
+			                        action: function(){ //这里写点击按钮回调函数 
+			                        }
+			                    }
+			                }
+			            });
+					}
+					
+					}, 'json' );
+			}else {
+	            $.alert({
+	                title: '提示',
+	                content: '请按照相关提示修改！',
+	                type:'red',             //一般危险操作用red,保存成功操作green
+	                buttons: {              //定义按钮
+	                    confirm: {
+	                        text: '确认',
+	                        btnClass: 'btn-primary',
+	                        action: function(){ //这里写点击按钮回调函数
+	                        }
+	                    }
+	                }
+	            });
+	        }
+		}
+   
+   
    
 </script>
 </html>

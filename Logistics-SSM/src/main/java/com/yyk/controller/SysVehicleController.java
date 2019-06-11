@@ -159,14 +159,14 @@ public class SysVehicleController {
 			SysVehicleCriteria criteria = new SysVehicleCriteria();
 			SysVehicleCriteria.Criteria cri = criteria.createCriteria();
 			cri.andStatusEqualTo(1);
-			//查询该适用类别下的所有线路
+			//查询该适用类别下的所有车辆
 			if("".equals(sysVehicle.getApplyType()) ||sysVehicle.getApplyType()==null ){
 				if (StringUtils.isNotBlank(sysVehicle.getVehicleType())) { 
 					cri.andApplyTypeEqualTo(sysVehicle.getVehicleType());
 				}
 				list=sysVehicleService.selectApplyTypeListPage(criteria, pageInfo);
 			}
-			//查询该线路类别下的所有线路
+			//查询该车辆类别下的所有车辆
 			else
 			{
 				if (StringUtils.isNotBlank(sysVehicle.getApplyType())) { 

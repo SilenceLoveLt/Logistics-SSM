@@ -31,6 +31,7 @@ import com.yyk.entity.SysInvoiceCriteria;
 import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
 import com.yyk.entity.SysUser;
+import com.yyk.entity.SysUserCriteria;
 import com.yyk.service.BaseCodeService;
 import com.yyk.service.GoodsService;
 import com.yyk.service.InvoiceService;
@@ -518,12 +519,27 @@ public class OrderController {
 	 		int i=sysOrderService.insertOrder(sysOrder);
 	 		if(i==1)
 	 		{
-	 			//新增客户信息
-	 			SysUser sysUser =new SysUser();
-	 			sysUser.setUserName(sysOrder.getUserName());
-	 			sysUser.setUserPhone(sysOrder.getShippPhone());
-	 			sysUser.setAddr(sysOrder.getShippAddre());
-	 			sysUserService.insertUser(sysUser);
+	 			//新增客户信息   检查该客户是否已经存在 若存在则不增加
+	 			SysUserCriteria criteria = new SysUserCriteria();
+	 			SysUserCriteria.Criteria cri = criteria.createCriteria();
+	 		    cri.andStatusNotEqualTo(0);// 只查询状态为1的。
+	 		    if(StringUtils.isNotBlank(sysOrder.getUserName())){
+	 		    	cri.andUserNameEqualTo(sysOrder.getUserName());
+	 		    }
+	 		    if(StringUtils.isNotBlank(sysOrder.getShippPhone())){
+	 		    	cri.andUserPhoneEqualTo(sysOrder.getShippPhone());
+	 		    }
+	 		    if(StringUtils.isNotBlank(sysOrder.getShippAddre())){
+	 		    	cri.andAddrEqualTo(sysOrder.getShippAddre());
+	 		    }
+	 			List<SysUser> list=sysUserService.selectInfoUser(criteria);
+	 			if(list.size()<=0 ||  list.isEmpty()){
+	 				SysUser sysUser =new SysUser();
+		 			sysUser.setUserName(sysOrder.getUserName());
+		 			sysUser.setUserPhone(sysOrder.getShippPhone());
+		 			sysUser.setAddr(sysOrder.getShippAddre());
+		 			sysUserService.insertUser(sysUser);
+	 			}
 	 			flag="true";
 	 			map.put("orderId",orderId);
 		 		map.put("result", flag);

@@ -1,8 +1,6 @@
 package com.yyk.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,31 +21,21 @@ import com.yyk.common.PageInfo;
 import com.yyk.common.ResDataDTO;
 import com.yyk.constant.Url;
 import com.yyk.constant.Views;
-import com.yyk.dto.OrderDTO.CheckOrderResDTO;
 import com.yyk.dto.OrderDTO.OrderResDTO;
-import com.yyk.entity.BaseCode;
-import com.yyk.entity.BaseCodeCriteria;
 import com.yyk.entity.SysEmp;
 import com.yyk.entity.SysEmpCriteria;
-import com.yyk.entity.SysGoods;
 import com.yyk.entity.SysInvoice;
 import com.yyk.entity.SysInvoiceCriteria;
-import com.yyk.entity.SysJob;
-import com.yyk.entity.SysJobCriteria;
 import com.yyk.entity.SysLine;
 import com.yyk.entity.SysLineCriteria;
-import com.yyk.entity.SysOrder;
 import com.yyk.entity.SysOrderCriteria;
-import com.yyk.entity.SysUser;
 import com.yyk.entity.SysVehicle;
 import com.yyk.entity.SysVehicleCriteria;
-import com.yyk.service.BaseCodeService;
 import com.yyk.service.GoodsService;
 import com.yyk.service.InvoiceService;
 import com.yyk.service.SysEmpService;
 import com.yyk.service.SysLineService;
 import com.yyk.service.SysOrderService;
-import com.yyk.service.SysUserService;
 import com.yyk.service.SysVehicleService;
 import com.yyk.util.JsonChangeUtil;
 
@@ -136,15 +124,28 @@ public class InvoiceController {
 	    	 *  InvoiceStatus:4  代表 已签收 
 	    	 *  
 	    	 */
-	 		int i=invoiceService.insertInvoice(sysInvoice);
-		    if(i==1){
-		    	flag="true";
+	    	SysInvoiceCriteria criteria = new SysInvoiceCriteria();
+			SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
+		    cri.andStatusEqualTo(1);
+		    if (StringUtils.isNotBlank(sysInvoice.getOrderId())) { 
+					cri.andOrderIdEqualTo(sysInvoice.getOrderId());
+			}
+		    List<SysInvoice> list=invoiceService.selectInfoInvoice(criteria);
+		    if(list.size()<=0 ||list.isEmpty()){
+		    	int i=invoiceService.insertInvoice(sysInvoice);
+			    if(i==1){
+			    	flag="true";
+			    	map.put("result", flag);
+			    }
+			    else{
+			    	flag="false";
+			    	map.put("result", flag);
+			    }
+		    }else{
+		    	flag="repeat";
 		    	map.put("result", flag);
 		    }
-		    else{
-		    	flag="false";
-		    	map.put("result", flag);
-		    }
+	 		
 	    	return map;
 		}
 	 
@@ -208,6 +209,12 @@ public class InvoiceController {
 	 
 	 
 	 
+	 @RequestMapping(value = Url.UPDATE_INVOICE_PAGE, method = RequestMethod.POST)
+	 public String updateVehicle(){
+	   return Views.UPDATE_INVOICE_VIEW;
+	 }
+	 
+	 
 	 
 	 @RequestMapping(value = Url.UPDATE_INFO, method = RequestMethod.POST)
 		public @ResponseBody Map<String, Object> updateInvoice(@RequestParam(required=false,value = "invoiceId") String invoiceId) {
@@ -228,7 +235,34 @@ public class InvoiceController {
 			}
 			SysInvoice sysInvoice=new SysInvoice();
 			sysInvoice.setInvoiceStatus(4);
+			sysInvoice.setEndTime(new Date());
 	 		int i=invoiceService.updateInvoice(criteria, sysInvoice);
+		    if(i==1){
+		    	flag="true";
+		    	map.put("result", flag);
+		    }
+		    else{
+		    	flag="false";
+		    	map.put("result", flag);
+		    }
+	    	
+	    	return map;
+		}
+	 
+	 
+	 @RequestMapping(value = Url.UPDATE_ADDRNOW, method = RequestMethod.POST)
+		public @ResponseBody Map<String, Object> updateAddrNow(SysInvoice sysInvoice) {
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	String flag=null;
+	    	SysInvoiceCriteria criteria = new SysInvoiceCriteria();
+			SysInvoiceCriteria.Criteria cri = criteria.createCriteria();
+			cri.andStatusNotEqualTo(0);   // 只查询状态为1的
+			if(StringUtils.isNotBlank(sysInvoice.getInvoiceId())){
+				cri.andInvoiceIdEqualTo(sysInvoice.getInvoiceId());	    
+			}
+			SysInvoice invoice=new SysInvoice();
+			invoice.setAddrNow(sysInvoice.getAddrNow());;
+	 		int i=invoiceService.updateInvoice(criteria, invoice);
 		    if(i==1){
 		    	flag="true";
 		    	map.put("result", flag);

@@ -55,7 +55,8 @@ public class InvoiceServiceImpl implements InvoiceService{
 		 * 4 _已签收
 		 */
 		sysInvoice.setStatus(1);
-		sysInvoice.setInvoiceStatus(1);  
+		sysInvoice.setInvoiceStatus(1);
+		sysInvoice.setStartTime(new Date());
 		sysInvoice.setCreateTime(new Date());
 		sysInvoice.setUpdateTime(new Date());
 		sysInvoice.setInvoiceId(UUIDGenerator.create32Key());

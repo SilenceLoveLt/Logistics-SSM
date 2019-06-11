@@ -210,6 +210,10 @@
 					       return (getMyDate(obj));
 					  }  },
 					  { "mData" : "endTime",render : function(obj) {  
+						  if(undefined==obj){
+							  var endTime="一";
+							  return (endTime);
+						  }
 					       return (getMyDate(obj));
 					  }  },                 
                       { "mData": "invoiceStatusName"}

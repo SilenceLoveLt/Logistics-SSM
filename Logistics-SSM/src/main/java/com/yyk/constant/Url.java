@@ -93,6 +93,8 @@ public interface Url {
     /*配送单管理*/
     String INVOICE_MANAGE = "/invoiceManageList";
     String ADD_INVOICE_PAGE = "/addInvoicePage";
+    String UPDATE_INVOICE_PAGE = "/updateInvoicePage";
+    String UPDATE_ADDRNOW = "/updateAddrNow";
     
     
     /*数据字典管理*/
