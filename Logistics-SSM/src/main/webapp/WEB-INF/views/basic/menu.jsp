@@ -78,7 +78,8 @@
     		</li>
     		<li id="order"><i class="fa fa-th-list fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单管理<span class="right  glyphicon glyphicon-chevron-right"></span>
     			<ul class="sub">
-    				<li class="addOrder">新增订单</li>
+    				<!-- <li class="addOrder"><a  href="addOrder" >新增订单</a></li> -->
+    			    <li class="addOrder">新增订单</li>
     				<li class="checkOrder">审核订单</li>
     				<li class="cancelOrder">取消订单</li>
     				<li class="selectOrder">查询订单</li>
@@ -161,7 +162,7 @@
                 $(this).children(".right").toggleClass("glyphicon glyphicon-chevron-right").toggleClass("glyphicon glyphicon-chevron-down");
             });
 
-            $(".sub>li").click(function(event) {
+           $(".sub>li").click(function(event) {
                 //监听二级阻止事件冒泡
                 event.stopPropagation();
                 //获取所点击li 的id
@@ -172,7 +173,41 @@
                 $("#menuForm").attr("action",userListUrl);
                 $("#menuForm").submit();
 
-            })
+            })  
+           /* $('.sub>li').click(function () {//点击li加载界面  
+                var current = $(this);
+                var getId= current.find('a').attr('href'); // 找到链接a中的targer的值  
+                var href=$("#"+getId).val();
+                console.info("href"+href);
+                $.post(href, function (data) {
+                    //$("#mainContent").html(data);
+                });
+            });  */
+
         });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 	</script>
 </html>
